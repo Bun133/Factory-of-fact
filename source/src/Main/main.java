@@ -10,6 +10,7 @@ public class main {
 
 		mainflame.setTitle("Factory of fact");
 
+
 	}
 
 }
