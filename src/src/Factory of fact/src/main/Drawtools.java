@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -7,11 +8,10 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-public class Mainclass extends JFrame{
-    public static int windowx=1920;
-    public static int windowy=1080;
 
-    //From http://arc.hatenablog.com/entry/20090504/java_abstract_frame
+public class Drawtools {
+
+	//From http://arc.hatenablog.com/entry/20090504/java_abstract_frame
     /** 単なるウィンドウ */
     public abstract class AbstractFrame extends JFrame {
     	private static final long serialVersionUID = 1L;
@@ -55,8 +55,6 @@ public class Mainclass extends JFrame{
     		public void update(Graphics g) { paint(g); }
     	}
     }
-
-
 
     //From http://arc.hatenablog.com/entry/20090602/1243945219
     /** 画素値を直接操作して描画するウィンドウ */
