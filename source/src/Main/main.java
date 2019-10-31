@@ -8,6 +8,8 @@ public class main {
 
 		mainflame.setVisible(true);
 
+		mainflame.setTitle("Factory of fact");
+
 	}
 
 }
