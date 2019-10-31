@@ -8,20 +8,20 @@ public class Mainclass {
 
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
-		JFrame mainflame=new JFrame("Title");
+		JFrame mainframe=new JFrame("Title");
 
-		mainflame.setVisible(true);
+		mainframe.setVisible(true);
 
-		mainflame.setTitle("Factory of fact");
+		mainframe.setTitle("Factory of fact");
 
-		mainflame.setSize(windowx,windowy);
+		mainframe.setSize(windowx,windowy);
 
-		mainflame.setLocationRelativeTo(null);
+		mainframe.setLocationRelativeTo(null);
 
-		mainflame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		mainflame.setExtendedState(mainflame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-		//mainflame.setBounds(0, 0, windowx, windowy);
+		mainframe.setExtendedState(mainframe.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		//mainframe.setBounds(0, 0, windowx, windowy);
 	}
 
 }
