@@ -1,6 +1,6 @@
-package Main;
+package main;
 import javax.swing.JFrame;
-public class main {
+public class Mainclass {
 
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
