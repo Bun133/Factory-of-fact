@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="sun.tools.tree.ThisExpression"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="javax.swing.JComponent"/>
+    <fullyQualifiedTypeName name="java.awt.Insets"/>
+    <fullyQualifiedTypeName name="java.awt.Graphics"/>
+    <fullyQualifiedTypeName name="main.Drawtools"/>
+    <fullyQualifiedTypeName name="main.SampleRawPaint"/>
+</qualifiedTypeNameHistroy>

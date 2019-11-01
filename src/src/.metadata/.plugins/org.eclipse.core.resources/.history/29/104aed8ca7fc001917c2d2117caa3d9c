@@ -1,0 +1,19 @@
+package main;
+
+import javax.swing.JFrame;
+
+public class Grapics extends JFrame{
+
+		public Grapics() {
+			this.setSize(getMaximumSize());
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+
+		public static void main(String[] args) {
+		    new Grapics().setVisible(true);
+		}
+
+	class GPanel extends JPanel{
+
+	}
+}

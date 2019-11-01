@@ -1,0 +1,11 @@
+package main;
+
+import java.io.File;
+
+public class Loadimage {
+	public int load(String filepath) {
+		File file=new File(filepath);
+		FileReader filereader =new FileReader(file);
+		return;
+	}
+}

@@ -1,0 +1,36 @@
+package main;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Grapics extends JFrame{
+
+		public Grapics() {
+			this.setSize(getMaximumSize());
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+
+		public static void main(String[] args) {
+		    new Grapics().setVisible(true);
+		}
+
+	class GPanel extends JPanel{
+		@Override
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 =(Graphics2D)g;
+			int windowx=this.getWidth();
+			int windowy=this.getHeight();
+			for(int i = 0;i < 10;i++){
+				Ellipse2D shape = new Ellipse2D.Double(0,0,windowx,windowy - i * (windowx / 10));
+			      g2.setPaint(new Color(0,0,255,25));
+			      g2.fill(shape);
+			    }
+		}
+	}
+}
