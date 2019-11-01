@@ -1,24 +1,13 @@
 package main;
-import javax.swing.SwingUtilities;
-
 import main.Drawtools.AbstractRawFrame;
 
-public class SampleRawPaint extends AbstractRawFrame {
 
-	public static void main(String[] args) {
+class SampleRawPaint extends AbstractRawFrame {
 
-		// Swingがらみの処理はEvent Dispatch Thread上でやる
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new SampleRawPaint();
-			}
-		});
 
-	}
 
-	public SampleRawPaint() {
+	public  SampleRawPaint() {
 		initialize(640, 480);
-
 	}
 
 	@Override
