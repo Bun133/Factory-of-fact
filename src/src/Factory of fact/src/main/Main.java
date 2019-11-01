@@ -24,7 +24,10 @@ public class Main {
 			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}
+
 		}
+		Loadimage loadimager=new Loadimage();
+		//loadimager.load("/Factory of fact/src/main/test");
 	}
 
 }
