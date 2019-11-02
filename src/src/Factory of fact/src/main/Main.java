@@ -1,10 +1,7 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import main.DrawView;
 
 public class Main {
 
@@ -14,10 +11,14 @@ public class Main {
 		BufferedImage bi = new BufferedImage(640,480,BufferedImage.TYPE_INT_ARGB);
 		for(int i=0;i<100;i++) {
 			Graphics2D gra = bi.createGraphics();
-			gra.setColor(Color.red);
+			/*gra.setColor(Color.red);
 			gra.fillOval(0, 0, 640, 480);
 			gra.setColor(Color.black);
-			gra.fillOval(100, 100, 540, 380);
+			gra.fillOval(100, 100, 540, 380);*/
+
+			//Load処理(予定)
+			Showmap mapmanager=new Showmap();
+			bi=mapmanager.draw(vd, bi, 0,0,"");
 			vd.paint2D(bi);
 			vd.repaint();
 			System.out.println(i);
@@ -28,9 +29,8 @@ public class Main {
 			}
 
 		}
-		//Load処理(予定)
-		//Loadimage loadimager=new Loadimage();
-		//loadimager.load("/Factory of fact/src/main/test");
+
+
 	}
 
 }

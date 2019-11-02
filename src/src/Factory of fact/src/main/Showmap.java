@@ -8,7 +8,7 @@ import java.io.FileReader;
 public class Showmap {
 	public Showmap() {
 	}
-	public Object draw(DrawView dv,BufferedImage bi,int x,int y,String filepath) {
+	public BufferedImage draw(DrawView dv,BufferedImage bi,int x,int y,String filepath) {
 
 		Graphics2D gra = bi.createGraphics();
 		File file=new File(filepath);
