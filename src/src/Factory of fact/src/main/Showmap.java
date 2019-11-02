@@ -23,7 +23,10 @@ public class Showmap {
 					e.printStackTrace();
 					return null;
 				}
-
+				Loadobject loadmanager=new Loadobject();
+				String [] objectdata=loadmanager.loadobject(filepath);
+				//ここに読み込みファイルからウィンドウ上に書きこみ。
+				//ファイルどう書くか決めないと。
 				return bi;
 
 
