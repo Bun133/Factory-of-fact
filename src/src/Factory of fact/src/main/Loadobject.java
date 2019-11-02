@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Loadobject {
-	public int loadobject(String filepath) {
+	public String[] loadobject(String filepath) {
 		File file=new File(filepath);
 		if (file.exists()) {
 			try {
@@ -17,20 +17,21 @@ public class Loadobject {
 				while((data[cnt]=br.readLine())!=null) {
 					cnt++;
 				}
+
 				br.close();
+				return data;//正常終了
+
 			}catch(IOException e) {
 
 				e.printStackTrace();
-
-				return 0;
+				String [] data=null;
+				return data;
 			}
 
-
-
-			return 1;//正常終了
 		}else {
 			System.out.print("File Not Found");
-			return 0;
+			String [] data=null;
+			return data;
 		}
 	}
 }
