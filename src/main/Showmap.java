@@ -8,7 +8,7 @@ import java.io.FileReader;
 public class Showmap {
 	public Showmap() {
 	}
-	public Graphics2D draw(DrawView dv,Graphics2D gra,int x,int y,String filepath) {
+	public Graphics2D draw(Graphics2D gra,int x,int y,String filepath) {
 
 
 		File file=new File(filepath);
@@ -27,6 +27,10 @@ public class Showmap {
 				//ここに読み込みファイルからウィンドウ上に書きこみ。
 				//ファイルどう書くか決めないと。
 				Color c=new Color(0,0,0,0);//RGB+透明度(RGBA)
+
+				int add_x=0;
+				int add_y=0;
+				Objectroot objroot=new Objectroot();
 				int cnt=0;
 				while(cnt!=objectdata.length){
 					String [] data=null;
@@ -45,9 +49,9 @@ public class Showmap {
 					int_g=Integer.parseInt(rgb.substring(9,10));
 					int_a=Integer.parseInt(a);
 					c=new Color(int_r,int_g,int_b,int_a);
+					add_x=objroot.getrootx(cnt,data.length);
+					add_y=objroot.getrooty(cnt,data.length);
 
-					int add_x=0;
-					int add_y=0;
 					gra.setColor(c);
 
 					gra.drawLine(x+add_x, y+add_y, x+add_x, y+add_x);
