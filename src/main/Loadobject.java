@@ -17,18 +17,17 @@ public class Loadobject {
 				while((data[cnt]=br.readLine())!=null) {
 					cnt++;
 				}
-
 				br.close();
 				return data;//正常終了
 
-			}catch(IOException e) {
+			}catch(IOException e) { //ファイル読み込み中のエラーキャッチ
 
 				e.printStackTrace();
 				String [] data=null;
 				return data;
 			}
 
-		}else {
+		}else { //ファイルが存在しない
 			System.out.print("File Not Found");
 			String [] data=null;
 			return data;

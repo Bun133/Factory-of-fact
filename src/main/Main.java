@@ -18,7 +18,7 @@ public class Main {
 
 			//Load処理(予定)
 			Showmap mapmanager=new Showmap();
-			bi=mapmanager.draw(vd, bi, 0,0,"");
+			gra=mapmanager.draw(vd, gra, 0,0,"");
 			vd.paint2D(bi);
 			vd.repaint();
 			System.out.println(i);
