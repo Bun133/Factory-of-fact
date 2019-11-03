@@ -40,6 +40,17 @@ public class Showmap {
 					a=data[0];
 					rgb=data[1];
 					int_a=Integer.parseInt(a);
+					int_r=Integer.parseInt(rgb.substring(5,6));
+					int_g=Integer.parseInt(rgb.substring(7,8));
+					int_g=Integer.parseInt(rgb.substring(9,10));
+					int_a=Integer.parseInt(a);
+					c=new Color(int_r,int_g,int_b,int_a);
+
+					int add_x=0;
+					int add_y=0;
+					gra.setColor(c);
+
+					gra.drawLine(x+add_x, y+add_y, x+add_x, y+add_x);
 
 
 
@@ -47,8 +58,7 @@ public class Showmap {
 					cnt++;
 				}
 
-				gra.setColor(c);
-				gra.drawLine(x, y, x, y);
+
 				return gra;
 
 
