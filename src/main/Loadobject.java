@@ -12,19 +12,25 @@ public class Loadobject {
 			try {
 				FileReader filereader=new FileReader(file);
 				BufferedReader br=new BufferedReader(filereader);
-				String [] data = null;
-				int cnt=0;
-				data[cnt]=br.readLine();
-				while(data[cnt]!=null) {
-					cnt++;
-					data[cnt]=br.readLine();
+				String [] data=null;
+
+				//行ごとに配列に入れる処理
+				Textload textloder =new Textload();
+				int length=textloder.filelength(br);
+				for (int cnt=0;cnt==length;cnt++) {
+					data[cnt]=textloder.textloadofline(br, cnt);
 				}
+
 				br.close();
+				if (data[0]==null) {
+					System.out.println("All Null");
+				}
 				return data;//正常終了
 
 			}catch(IOException e) { //ファイル読み込み中のエラーキャッチ
-
+				System.out.println("File Not Found");
 				e.printStackTrace();
+
 				String [] data=null;
 				return data;
 			}
