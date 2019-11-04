@@ -3,9 +3,14 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import assets.Logger;
+
 public class Main {
 
+	public static Logger logger = new Logger(System.out);
+
 	public static void main(String[] args) {
+		System.setOut(logger);
 		DrawView vd = new DrawView(640,480);
 
 		BufferedImage bi = new BufferedImage(640,480,BufferedImage.TYPE_INT_ARGB);

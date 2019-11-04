@@ -32,15 +32,19 @@ public class Showmap {
 				int add_y=0;
 				Objectroot objroot=new Objectroot();
 				int cnt=0;
-				while(cnt!=objectdata.length){
-					String [] data=null;
+				while(cnt<objectdata.length){
+					if(objectdata[cnt]==null) {
+						System.out.println("data is null");
+						cnt++;
+						continue;
+					}
 					String a="";
 					String rgb="";
 					int int_a=101;
 					int int_r=256;
 					int int_g=256;
 					int int_b=256;
-					data=objectdata[cnt].split("#");
+					String[] data=objectdata[cnt].split("#");
 					a=data[0];
 					rgb=data[1];
 					int_a=Integer.parseInt(a);
