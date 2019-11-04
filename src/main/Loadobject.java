@@ -6,13 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Loadobject {
+	public String [] data=null;
 	public String[] loadobject(String filepath) {
 		File file=new File(filepath);
 		if (file.exists()) {
 			try {
 				FileReader filereader=new FileReader(file);
 				BufferedReader br=new BufferedReader(filereader);
-				String [] data=null;
+
 
 				//行ごとに配列に入れる処理
 				Textload textloder =new Textload();
