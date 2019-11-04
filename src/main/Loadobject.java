@@ -14,8 +14,10 @@ public class Loadobject {
 				BufferedReader br=new BufferedReader(filereader);
 				String [] data = null;
 				int cnt=0;
-				while((data[cnt]=br.readLine())!=null) {
+				data[cnt]=br.readLine();
+				while(data[cnt]!=null) {
 					cnt++;
+					data[cnt]=br.readLine();
 				}
 				br.close();
 				return data;//正常終了
@@ -33,4 +35,10 @@ public class Loadobject {
 			return data;
 		}
 	}
+
+	/*public String[] loadobjectofnum(int num) {
+		String [] data=null;
+
+		return ;
+	}*/
 }

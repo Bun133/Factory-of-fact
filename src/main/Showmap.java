@@ -12,7 +12,7 @@ public class Showmap {
 
 
 		File file=new File(filepath);
-		if (file.exists()) {
+		if (file.exists()==true) {
 
 			try {
 				FileReader filereader=new FileReader(file);
@@ -62,12 +62,12 @@ public class Showmap {
 					cnt++;
 				}
 
-
 				return gra;
 
 
 
 		}else {
+		System.out.println("File Not Found");
 		return null;
 		}
 	}
