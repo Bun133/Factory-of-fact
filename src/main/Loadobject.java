@@ -18,11 +18,11 @@ public class Loadobject {
 				Textload textloder =new Textload();
 				int length=textloder.filelength(br);
 				for (int cnt=0;cnt==length;cnt++) {
-					data[cnt]=textloder.textloadofline(br, cnt);
+					data[cnt]=textloder.textloadofline(br, cnt);	//ここ
 				}
 
 				br.close();
-				if (data[0]==null) {
+				if (data[0]==null) {								//ここ
 					System.out.println("All Null");
 				}
 				return data;//正常終了
