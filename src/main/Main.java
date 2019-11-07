@@ -4,6 +4,7 @@ import assets.util.Logger;
 import assets.util.Register;
 
 public class Main {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	public static Logger logger = new Logger(System.out);
