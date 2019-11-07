@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Logger extends PrintStream{
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2L;
 
 	private Long upTime = System.currentTimeMillis();

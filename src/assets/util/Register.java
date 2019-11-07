@@ -1,13 +1,14 @@
 /***
  * データ保存用のクラスです。
  *
- * @version 1.0
+ * @version 2.0
  * @author nyuto
  */
 
 
 package assets.util;
 
+import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,8 @@ import assets.exception.DuplicateKeyException;
 import assets.exception.ValueNotFoundException;
 
 public class Register {
-	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
 
 	private Map<String,Object> list_Object;
 
@@ -40,6 +42,8 @@ public class Register {
 
 	private Map<String,BigDecimal> list_Decimal;
 
+	private Map<String,Image> list_Image;
+
 	public Register() {
 		System.out.println("Init Register.");
 		list_Object = new HashMap<String,Object>();
@@ -53,6 +57,7 @@ public class Register {
 		list_String = new HashMap<String,String>();
 		list_Char = new HashMap<String,Character>();
 		list_Decimal = new HashMap<String,BigDecimal>();
+		list_Image = new HashMap<String,Image>();
 	}
 
 
@@ -123,6 +128,12 @@ public class Register {
 		list_Decimal.put(key,decimal);
 	}
 
+	public void register(String key,Image image) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		if(list_Image.containsKey(key))throw new DuplicateKeyException(key + " is already used,");
+		list_Image.put(key,image);
+	}
+
 	public Object getObject(String key) {
 		if(key == null)throw new IllegalArgumentException("key cannot be null.");
 		if(!list_Object.containsKey(key))throw new ValueNotFoundException(key + " is not found.");
@@ -189,6 +200,12 @@ public class Register {
 		return list_Decimal.get(key);
 	}
 
+	public Image getImage(String key) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		if(!list_Image.containsKey(key))throw new ValueNotFoundException(key + " is not found.");
+		return list_Image.get(key);
+	}
+
 	public void deleteObject(String key) {
 		if(key == null)throw new IllegalArgumentException("key cannot be null.");
 		list_Object.remove(key);
@@ -242,5 +259,70 @@ public class Register {
 	public void deleteDecimal(String key) {
 		if(key == null)throw new IllegalArgumentException("key cannot be null.");
 		list_Decimal.remove(key);
+	}
+
+	public void deleteImage(String key) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Image.remove(key);
+	}
+
+	public void update(String key,Object obj) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Object.put(key,obj);
+	}
+
+	public void update(String key,boolean flag) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Flag.put(key,flag);
+	}
+
+	public void update(String key,byte value) {
+	if(key == null)throw new IllegalArgumentException("key cannot be null.");
+	list_Byte.put(key,value);
+	}
+
+	public void update(String key,short value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Short.put(key,value);
+	}
+
+	public void update(String key,int value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Integer.put(key,value);
+	}
+
+	public void update(String key,long value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Long.put(key,value);
+	}
+
+	public void update(String key,float value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Float.put(key,value);
+	}
+
+	public void update(String key,double value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Double.put(key,value);
+	}
+
+	public void update(String key,String value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_String.put(key,value);
+	}
+
+	public void update(String key,char value) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Char.put(key,value);
+	}
+
+	public void update(String key,BigDecimal decimal) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Decimal.put(key,decimal);
+	}
+
+	public void update(String key,Image image) {
+		if(key == null)throw new IllegalArgumentException("key cannot be null.");
+		list_Image.put(key,image);
 	}
 }

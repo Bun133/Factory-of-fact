@@ -16,6 +16,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 public class DrawView {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	private JFrame frame = new JFrame();
