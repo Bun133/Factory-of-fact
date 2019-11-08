@@ -12,11 +12,11 @@ public class Loadobject {
 			try {
 				FileReader filereader=new FileReader(file);
 				BufferedReader br=new BufferedReader(filereader);
-				String [] data=null;
 
 				//行ごとに配列に入れる処理
 				Textload textloder =new Textload();
 				int length=textloder.filelength(br);
+				String[] data = new String[length];
 				for (int cnt=0;cnt==length;cnt++) {
 					data[cnt]=textloder.textloadofline(br, cnt);
 				}
