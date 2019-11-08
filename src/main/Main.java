@@ -3,6 +3,8 @@ package main;
 import assets.util.Logger;
 import assets.util.Register;
 
+import assets.Logger;
+
 public class Main {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
@@ -10,6 +12,8 @@ public class Main {
 	public static Logger logger = new Logger(System.out);
 
 	public static Register register = new Register();
+
+	public static Logger logger = new Logger(System.out);
 
 	public static void main(String[] args) {
 		System.setOut(logger);

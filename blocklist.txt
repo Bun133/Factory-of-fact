@@ -9,7 +9,6 @@
 * 101:ore-iron[鉄鉱石]
 */
 
-
 1:stone[石]
 2:sand[砂]
 3:stone-large[大きい石]
