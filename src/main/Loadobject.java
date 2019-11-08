@@ -26,7 +26,7 @@ public class Loadobject {
 				if (data[0]==null) {								//ここ
 					System.out.println("All Null");
 				}
-				return data;//正常終了
+				return data;//正常終了(誰が正常と言った)
 
 			}catch(IOException e) { //ファイル読み込み中のエラーキャッチ
 				System.out.println("File Not Found");
