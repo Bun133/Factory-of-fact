@@ -14,7 +14,7 @@ public class Main {
 	public static JFrame JFrame=new JFrame();
 	public static Graphics g;
 	public static void main(String[] args) {
-	Picload picloader=new Picload();
+	//Picload picloader=new Picload();
 		JFrametools JFrametool=new JFrametools();
 		JFrame=JFrametool.setup("Factory of fact", 500, 500);
 		JFrame.addKeyListener(new KeyAdapter() {
@@ -29,10 +29,7 @@ public class Main {
 		g=JFrame.getGraphics();
 		Image image =Toolkit.getDefaultToolkit().getImage("src/EDGE1.bmp");
 		g.drawImage(image, 0, 0, JFrame);
-		for (int cnt=0;cnt==10;cnt++) {
-		g.drawImage(image, 0, 0, JFrame);
 		JFrame.repaint();
-		}
 	}
 
 }
