@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
+import graphics.JFrametools;
+
 public class Main {
 	public static JFrame JFrame=new JFrame();
 	public static Graphics g;
