@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -44,11 +45,26 @@ public class JFrametools{
 
 	public void drawLine(int x,int y,int s_x,int s_y) {
 		bfi = J.getBufferStrategy();
-		bfi.getDrawGraphics().drawLine(x, y, s_x, s_y);
+		GetGraphics().drawLine(x, y, s_x, s_y);
 		repaint();
 		repaint(J);
 	}
+	public void color(int R,int G,int B) {
+		Color c=new Color(R,G,B);
+		color(c);
+	}
 
+	public void color(Color c) {
+		GetGraphics().setColor(c);
+	}
+
+	public void drawRect(int x,int y,int W,int H) {
+		GetGraphics().drawRect(x, y, W, H);
+	}
+
+	public void fillRect(int x,int y,int W,int H) {
+		GetGraphics().fillRect(x, y, W, H);
+	}
 	public void repaint(JFrame J) {
 		J.repaint();
 	}
@@ -60,6 +76,9 @@ public class JFrametools{
 		Toolkit.getDefaultToolkit().sync();
 	}
 
+	public void dispose() {
+		GetGraphics().dispose();
+	}
 
 
 }
