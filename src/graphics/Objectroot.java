@@ -1,4 +1,4 @@
-package main;
+package graphics;
 
 public final class Objectroot {
 	public int getrootx(int cnt,int length) {

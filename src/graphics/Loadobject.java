@@ -1,9 +1,11 @@
-package main;
+package graphics;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import main.Textload;
 
 public class Loadobject {
 	public String [] data=null;
