@@ -49,12 +49,12 @@ public class JFrametools{
 		repaint();
 		repaint(J);
 	}
-	public void color(int R,int G,int B) {
+	public void Color(int R,int G,int B) {
 		Color c=new Color(R,G,B);
-		color(c);
+		Color(c);
 	}
 
-	public void color(Color c) {
+	public void Color(Color c) {
 		GetGraphics().setColor(c);
 	}
 
@@ -80,5 +80,32 @@ public class JFrametools{
 		GetGraphics().dispose();
 	}
 
+	public int GetWindow_y() {
+		return J.getHeight();
+	}
 
+	public int GetWindow_x() {
+		return J.getWidth();
+	}
+
+	public void clear() {
+		Color(new Color(255,255,255));
+		GetGraphics().fillRect(0, 0, GetWindow_x(),GetWindow_y() );
+	}
+
+	public Color GetColor() {
+		return GetGraphics().getColor();
+	}
+
+	public int GetColor_R() {
+		return GetGraphics().getColor().getRed();
+	}
+
+	public int GetColor_G() {
+		return GetGraphics().getColor().getGreen();
+	}
+
+	public int GetColor_B() {
+		return GetGraphics().getColor().getBlue();
+	}
 }
