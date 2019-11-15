@@ -11,8 +11,6 @@ public class Main {
 
 	public static Register register = new Register();
 
-	public static void main(String[] args) {
-		System.setOut(logger);
 
 		register.register("test","test");
 		//下のコメントアウトした部分を有効にするとキーが重複しているので例外が発生します
