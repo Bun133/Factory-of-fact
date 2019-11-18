@@ -35,35 +35,35 @@ public class JFrametools{
 		bfi = J.getBufferStrategy();
 	}
 
-	public Graphics2D GetGraphics2D() {
+	public Graphics2D getGraphics2D() {
 		return (Graphics2D) J.getBufferStrategy().getDrawGraphics();
 	}
 
-	public Graphics GetGraphics() {
+	public Graphics getGraphics() {
 		return J.getBufferStrategy().getDrawGraphics();
 	}
 
 	public void drawLine(int x,int y,int s_x,int s_y) {
 		bfi = J.getBufferStrategy();
-		GetGraphics().drawLine(x, y, s_x, s_y);
+		getGraphics().drawLine(x, y, s_x, s_y);
 		repaint();
 		repaint(J);
 	}
-	public void Color(int R,int G,int B) {
+	public void setColor(int R,int G,int B) {
 		Color c=new Color(R,G,B);
-		Color(c);
+		setColor(c);
 	}
 
-	public void Color(Color c) {
-		GetGraphics().setColor(c);
+	public void setColor(Color c) {
+		getGraphics().setColor(c);
 	}
 
 	public void drawRect(int x,int y,int W,int H) {
-		GetGraphics().drawRect(x, y, W, H);
+		getGraphics().drawRect(x, y, W, H);
 	}
 
 	public void fillRect(int x,int y,int W,int H) {
-		GetGraphics().fillRect(x, y, W, H);
+		getGraphics().fillRect(x, y, W, H);
 	}
 	public void repaint(JFrame J) {
 		J.repaint();
@@ -77,35 +77,39 @@ public class JFrametools{
 	}
 
 	public void dispose() {
-		GetGraphics().dispose();
+		getGraphics().dispose();
 	}
 
-	public int GetWindow_y() {
+	public int getWindow_y() {
 		return J.getHeight();
 	}
 
-	public int GetWindow_x() {
+	public int getWindow_x() {
 		return J.getWidth();
 	}
 
 	public void clear() {
-		Color(new Color(255,255,255));
-		GetGraphics().fillRect(0, 0, GetWindow_x(),GetWindow_y() );
+		setColor(new Color(255,255,255));
+		getGraphics().fillRect(0, 0, getWindow_x(),getWindow_y() );
 	}
 
-	public Color GetColor() {
-		return GetGraphics().getColor();
+	public Color getColor() {
+		return getGraphics().getColor();
 	}
 
-	public int GetColor_R() {
-		return GetGraphics().getColor().getRed();
+	public int getColor_R() {
+		return getGraphics().getColor().getRed();
 	}
 
-	public int GetColor_G() {
-		return GetGraphics().getColor().getGreen();
+	public int getColor_G() {
+		return getGraphics().getColor().getGreen();
 	}
 
-	public int GetColor_B() {
-		return GetGraphics().getColor().getBlue();
+	public int getColor_B() {
+		return getGraphics().getColor().getBlue();
 	}
+
+
+
+
 }
