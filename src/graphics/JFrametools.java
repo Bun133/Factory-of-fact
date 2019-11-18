@@ -18,7 +18,6 @@ public class JFrametools{
 
 	private JFrame J=new JFrame();
 	private BufferStrategy bfi;
-	private Graphics g;
 	/**
 	 * JFrametool使用時に絶対起動が必要です。
 	 * @param Title
@@ -46,8 +45,6 @@ public class JFrametools{
 	public void drawLine(int x,int y,int s_x,int s_y) {
 		bfi = J.getBufferStrategy();
 		getGraphics().drawLine(x, y, s_x, s_y);
-		repaint();
-		repaint(J);
 	}
 	public void setColor(int R,int G,int B) {
 		Color c=new Color(R,G,B);
@@ -64,6 +61,7 @@ public class JFrametools{
 
 	public void fillRect(int x,int y,int W,int H) {
 		getGraphics().fillRect(x, y, W, H);
+
 	}
 	public void repaint(JFrame J) {
 		J.repaint();
@@ -89,8 +87,11 @@ public class JFrametools{
 	}
 
 	public void clear() {
-		setColor(new Color(255,255,255));
-		getGraphics().fillRect(0, 0, getWindow_x(),getWindow_y() );
+		Color c;
+		c=getColor();
+		setColor(Color.WHITE);
+		fillRect(0,0,getWindow_x(),getWindow_y());
+		setColor(c);
 	}
 
 	public Color getColor() {

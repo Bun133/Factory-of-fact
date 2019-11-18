@@ -10,7 +10,7 @@ public class SetFPS {
 
 	public void Force_wait(long time) throws InterruptedException {
 		if (Minmillisec>time) {
-			Thread.sleep(time-Minmillisec);
+			Thread.sleep(Minmillisec-time);
 		}
 	}
 }
