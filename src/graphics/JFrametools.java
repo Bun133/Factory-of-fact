@@ -18,6 +18,7 @@ public class JFrametools{
 
 	private JFrame J=new JFrame();
 	private BufferStrategy bfi;
+	private Graphics g;
 	/**
 	 * JFrametool使用時に絶対起動が必要です。
 	 * @param Title
@@ -35,14 +36,15 @@ public class JFrametools{
 		J.setIgnoreRepaint(false);
 		J.createBufferStrategy(2);
 		bfi = J.getBufferStrategy();
+		g=J.getGraphics();
 	}
 
 	public Graphics2D getGraphics2D() {
-		return (Graphics2D) J.getBufferStrategy().getDrawGraphics();
+		return (Graphics2D) g;
 	}
 
 	public Graphics getGraphics() {
-		return J.getBufferStrategy().getDrawGraphics();
+		return g;
 	}
 
 	public void drawLine(int x,int y,int s_x,int s_y) {
