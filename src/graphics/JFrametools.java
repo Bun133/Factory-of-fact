@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
  * @author Bun133_
  *
  */
-public class JFrametools{
+public class JFrametools extends JFrame{
 
 	private JFrame J=new JFrame();
 	private BufferStrategy bfi;
@@ -37,6 +37,7 @@ public class JFrametools{
 		J.createBufferStrategy(2);
 		bfi = J.getBufferStrategy();
 		g=J.getGraphics();
+		//J.setIgnoreRepaint(true);
 	}
 
 	public Graphics2D getGraphics2D() {
@@ -74,6 +75,7 @@ public class JFrametools{
 	/**
 	 * @author nyuto
 	 */
+	@Override
 	public void repaint() {
 		if(!bfi.contentsLost())bfi.show();
 		Toolkit.getDefaultToolkit().sync();

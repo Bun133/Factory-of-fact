@@ -1,6 +1,6 @@
 package main;
 
-import java.awt.Color;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -15,25 +15,21 @@ public class Main extends JFrame{
 		GetFPS FPStools=new GetFPS();
 		SetFPS SetFPStools=new SetFPS();
 		SetFPStools.setMaxFPS(60);
-
+		long time = 0;
+		Random r=new Random();
 		for(int c=0;c!=1;){
-			JFT.setColor(Color.blue);
+			JFT.setColor(r.nextInt(255),r.nextInt(255),r.nextInt(255));
 			JFT.fillRect(0, 0, 500, 500);
-			//THIS?!?!?
-			JFT.repaint();
+			//JFT.repaint();
 
-			//Not this...
-			//FPS Wait Prosses
+
 			try {
-				SetFPStools.Force_wait(FPStools.time);
+				SetFPStools.Force_wait(time);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(FPStools.getFPS());
-			FPStools.time=System.currentTimeMillis();
-
-
-
+			System.out.println(FPStools.getFPS(time));
+			time=System.currentTimeMillis();
 		}
 
 
