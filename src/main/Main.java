@@ -15,17 +15,21 @@ public class Main extends JFrame{
 		GetFPS FPStools=new GetFPS();
 		SetFPS SetFPStools=new SetFPS();
 		SetFPStools.setMaxFPS(60);
-		for(int c=0;c!=10000;) {
-			JFT.getGraphics().setColor(Color.RED);
-			System.out.println(JFT.getColor_B());
+
+		for(int c=0;c!=1;){
+			JFT.setColor(Color.blue);
 			JFT.fillRect(0, 0, 500, 500);
+			//THIS?!?!?
 			JFT.repaint();
+
+			//Not this...
+			//FPS Wait Prosses
 			try {
 				SetFPStools.Force_wait(FPStools.time);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			//System.out.println(FPStools.getFPS());
+			System.out.println(FPStools.getFPS());
 			FPStools.time=System.currentTimeMillis();
 
 

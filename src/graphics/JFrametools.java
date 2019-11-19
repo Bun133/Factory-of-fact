@@ -30,6 +30,9 @@ public class JFrametools{
 		J.setBounds(0, 0, Window_sizex, Window_sizey);
 		J.setLocationRelativeTo(null);
 		J.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		J.getContentPane().setBackground(Color.white);
+		J.setResizable(false);
+		J.setIgnoreRepaint(false);
 		J.createBufferStrategy(2);
 		bfi = J.getBufferStrategy();
 	}
@@ -110,6 +113,9 @@ public class JFrametools{
 		return getGraphics().getColor().getBlue();
 	}
 
+	public JFrame getJFrame() {
+		return J;
+	}
 
 
 
