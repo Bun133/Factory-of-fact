@@ -40,6 +40,7 @@ public class DrawView {
 		gra.drawImage(i, 0, 0, frame);
 	}
 
+
 	public void repaint() {
 		if(!bfi.contentsLost())bfi.show();
 		Toolkit.getDefaultToolkit().sync();

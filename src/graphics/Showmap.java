@@ -1,11 +1,9 @@
-package main;
+package graphics;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 public class Showmap {
+	String [] objectdata=null;
 	public Showmap() {
 	}
 	public Graphics2D draw(Graphics2D gra,int x,int y,String filepath) {
@@ -14,16 +12,9 @@ public class Showmap {
 		File file=new File(filepath);
 		if (file.exists()==true) {
 
-			try {
-				FileReader filereader=new FileReader(file);
-				BufferedReader br=new BufferedReader(filereader);
-				} catch (FileNotFoundException e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
-					return null;
-				}
+
 				Loadobject loadmanager=new Loadobject();
-				String [] objectdata=loadmanager.loadobject(filepath);
+				objectdata=loadmanager.loadobject(filepath);
 				//ここに読み込みファイルからウィンドウ上に書きこみ。
 				//ファイルどう書くか決めないと。
 				Color c=new Color(0,0,0,0);//RGB+透明度(RGBA)
