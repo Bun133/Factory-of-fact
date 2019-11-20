@@ -1,13 +1,12 @@
 package graphics;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.File;
 public class Showmap {
 	String [] objectdata=null;
 	public Showmap() {
 	}
-	public Graphics2D draw(Graphics2D gra,int x,int y,String filepath) {
+	public void draw(Graphics2D gra,int x,int y,String filepath) {
 
+<<<<<<< Updated upstream
 
 		File file=new File(filepath);
 		if (file.exists()==true) {
@@ -64,6 +63,7 @@ public class Showmap {
 		}else {
 		System.out.println("File Not Found");
 		return null;
+=======
+>>>>>>> Stashed changes
 		}
-	}
 }
