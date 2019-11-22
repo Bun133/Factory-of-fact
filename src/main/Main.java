@@ -5,12 +5,8 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-<<<<<<< Updated upstream
-
-import graphics.GetFPS;
-=======
 //import graphics.GetFPS;
->>>>>>> Stashed changes
+
 import graphics.JFrametools;
 import graphics.SetFPS;
 
@@ -27,12 +23,7 @@ public class Main extends JFrame{
 		for(int c=0;c!=1;){
 			JFT.setColor(r.nextInt(255),r.nextInt(255),r.nextInt(255));
 			JFT.fillRect(0, 0, 500, 500);
-<<<<<<< Updated upstream
-			//JFT.repaint();
-
-=======
 			/*
->>>>>>> Stashed changes
 			try {
 				SetFPStools.Force_wait(time);
 			} catch (InterruptedException e) {
