@@ -1,5 +1,7 @@
 package file;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,6 +21,7 @@ public class Filemaster {
 	public Path[] path;
 	public FileReader[] Filereader;
 	public int[] usedarrayindex;
+	public Image[] images;
 
 
 	/**
@@ -31,14 +34,16 @@ public class Filemaster {
 		path=new Path[maxnum];
 		Filereader=new FileReader[maxnum];
 		usedarrayindex=new int[maxnum];
+		images=new Image[maxnum];
 	}
 	public void newFilelistener(String path,int index) throws FileNotFoundException, Indexalreadyused {
 		loadFile(path,index);
 	}
 
 	private void loadFile(String path,int index) throws FileNotFoundException,Indexalreadyused {
-		if (usedarrayindex[index]==0) usedarrayindex[index]=0;
 		if (usedarrayindex[index]==1)throw new Indexalreadyused(index);
+		if (usedarrayindex[index]==0) usedarrayindex[index]=1;
+
 		File onetimefile=new File(path);
 		if (onetimefile.exists()==false) {
 			throw new FileNotFoundException(path);
@@ -46,8 +51,21 @@ public class Filemaster {
 		strpath[index]=path;
 		setPath(path,index);
 		setFiler(onetimefile,index);
+		if (getextension(index)=="bmp" || getextension(index)=="png") setImage(index);
 	}
 
+/**
+ * @apiNote extension(拡張子)をインデックスから返します。(多分基本的に使わん)
+ * @return
+ */
+	public String getextension(int index) throws Indexnotsetup {
+		if (usedarrayindex[index]==0) throw new Indexnotsetup(index);
+		String extension=null;
+		if (strpath[index].indexOf(".")!=-1) {
+			extension=strpath[index].substring(strpath[index].indexOf(".")+1);
+		}
+		return extension;
+	}
 
 	/**
 	 * @apinote ファイルをインデックスを頼りにStringListに変換します。
@@ -94,7 +112,12 @@ public class Filemaster {
 			return response;
 	}
 
-
+/**
+ * @apiNote byte[]をlong[]に変換します。理論上、byte[]の配列数は8の倍数となります。
+ * @param b
+ * @return long[]
+ * @throws CantCastToLong
+ */
 	public long[] bytearraytolongarray(byte[] b) throws CantCastToLong {
 		if (b.length%8!=0) throw new CantCastToLong(b.length);
 		int onetime = b.length/4;
@@ -187,4 +210,26 @@ public class Filemaster {
 			System.out.println(l[c]);
 		}
 	}
+
+
+
+	/**
+	 * @apiNote インデックスからImageを設定します
+	 * @param index
+	 */
+	public void setImage(int index) {
+		images[index]=Toolkit.getDefaultToolkit().getImage(strpath[index]);
+	}
+
+
+	/**
+	 * @apinote インデックスからImageを取得します
+	 * @param index
+	 * @return
+	 */
+	public Image getImage(int index){
+		if (images[index]==null) setImage(index);
+		return images[index];
+	}
+
 }

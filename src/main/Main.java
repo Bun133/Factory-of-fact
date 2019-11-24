@@ -2,7 +2,6 @@
 
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -28,14 +27,14 @@ public class Main extends JFrame{
 		Random r=new Random();
 		Filemaster Fm=new Filemaster(100);
 		try {
-			Fm.newFilelistener("README.md",0);
+			Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
 		} catch (FileNotFoundException | Indexalreadyused e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		try {
-			Fm.printlnarray(Fm.bytearraytolongarray(Fm.toBytearray(0)));
-		} catch (Indexnotsetup | IOException e) {
+			System.out.println(Fm.getImage(0));
+		} catch (Indexnotsetup e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
