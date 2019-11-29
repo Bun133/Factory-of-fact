@@ -2,7 +2,7 @@
  * デバッグ用メソッドです
  * 時間、開始からの経過時間(ms)呼び出したクラスも追加で表示します
  *
- * @version 1.3
+ * @version 1.4
  * @author nyuto
  */
 
@@ -19,11 +19,12 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class Logger extends PrintStream{
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
 	private Long upTime = System.currentTimeMillis();
 
@@ -52,6 +53,8 @@ public class Logger extends PrintStream{
 	private Color textColor = new Color(0,0,0);
 
 	private Color oneceColor;
+
+	private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
 
@@ -474,7 +477,9 @@ public class Logger extends PrintStream{
 		oneceFlag = false;
 		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
 		if(!hideDate) {
-			text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+			synchronized(sdf) {
+				text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+			}
 		}
 		if(!hideUpTime) {
 			Long time = System.currentTimeMillis();
@@ -500,7 +505,9 @@ public class Logger extends PrintStream{
 		oneceFlag = false;
 		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
 		if(!hideDate) {
-			text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+			synchronized(sdf) {
+				text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+			}
 		}
 		if(!hideUpTime) {
 			Long time = System.currentTimeMillis();
