@@ -2,7 +2,7 @@
  * デバッグ用メソッドです
  * 時間、開始からの経過時間(ms)呼び出したクラスも追加で表示します
  *
- * @version 1.3
+ * @version 1.5
  * @author nyuto
  */
 
@@ -23,29 +23,29 @@ import java.util.Calendar;
 
 public class Logger extends PrintStream{
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 4L;
 
 	private Long upTime = System.currentTimeMillis();
 
-	private boolean hideAll = false;
+	private boolean showAll = true;
 
-	private boolean hideInfo = false;
+	private boolean showInfo = true;
 
-	private boolean hideWarn = false;
+	private boolean showWarn = true;
 
-	private boolean hideError = false;
+	private boolean showError = true;
 
-	private boolean hideException = false;
+	private boolean showException = true;
 
-	private boolean hideDate = false;
+	private boolean showDate = true;
 
-	private boolean hideUpTime = false;
+	private boolean showUpTime = true;
 
-	private boolean hideLevel = false;
+	private boolean showLevel = true;
 
-	private boolean hideCallClass = false;
+	private boolean showCallClass = true;
 
-	private boolean hideMessage = false;
+	private boolean showMessage = true;
 
 	private boolean oneceFlag = false;
 
@@ -59,6 +59,30 @@ public class Logger extends PrintStream{
 
 	private String sep = System.lineSeparator();
 
+	private StringBuilder builder[];
+
+	private boolean used[];
+
+	private boolean needRefresh[];
+
+	private boolean refthread = false;
+
+	private boolean watchFlag = false;
+
+	private int usePos = 0;
+
+	private int refreshPos = 0;
+
+	private int builderLen;
+
+	private Thread refresh;
+
+	private Thread watchdog;
+
+	private static int runNum = 1;
+
+	private static int watchNum = 1;
+
 	/**
 	 * Loggerのコンストラクタです
 	 * 基本的にはPrintStreamと同じです
@@ -66,6 +90,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(OutputStream out) {
 		super(out);
+		initBuilder();
 	}
 
 	/**
@@ -76,6 +101,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(OutputStream out,boolean autoFlush) {
 		super(out,autoFlush);
+		initBuilder();
 	}
 
 	/**
@@ -88,6 +114,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(OutputStream out,boolean autoFlush,String encoding) throws UnsupportedEncodingException{
 		super(out,autoFlush,encoding);
+		initBuilder();
 	}
 
 	/**
@@ -99,6 +126,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(OutputStream out,boolean autoFlush,Charset charset) {
 		super(out,autoFlush,charset);
+		initBuilder();
 	}
 
 	/**
@@ -109,6 +137,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(String fileName) throws FileNotFoundException {
 		super(fileName);
+		initBuilder();
 	}
 
 	/**
@@ -121,6 +150,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(String fileName,String csn) throws FileNotFoundException,UnsupportedEncodingException{
 		super(fileName,csn);
+		initBuilder();
 	}
 
 	/**
@@ -132,6 +162,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(String fileName,Charset charset) throws IOException {
 		super(fileName,charset);
+		initBuilder();
 	}
 
 	/**
@@ -142,6 +173,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(File file) throws FileNotFoundException {
 		super(file);
+		initBuilder();
 	}
 
 	/**
@@ -154,6 +186,7 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(File file,String csn) throws FileNotFoundException,UnsupportedEncodingException{
 		super(file,csn);
+		initBuilder();
 	}
 
 	/**
@@ -165,86 +198,113 @@ public class Logger extends PrintStream{
 	 */
 	public Logger(File file,Charset charset) throws IOException{
 		super(file,charset);
+		initBuilder();
 	}
+
+	/**
+	 * StringBuilder及び、それ関連のクラスの初期化です
+	 */
+	private void initBuilder() {
+		 builderLen = (int)(Runtime.getRuntime().availableProcessors() * 1.5);
+		builderLen = builderLen < 10 ? 10 : builderLen;
+		builder = new StringBuilder[builderLen];
+		used = new boolean[builderLen];
+		needRefresh = new boolean[builderLen];
+		usePos = 0;
+		for(int i=0;i<builderLen;i++) {
+			builder[i] = new StringBuilder();
+			used[i] = false;
+			needRefresh[i] = false;
+		}
+	}
+
+	private synchronized int getRunNum() {
+		return runNum++;
+	}
+
+	private synchronized int getWatchNum() {
+		return watchNum++;
+	}
+
 
 	/**
 	 * 全てのメッセージを表示するかを指定します
 	 * @param flag
 	 */
-	public void hideAll(boolean flag) {
-		hideAll = flag;
+	public void showAll(boolean flag) {
+		showAll = flag;
 	}
 
 	/**
 	 * 通常メッセージ(INFO)を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideInfo(boolean flag) {
-		hideInfo = flag;
+	public void showInfo(boolean flag) {
+		showInfo = flag;
 	}
 
 	/**
 	 * 警告を(WARN)を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideWarn(boolean flag) {
-		hideWarn = flag;
+	public void showWarn(boolean flag) {
+		showWarn = flag;
 	}
 
 	/**
 	 * エラー(ERROR)を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideError(boolean flag) {
-		hideError = flag;
+	public void showError(boolean flag) {
+		showError = flag;
 	}
 
 	/**
 	 * 例外(EXVEPTION)を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideException(boolean flag) {
-		hideException = flag;
+	public void showException(boolean flag) {
+		showException = flag;
 	}
 
 	/**
 	 * 日付を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideDate(boolean flag) {
-		hideDate = flag;
+	public void showDate(boolean flag) {
+		showDate = flag;
 	}
 
 	/**
 	 * プログラムを起動してからの時間を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideUpTime(boolean flag) {
-		hideUpTime = flag;
+	public void showUpTime(boolean flag) {
+		showUpTime = flag;
 	}
 
 	/**
 	 * レベル(INFO、WARN、ERROR、EXCEPTION)を表示するかを指定します
 	 * @param flag
 	 */
-	public void hideLevel(boolean flag) {
-		hideLevel = flag;
+	public void showLevel(boolean flag) {
+		showLevel = flag;
 	}
 
 	/**
 	 * 呼び出し元のクラスを表示するかを指定します
 	 * @param flag
 	 */
-	public void hideCallClass(boolean flag) {
-		hideCallClass = flag;
+	public void showCallClass(boolean flag) {
+		showCallClass = flag;
 	}
 
 	/**
 	 * メッセージを表示するかを指定します
 	 * @param flag
 	 */
-	public void hideMessage(boolean flag) {
-		hideMessage = flag;
+	public void showMessage(boolean flag) {
+		showMessage = flag;
 	}
 
 	/**
@@ -307,104 +367,71 @@ public class Logger extends PrintStream{
 	}
 
 	public void print(boolean b) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(b));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(b));
 	}
 
 	public void print(char c) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(c));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(c));
 	}
 
 	public void print(int i) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(i));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(i));
 	}
 
 	public void print(long l) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(l));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(l));
 	}
 
 	public void print(float f) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(f));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(f));
 	}
 
 	public void print(double d) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(d));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(d));
 	}
 
 	/**
 	 * char配列のprintです
-	 * ※自分の技量では実装できませんでした。
+	 * ※自分の技量では(面倒で)実装できませんでした。
 	 */
 	public void print(char s[]) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		this.print(s);
+		if(showAll)if(showInfo)this.print(s);
 	}
 
 	public void print(String s) {
-		if(s.equals(sep))sep();
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(s));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(s));
 	}
 
 	public void print(Object obj) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pr("INFO",String.valueOf(obj));
+		if(showAll)if(showInfo)pr("INFO",String.valueOf(obj));
 	}
 
 	public void println() {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO","");
+		if(showAll)if(showInfo)pl("INFO","");
 	}
 
 	public void println(boolean b) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(b));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(b));
 	}
 
 	public void println(char c) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(c));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(c));
 	}
 
 	public void println(int i) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(i));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(i));
 	}
 
 	public void println(long l) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(l));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(l));
 	}
 
 	public void println(float f) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(f));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(f));
 	}
 
 	public void println(double d) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(d));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(d));
 	}
 
 	/**
@@ -412,137 +439,171 @@ public class Logger extends PrintStream{
 	 * ※自分の技量では実装できませんでした。
 	 */
 	public void println(char s[]) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		this.println(s);
+		if(showAll)if(showInfo)this.println(s);
 	}
 
 	public void println(String s) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(s));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(s));
 	}
 
 	public void println(Object obj) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		pl("INFO",String.valueOf(obj));
+		if(showAll)if(showInfo)pl("INFO",String.valueOf(obj));
 	}
 
 	public void printNoAdd(String str) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		napr(str);
+		if(showAll)if(showInfo)napr(str);
 	}
 
 	public void printlnNoAdd(String str) {
-		if(hideAll)return;
-		if(hideInfo)return;
-		napl(str);
+		if(showAll)if(showInfo)napl(str);
 	}
 
 	public void printWarn(String str) {
-		if(hideAll)return;
-		if(hideWarn)return;
-		setTextColorOnece(new Color(170,85,0));
-		pl("WARN",str);
+		if(showAll)if(showWarn) {
+			setTextColorOnece(new Color(170,85,0));
+			pl("WARN",str);
+		}
 	}
 
 	public void printError(String str) {
-		if(hideAll)return;
-		if(hideError)return;
-		setTextColorOnece(new Color(252,127,0));
-		pl("ERROR",str);
+		if(showAll)if(showError) {
+			setTextColorOnece(new Color(252,127,0));
+			pl("ERROR",str);
+		}
 	}
 
 	public void printException(String str) {
-		if(hideAll)return;
-		if(hideException)return;
-		setTextColorOnece(Color.RED);
-		pl("EXCEPTION",str);
+		if(showAll)if(showException){
+			setTextColorOnece(Color.RED);
+			pl("EXCEPTION",str);
+		}
 	}
 
 	public void printException(Exception e) {
-		if(hideAll)return;
-		if(hideException)return;
-		pl("EXCEPTION", e.toString());
-		e.printStackTrace(this);
+		if(showAll)if(showException){
+			pl("EXCEPTION", e.toString());
+			e.printStackTrace(this);
+		}
 	}
 
 	private void pl(String level,String str) {
 		Color color = oneceFlag?oneceColor:textColor;
 		oneceFlag = false;
-		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
-		if(!hideDate) {
-			text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+		int pos = getPos();
+		StringBuilder builder = this.builder[pos];
+		builder.append("\u001b[38;2;" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m");
+		synchronized(sdf) {
+			builder.append(showDate ? "[" + sdf.format(Calendar.getInstance().getTime()) + "]" : "");
 		}
-		if(!hideUpTime) {
-			Long time = System.currentTimeMillis();
-			text += "[" + nf.format(time - upTime) + "]";
-		}
-		if(!hideLevel) {
-			text += "[" + level + "]";
-		}
-		if(!hideCallClass) {
-			text += "(" + Thread.currentThread().getStackTrace()[3].getClassName() + ":" + Thread.currentThread().getStackTrace()[3].getLineNumber() + ")";
-		}
-		if(!hideMessage) {
-			text += str;
-		}
-		text += "\u001b[00m";
-		super.print(text);
-		super.print(sep);
-
+		Long time = System.currentTimeMillis();
+		builder.append(showUpTime ? "[" + nf.format(time - upTime) + "]" : "");
+		builder.append(showLevel ? "[" + level + "]" : "");
+		StackTraceElement ste = Thread.currentThread().getStackTrace()[3];
+		builder.append(showCallClass ? "(" + ste.getClassName() + ":" + ste.getLineNumber() + ")" : "");
+		builder.append(showMessage ? str : "");
+		builder.append("\u001b[00m" + sep);
+		super.print(builder.toString());
+		endPos(pos);
 	}
 
 	private void pr(String level,String str) {
 		Color color = oneceFlag?oneceColor:textColor;
 		oneceFlag = false;
-		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
-		if(!hideDate) {
-			text += "[" + sdf.format(Calendar.getInstance().getTime()) + "]";
+		int pos = getPos();
+		StringBuilder builder = this.builder[pos];
+		builder.append("\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m");
+		synchronized(sdf) {
+			builder.append(showDate ? "[" + sdf.format(Calendar.getInstance().getTime()) + "]" : "");
 		}
-		if(!hideUpTime) {
-			Long time = System.currentTimeMillis();
-			text += "[" + nf.format(time - upTime) + "]";
-		}
-		if(!hideLevel) {
-			text += "[" + level + "]";
-		}
-		if(!hideCallClass) {
-			text += "(" + Thread.currentThread().getStackTrace()[3].getClassName() + ":" + Thread.currentThread().getStackTrace()[3].getLineNumber() + ")";
-		}
-		if(!hideMessage) {
-			text += str;
-		}
-		text += "\u001b[00m";
-		super.print(text);
+		Long time = System.currentTimeMillis();
+		builder.append(showUpTime ? "[" + nf.format(time - upTime) + "]" : "");
+		builder.append(showLevel ? "[" + level + "]" : "");
+		StackTraceElement ste = Thread.currentThread().getStackTrace()[3];
+		builder.append(showCallClass ? "(" + ste.getClassName() + ":" + ste.getLineNumber() + ")" : "");
+		builder.append(showMessage ? str : "");
+		builder.append("\u001b[00m");
+		super.print(builder);
+		endPos(pos);
 	}
 
 	private void napl(String str) {
 		Color color = oneceFlag?oneceColor:textColor;
 		oneceFlag = false;
 		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
-		if(!hideMessage) {
+		if(!showMessage) {
 			text += str;
 		}
-		text += "\u001b[00m";
+		text += "\u001b[00m" + sep;
 		super.print(text);
-		super.print(sep);
 	}
 
 	private void napr(String str) {
 		Color color = oneceFlag?oneceColor:textColor;
 		oneceFlag = false;
 		String text = "\u001b[38;2" + ";" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
-		if(!hideMessage) {
+		if(showMessage) {
 			text += str;
 		}
 		text += "\u001b[00m";
 		super.print(text);
 	}
 
-	private void sep() {
-		super.print(sep);
+	private synchronized int getPos() {
+		int num = usePos;
+		used[num] = true;
+		usePos++;
+		usePos = usePos == builderLen ? 0 : usePos;
+		return num;
+	}
+
+	private void endPos(int num) {
+		needRefresh[num] = true;
+		if(!refthread) {
+			refresh = new Thread("Logger:" + getRunNum()) {
+				public void run() {
+					do {
+						if(used[refreshPos] & needRefresh[refreshPos]) {
+							builder[refreshPos] = new StringBuilder();
+							used[refreshPos] = needRefresh[refreshPos] = false;
+							refreshPos++;
+							refreshPos = refreshPos == builderLen ? 0 : refreshPos;
+						}else {
+							try {
+								Thread.sleep(10000);
+							}catch(InterruptedException e) {}
+						}
+					}while(watchFlag);
+					refthread = false;
+				}
+			};
+			refWatchdog();
+			refresh.start();
+		}else {
+			refresh.interrupt();
+			refWatchdog();
+		}
+	}
+
+	private void refWatchdog() {
+		if(watchFlag) {
+			watchdog.interrupt();
+		}else {
+			watchdog = new Thread("Logger:" + getWatchNum()) {
+				public void run() {
+					boolean flag;
+					do {
+						flag = false;
+						try {
+							Thread.sleep(10000);
+						}catch(InterruptedException e) {
+							flag = true;
+						}
+					}while(flag);
+					watchFlag = false;
+				}
+			};
+			watchFlag = true;
+			watchdog.start();
+		}
 	}
 }

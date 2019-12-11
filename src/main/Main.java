@@ -1,3 +1,4 @@
+
 ﻿package main;
 
 
@@ -58,4 +59,3 @@ public class Main extends JFrame{
 	}
 
 }
-
