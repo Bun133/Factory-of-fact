@@ -67,8 +67,6 @@ public class Logger extends PrintStream{
 
 	private boolean refthread = false;
 
-	private boolean watchFlag = false;
-
 	private int usePos = 0;
 
 	private int refreshPos = 0;
@@ -77,11 +75,7 @@ public class Logger extends PrintStream{
 
 	private Thread refresh;
 
-	private Thread watchdog;
-
 	private static int runNum = 1;
-
-	private static int watchNum = 1;
 
 	/**
 	 * Loggerのコンストラクタです
@@ -221,11 +215,6 @@ public class Logger extends PrintStream{
 	private synchronized int getRunNum() {
 		return runNum++;
 	}
-
-	private synchronized int getWatchNum() {
-		return watchNum++;
-	}
-
 
 	/**
 	 * 全てのメッセージを表示するかを指定します
@@ -561,49 +550,29 @@ public class Logger extends PrintStream{
 		if(!refthread) {
 			refresh = new Thread("Logger:" + getRunNum()) {
 				public void run() {
+					boolean flag;
 					do {
 						if(used[refreshPos] & needRefresh[refreshPos]) {
 							builder[refreshPos] = new StringBuilder();
 							used[refreshPos] = needRefresh[refreshPos] = false;
 							refreshPos++;
 							refreshPos = refreshPos == builderLen ? 0 : refreshPos;
+							flag = true;
 						}else {
+							flag = false;
 							try {
-								Thread.sleep(10000);
-							}catch(InterruptedException e) {}
+								Thread.sleep(1000);
+							}catch(InterruptedException e) {
+								flag = true;
+							}
 						}
-					}while(watchFlag);
+					}while(flag);
 					refthread = false;
 				}
 			};
-			refWatchdog();
 			refresh.start();
 		}else {
 			refresh.interrupt();
-			refWatchdog();
-		}
-	}
-
-	private void refWatchdog() {
-		if(watchFlag) {
-			watchdog.interrupt();
-		}else {
-			watchdog = new Thread("Logger:" + getWatchNum()) {
-				public void run() {
-					boolean flag;
-					do {
-						flag = false;
-						try {
-							Thread.sleep(10000);
-						}catch(InterruptedException e) {
-							flag = true;
-						}
-					}while(flag);
-					watchFlag = false;
-				}
-			};
-			watchFlag = true;
-			watchdog.start();
 		}
 	}
 }
