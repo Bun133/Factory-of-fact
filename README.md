@@ -1,4 +1,4 @@
-div -[![div](https://travis-ci.org/Bun133/Factory-of-fact.svg?branch=div)]
+﻿div -[![div](https://travis-ci.org/Bun133/Factory-of-fact.svg?branch=div)]
 div-mapdraw -[![div-mapdraw](https://travis-ci.org/Bun133/Factory-of-fact.svg?branch=div-create-mapdraw)]
 # Factory-of-fact
 このゲームの趣旨は、MindustryとfactorioとASTRONEERを混ぜ混ぜする感じです。
