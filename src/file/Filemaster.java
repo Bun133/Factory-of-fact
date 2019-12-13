@@ -22,6 +22,7 @@ public class Filemaster {
 	public FileReader[] Filereader;
 	public int[] usedarrayindex;
 	public Image[] images;
+	public String[] name;
 
 
 	/**
@@ -35,11 +36,41 @@ public class Filemaster {
 		Filereader=new FileReader[maxnum];
 		usedarrayindex=new int[maxnum];
 		images=new Image[maxnum];
+		name=new String[maxnum];
 	}
 	public void newFilelistener(String path,int index) throws FileNotFoundException, Indexalreadyused {
 		loadFile(path,index);
 	}
+	/**
+	 * @apinote indexを指定しなくてもよい、重要性の低いファイルに対して使えます。
+	 * @apinote また、intでindexを返します。これをもとに、頑張ってください。
+	 * @apinote ﾒﾝﾄﾞｸｻｲとか言わない
+	 * @param path
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws Indexalreadyused
+	 */
+	public int newFilelistener(String path) throws FileNotFoundException, Indexalreadyused {
+		int index = 0;
+		while(usedarrayindex[index]!=0) {
+			index++;
+		}
+		newFilelistener(path,index);
+		return index;
+	}
 
+
+	/*public int getIndex(String filename) {
+		int index=0;
+		while(index!=name.length) {
+			if (filename==getname(name[index])) {
+				return index;
+			}else {
+				index++;
+			}
+		}
+		throw new Indexnotsetup(filename);
+	}*/
 	private void loadFile(String path,int index) throws FileNotFoundException,Indexalreadyused {
 		if (usedarrayindex[index]==1)throw new Indexalreadyused(index);
 		if (usedarrayindex[index]==0) usedarrayindex[index]=1;
@@ -52,7 +83,22 @@ public class Filemaster {
 		setPath(path,index);
 		setFiler(onetimefile,index);
 		if (getextension(index)=="bmp" || getextension(index)=="png") setImage(index);
+		//name[index]=getname(onetimefile);
 	}
+/*
+	private String getname(String s) {
+		if (s.lastIndexOf("//")!=-1) {
+			return s.substring(s.lastIndexOf("//")+1);
+		}
+		if (s.lastIndexOf("\\")!=-1) {
+			return s.substring(s.lastIndexOf("//")+1);
+		}
+		return null;
+	}
+	private String getname(File file) {
+		return  getname(file.toString());
+	}
+*/
 
 /**
  * @apiNote extension(拡張子)をインデックスから返します。(多分基本的に使わん)
@@ -231,5 +277,6 @@ public class Filemaster {
 		if (images[index]==null) setImage(index);
 		return images[index];
 	}
+
 
 }

@@ -3,6 +3,9 @@ package graphics;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
@@ -74,6 +77,8 @@ public class JFrametools extends JFrame{
 	}
 	/**
 	 * @author nyuto
+	 * @deprecated
+	 * @apiNote 特別書く必要ありません
 	 */
 	@Override
 	public void repaint() {
@@ -91,6 +96,10 @@ public class JFrametools extends JFrame{
 
 	public int getWindow_x() {
 		return J.getWidth();
+	}
+
+	public String gettitle() {
+		return J.getTitle();
 	}
 
 	public void clear() {
@@ -122,5 +131,35 @@ public class JFrametools extends JFrame{
 	}
 
 
+	public void drawImage(Image image,int x,int y) {
+		getGraphics().drawImage(image,x,y,null);
+	}
 
+	public void drawImage(Image image,int x,int y,int w,int h) {
+		getGraphics().drawImage(image,x,y,w,y,null);
+	}
+
+
+	public void setWindowsize(int x,int y) {
+		J.setSize(x,y);
+	}
+
+	public void setFull() {
+		setUndecorated(true);
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		device.setFullScreenWindow(J);
+	}
+
+	public void disableFull() {
+		setUndecorated(false);
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		device.setFullScreenWindow(null);
+	}
+
+	public void setUndecorated(Boolean b) {
+		dispose();
+		J.setUndecorated(b);
+		J.setVisible(true);
+
+	}
 }

@@ -1,8 +1,6 @@
-﻿package main;
-
+package main;
 
 import java.io.FileNotFoundException;
-import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -23,8 +21,6 @@ public class Main extends JFrame{
 		//GetFPS FPStools=new GetFPS();
 		SetFPS SetFPStools=new SetFPS();
 		SetFPStools.setMaxFPS(60);
-		//long time = 0;
-		Random r=new Random();
 		Filemaster Fm=new Filemaster(100);
 		try {
 			Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
@@ -32,30 +28,22 @@ public class Main extends JFrame{
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+
+		System.out.println(Fm.getFiler(0).toString());
 		try {
 			System.out.println(Fm.getImage(0));
 		} catch (Indexnotsetup e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		for(int c=0;c!=1;){
-			JFT.setColor(r.nextInt(255),r.nextInt(255),r.nextInt(255));
-			JFT.fillRect(0, 0, 500, 500);
-			/*
-			try {
-				SetFPStools.Force_wait(time);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println(FPStools.getFPS(time));
-			time=System.currentTimeMillis();
-			*/
-		}
 
+		JFT.setFull();
+		for(;;) {
+			JFT.drawImage(Fm.getImage(0),0,0,500,500);
+		}
 
 
 
 	}
 
 }
-

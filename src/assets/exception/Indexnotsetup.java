@@ -6,5 +6,9 @@ public class Indexnotsetup extends RuntimeException{
 		super("Index not setup. Index num:"+index);
 	}
 
+	public Indexnotsetup(String s) {
+		super("Index not setup. Name is:"+s);
+	}
+
 
 }
