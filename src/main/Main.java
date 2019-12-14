@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import file.Filemaster;
 
 import graphics.JFrametools;
 import graphics.SetFPS;
+import key.KeyMaster;
 
 public class Main extends JFrame{
 	public static void main(String[] args) {
@@ -22,6 +24,7 @@ public class Main extends JFrame{
 		SetFPS SetFPStools=new SetFPS();
 		SetFPStools.setMaxFPS(60);
 		Filemaster Fm=new Filemaster(100);
+		KeyMaster KM=new KeyMaster(JFT.getJFrame());
 		try {
 			Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
 		} catch (FileNotFoundException | Indexalreadyused e) {
@@ -39,7 +42,10 @@ public class Main extends JFrame{
 
 		JFT.setFull();
 		for(;;) {
-			JFT.drawImage(Fm.getImage(0),0,0,500,500);
+			JFT.drawImage(Fm.getImage(0),0,0);
+			if (KM.key[KM.getkeyid(KeyEvent.VK_A)]==true) {
+				System.exit(0);
+			}
 		}
 
 
