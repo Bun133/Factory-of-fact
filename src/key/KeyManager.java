@@ -5,13 +5,16 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-public class KeyMaster implements KeyListener{
+public class KeyManager implements KeyListener{
+	private AtKeyEvent[] AtKeyEvent=new AtKeyEvent[10];
 	public final int All_keys=36;
 	public String[] keys=new String[All_keys];
 	public int[] keys_int=new int[All_keys];
 	public boolean[] key;
+	private KeyEvent[] es=new KeyEvent[100];
 
-	public KeyMaster(JFrame J) {
+
+	public KeyManager(JFrame J) {
 		keys=new String[All_keys];
 		keys_int=new int[All_keys];
 		key=new boolean[All_keys];
@@ -91,42 +94,52 @@ public class KeyMaster implements KeyListener{
 
 		J.addKeyListener(this);
 	}
+	public void tick(KeyEvent e) {
+		for (int cnt = 0; cnt < key.length; cnt++) {
+			if (key[cnt]==false) {
+				continue;
+			}
+			for(int len=0;len!=AtKeyEvent.length;len++) {
+			AtKeyEvent[len].run(e);
+			}
+			key[cnt]=false;
+		}
+
+
+
+		clearKeyEventCollecter();
+	}
+
+	public void addclass(AtKeyEvent atk) {
+		int cnt=0;
+		while(AtKeyEvent[cnt]!=null) {
+			cnt++;
+		}
+		if (cnt==AtKeyEvent.length || cnt>AtKeyEvent.length) {
+			System.out.println("aaaaa");
+		}
+
+		AtKeyEvent[cnt]=atk;
+	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 
-	}
 
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyCode());
 		key[getkeyid(e.getKeyCode())]=true;
-	}
 
+		tick(e);
+
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println(e.getKeyCode());
-		key[getkeyid(e.getKeyCode())]=false;
-	}
 
+
+	}
 	public String getkeyString(int num) {
 		return keys[num];
-	}
-	/**
-	 * @deprecated
-	 * @param name
-	 * @return
-	 */
-	public int getkeyInt(String name) {
-		int c=0;
-		while(keys[c]==name) {
-			c++;
-		}
-		if (c==All_keys+1) {
-			System.out.println("Null");
-			return (Integer)null;
-		}
-
-		return keys_int[c];
 	}
 
 	public int getkeyid(int keycode) {
@@ -141,5 +154,18 @@ public class KeyMaster implements KeyListener{
 		return c;
 	}
 
+	public void KeyEventCollecter(KeyEvent e) {
+		int cnt=0;
+		while(es[cnt]==null) {
+			cnt++;
+		}
+		if (cnt==es.length) {
+			System.out.println("fooooo!");
+		}
+		es[cnt]=e;
+	}
 
+	private void clearKeyEventCollecter() {
+		es=new KeyEvent[es.length];
+	}
 }

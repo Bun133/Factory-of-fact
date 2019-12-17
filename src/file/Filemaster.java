@@ -279,4 +279,59 @@ public class Filemaster {
 	}
 
 
+
+
+
+
+
+	/**
+	 * @apinote pathからbyte[]読み込み
+	 * @param bytenum
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public byte[] getbyte(Path path) throws IOException {
+		return Files.readAllBytes(path);
+	}
+
+	public byte[] getbyte(int index) throws IOException {
+		return getbyte(getpath(index));
+
+	}
+	/**
+	 * @apinote leftのカウントは左から1から始まります
+	 * @apiNote 一番左の欲しいビットまでカウントしてください
+	 * @param b
+	 * @param left
+	 * @return
+	 */
+	public int getbytenum_l(byte b,int left) {
+		return b << (left-1);
+	}
+	/**
+	 * @apinote
+	 * @apiNote rightのカウントは右から1から始まります
+	 * @apinote 一番右の欲しいビットまでカウントしてください
+	 * @param right
+	 * @return
+	 */
+	public int getbytenum_r(byte b,int right) {
+		return b >>> (right-1);
+	}
+
+	/**
+	 * @apinote 成功するかは知らん
+	 * @param b
+	 * @param left
+	 * @param right
+	 * @return
+	 */
+	public int getbytenum(byte b,int left,int right) {
+		return getbytenum_r((byte) getbytenum_l(b,left),left+right);
+
+	}
+
+
+
 }
