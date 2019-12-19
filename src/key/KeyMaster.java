@@ -4,7 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-
+/**
+ * @deprecated
+ * @author Bun
+ *
+ */
 public class KeyMaster implements KeyListener{
 	public final int All_keys=36;
 	public String[] keys=new String[All_keys];

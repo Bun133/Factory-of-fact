@@ -279,11 +279,6 @@ public class Filemaster {
 	}
 
 
-
-
-
-
-
 	/**
 	 * @apinote pathからbyte[]読み込み
 	 * @param bytenum
@@ -328,8 +323,15 @@ public class Filemaster {
 	 * @return
 	 */
 	public int getbytenum(byte b,int left,int right) {
-		return getbytenum_r((byte) getbytenum_l(b,left),left+right);
+		return getbytenum_r((byte) getbytenum_l(b,left),right+1);
 
+	}
+
+	public int getintnum(int data,int left,int right) {
+		String onetime;
+		onetime=String.valueOf(data);
+
+		return Integer.valueOf(onetime.substring(left, right)).intValue();
 	}
 
 

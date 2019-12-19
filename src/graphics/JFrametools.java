@@ -140,6 +140,18 @@ public class JFrametools extends JFrame{
 	}
 
 
+	public void drawImage(Image image,int x,int y,double image_x,double image_y) {
+		drawImage(image,x,y,(int)image_x,(int)image_y);
+	}
+	public void drawImage(Image image,int x,int y,double d) {
+		int image_x=0;
+		int image_y=0;
+		image_x=image.getWidth(null);
+		image_y=image.getHeight(null);
+		drawImage(image,x,y,image_x*d,image_y*d);
+	}
+
+
 	public void setWindowsize(int x,int y) {
 		J.setSize(x,y);
 	}

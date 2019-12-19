@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
@@ -12,6 +11,7 @@ import file.Filemaster;
 //import graphics.GetFPS;
 
 import graphics.JFrametools;
+import graphics.Mapdrawmanager;
 import graphics.SetFPS;
 import key.AtKeyEvent;
 import key.KeyManager;
@@ -28,10 +28,13 @@ public class Main extends JFrame{
 		Filemaster Fm=new Filemaster(100);
 		KeyManager KM=new KeyManager(JFT.getJFrame());
 		AtKeyEvent atk=new KeyVanilla();
+
+		//Mdmは仕方ないよなあ？
+		Mapdrawmanager Mdm=new Mapdrawmanager(JFT.getGraphics());
 		try {
 			Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
+			Fm.newFilelistener("src\\assets\\textures\\blocks\\sand.png",1);
 		} catch (FileNotFoundException | Indexalreadyused e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
@@ -39,24 +42,16 @@ public class Main extends JFrame{
 		try {
 			System.out.println(Fm.getImage(0));
 		} catch (Indexnotsetup e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
 		KM.addclass(atk);
 
-		JFT.setFull();
+		//JFT.setFull();
+		System.out.println(Fm.getbytenum((byte) 0x15, 1, 1));
+		//Main loop↓
 		for(;;) {
-			JFT.drawImage(Fm.getImage(0),0,0);
-			if (KM.key[KM.getkeyid(KeyEvent.VK_A)]==true) {
-				System.exit(0);
-			}
-
-
+			JFT.drawImage(Fm.getImage(1),0,0);
 		}
-
-
-
 	}
-
 }
