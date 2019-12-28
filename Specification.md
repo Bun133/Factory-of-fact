@@ -54,7 +54,7 @@
 **可視範囲の**仕様について書いていきます
 ## プレイヤー
 プレイヤーは開始時に[**コア**](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#コア)と少量の資源が与えられます。
-また、手詰み防止のために、プレイヤーは時間はかかりますが、石材、木材、鉄鉱石はフィールド上の鉱脈から入手できます。
+また、手詰み防止のために、プレイヤーは時間はかかりますが、石材、木材はフィールド上の鉱脈から入手できます。
 ## コア
 コアはプレイヤーがコアにインタラクトすることで表示される、GUIを通じ、表示されるアイテムや資源を納品することで、[**研究**](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究)**済みの重要な**新しいブロックやアイテムなどをアンロックできます。
 **重要でないものは必要ありません**
@@ -66,6 +66,30 @@
 敵の拠点自体はWave時以外の時でも攻撃可能です。
 また、敵の拠点を破壊することで、そこにある資材やブロックを解体することで、資材の入手が可能です。
 ## 資源
+- [ランク](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ランク)
+- [出現確立](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#出現確立)
+### ランク
+資源ごとのランクについて解説していきます。
+効率、耐久力は主にツールや機械に影響し、
+耐熱性、放熱性はオーバーヒート関連で、
+回路化欄で、回路に出来るかどうか、
+またその際の効率もこの表の効率に影響します。
+#### クラフト可能なもの
+クラフトが可能なもの(つまり、燃料や製錬前の資材を除く)
+
+|資源名|効率|耐久力|耐熱性|放熱性|回路化|
+|:------|:------|:------|:------|:------|:------|
+|木材|1|1|0.1|0.001|:x:|
+|石|2|2|2|2|0.01|:x:|
+|石材|3|5|3|0.01|:x:|
+|銅|5|10|10|4|:white_check_mark:|
+|鉄|5|15|15|0.8|:x:|
+|金|15|7|15|2|:white_check_mark:|
+|ダイヤモンド|10|50|35|20|:white_check_mark:|
+#### クラフト不可能なもの
+クラフト不可能なもの(つまり燃料など。)
+**製錬前の資源は使い道ない**ので表記しません
+### 出現確立
 資源の出現確立などを説明します
 
 |資源名|出現確立|出現規模|説明|プレイヤー破壊|
@@ -76,7 +100,7 @@
 |銅鉱石|普通|中規模|[銅鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#銅鉱石)|:x:|
 |鉄鉱石|普通|小規模~中規模|[鉄鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#鉄鉱石)|:x:|
 |金鉱石|低い|小規模|[金鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#金鉱石)|:x:|
-|ダイアモンド鉱石|かなり稀|ごく小規模~小規模|[ダイアモンド鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイアモンド鉱石)|:x:|
+|ダイヤモンド鉱石|かなり稀|ごく小規模~小規模|[ダイヤモンド鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイヤモンド鉱石)|:x:|
 ### 木材
 林・森としてワールド中に存在する基本資源。
 多くの場合、燃料として使用されるか、加工されて[コークス](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#コークス)になる。
@@ -84,7 +108,7 @@
 木材を加工する以外にはこのアイテムを入手する方法はなく、多くの場合木材よりも**効率が良い燃料**として用いられる。
 ### 石
 石は土以外の地面を主に構成する。
-初期は重宝する。
+多くの場合、**クラフトには用いられない**(形が不ぞろいであるため)
 また、加工することで[石材](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#石材)になる。
 ### 石材
 機械の大半の原材料となるもの。
@@ -119,9 +143,9 @@
 ダイアモンド除くその他すべての素材よりも熱伝導率が良い。
 銅鉱石より上位の素材として基盤にも用いられる。
 また、その際は[中グレード回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#中グレード回路)ができる。
-### ダイアモンド鉱石
-製錬すると[ダイアモンド](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイアモンド)になる
-### ダイアモンド
+### ダイヤモンド鉱石
+製錬すると[ダイヤモンド](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイヤモンド)になる
+### ダイヤモンド
 全ての素材、全ての面において最強の素材。
 耐久力もよく、熱伝導率がとてつもなく良い。
 回路にすることもでき、[高グレード回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#高グレード回路)を作成できる。
@@ -157,7 +181,7 @@
 金を用いて作られる回路のグレード
 回路図通りの機能が使用できる。
 ### 高グレード回路
-ダイアモンドを用いて作られる回路のグレード
+ダイヤモンドを用いて作られる回路のグレード
 回路図よりも上位、または別の機能も併せて使用できる。
 ## 研究
 研究装置によってたまった、メカニカルポイントを[研究端末](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究端末)で使用し、研究する。
