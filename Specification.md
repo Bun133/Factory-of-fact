@@ -22,9 +22,9 @@
       - [消費](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#消費)
       - [発電機器](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#発電機器)
     - [液体](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#液体)
-    - [回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#回路)
-    - [研究](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究)
-      - [研究装置](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究装置)
+    - [回路](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#回路)
+    - [研究](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究)
+      - [研究装置](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究装置)
     - [アイテム](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#アイテム)
     - [ブロック](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.mdブロック)
   - [仕様(不可視範囲)](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#仕様(不可視範囲))
@@ -76,7 +76,7 @@
 <br>
 また、インベントリーでプレイヤーは[クラフト](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#クラフト)できます。
 ## コア
-コアはプレイヤーがコアにインタラクトすることで表示される、GUIを通じ、表示されるアイテムや資源を納品することで、[**研究**](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究)**済みの重要な**新しいブロックやアイテムなどをアンロックできます。<br>
+コアはプレイヤーがコアにインタラクトすることで表示される、GUIを通じ、表示されるアイテムや資源を納品することで、[**研究**](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究)**済みの重要な**新しいブロックやアイテムなどをアンロックできます。<br>
 **重要でないものは必要ありません**<br>
 要求されるアイテムはランクが上がるにつれ、高価なものが要求されます。
 ## 敵
@@ -86,8 +86,8 @@
 敵の拠点自体はWave時以外の時でも攻撃可能です。<br>
 また、敵の拠点を破壊することで、そこにある資材やブロックを解体することで、資材の入手が可能です。
 ## 資源
-- [ランク](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ランク)
-- [出現確立](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#出現確立)
+- [ランク](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#ランク)
+- [出現確立](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#出現確立)
 ### ランク
 資源ごとのランクについて解説していきます。
 効率、耐久力は主にツールや機械に影響し、
@@ -124,35 +124,35 @@
 
 |資源名|出現確立|出現規模|説明|プレイヤー破壊|
 |:-------|:-------|:--------|:-------|:-----|
-|木材|高い|小規模~大規模|[木材](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#木材)|:white_check_mark:|
-|石|かなり高い|大規模|[石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#石)|:white_check_mark:|
-|石炭|普通|小規模~中規模|[石炭](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#石炭)|:white_check_mark:|
-|銅鉱石|普通|中規模|[銅鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#銅鉱石)|:x:|
-|鉄鉱石|普通|小規模~中規模|[鉄鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#鉄鉱石)|:x:|
-|金鉱石|低い|小規模|[金鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#金鉱石)|:x:|
-|ダイヤモンド鉱石|かなり稀|ごく小規模~小規模|[ダイヤモンド鉱石](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイヤモンド鉱石)|:x:|
+|木材|高い|小規模~大規模|[木材](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#木材)|:white_check_mark:|
+|石|かなり高い|大規模|[石](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#石)|:white_check_mark:|
+|石炭|普通|小規模~中規模|[石炭](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#石炭)|:white_check_mark:|
+|銅鉱石|普通|中規模|[銅鉱石](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#銅鉱石)|:x:|
+|鉄鉱石|普通|小規模~中規模|[鉄鉱石](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#鉄鉱石)|:x:|
+|金鉱石|低い|小規模|[金鉱石](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#金鉱石)|:x:|
+|ダイヤモンド鉱石|かなり稀|ごく小規模~小規模|[ダイヤモンド鉱石](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#ダイヤモンド鉱石)|:x:|
 
 ### コークス
 木材を加工する以外にはこのアイテムを入手する方法はなく、多くの場合木材よりも**効率が良い燃料**として用いられる。
 ### 石
 石は土以外の地面を主に構成する。<br>
 多くの場合、**クラフトには用いられない**(形が不ぞろいであるため)<br>
-また、加工することで[石材](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#石材)になる。
+また、加工することで[石材](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#石材)になる。
 
 ### 銅鉱石
 フィールド上から採掘できる。<br>
-[溶鉱炉](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#溶鉱炉)で製錬することで、[銅](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#銅)になる
+[溶鉱炉](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#溶鉱炉)で製錬することで、[銅](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#銅)になる
 
 ### 鉄鉱石
 フィールド上に出現するものを採掘することで得られる。<br>
-この状態では利用することができず、[溶鉱炉](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#溶鉱炉)を通して[鉄](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#鉄)にする必要がある
+この状態では利用することができず、[溶鉱炉](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#溶鉱炉)を通して[鉄](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#鉄)にする必要がある
 
 ### 金鉱石
 フィールド上から採掘できる。
-[溶鉱炉](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#溶鉱炉)で製錬すると[金](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#金)になる。
+[溶鉱炉](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#溶鉱炉)で製錬すると[金](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#金)になる。
 
 ### ダイヤモンド鉱石
-製錬すると[ダイヤモンド](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#ダイヤモンド)になる
+製錬すると[ダイヤモンド](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#ダイヤモンド)になる
 
 ## 機械
 
@@ -192,9 +192,9 @@
 多くの場合、初めて目にするであろう液体です。<br>
 多くの場合は加熱してスチームにするか、冷却用として使います。
 ## 回路
-基盤と回路図、素材を[電子プリンター](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#電子プリンター)を用いて作成できる。<br>
+基盤と回路図、素材を[電子プリンター](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#電子プリンター)を用いて作成できる。<br>
 ### 回路図
-回路図は[研究](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究)でアンロックできる。
+回路図は[研究](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究)でアンロックできる。
 作成は必要ない。(と、私のBrainが言っている。)<br>
 アンロックされるものに応じて回路と合わせての組み立て後の機能が違ってくる。
 ### 低グレード回路
@@ -207,13 +207,13 @@
 ダイヤモンドを用いて作られる回路のグレード<br>
 回路図よりも上位、または別の機能も併せて使用できる。
 ## 研究
-研究装置によってたまった、メカニカルポイントを[研究端末](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#研究端末)で使用し、研究する。<br>
-高グレード帯や、重要なアイテムなどは使用時に[コア](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#コア)への納品が必要である。
+研究装置によってたまった、メカニカルポイントを[研究端末](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究端末)で使用し、研究する。<br>
+高グレード帯や、重要なアイテムなどは使用時に[コア](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#コア)への納品が必要である。
 ### 研究装置
 #### 研究端末
 現在取得している技術を中心に発展内容がツリー状に表示されれる。<br>
 アンロックするときは、メカニカルポイントを用意し、習得したい技術をクリックし、「習得」と書かれたボタンを押す。<br>
-また、モノによっては[コア](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#コア)で納品の必要がある。
+また、モノによっては[コア](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#コア)で納品の必要がある。
 #### スパコン
 恐ろしい量の計算ができる。<br>
 また、大量の電気を使用する。<br>
@@ -223,7 +223,7 @@
 
 ### 木材
 林・森としてワールド中に存在する基本資源。
-多くの場合、燃料として使用されるか、加工されて[コークス](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#コークス)になる。
+多くの場合、燃料として使用されるか、加工されて[コークス](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#コークス)になる。
 ### 石材
 機械の大半の原材料となるもの。<br>
 石を採掘し、加工することによって得られる。<br>
@@ -237,7 +237,7 @@
 ### 銅
 銅は主に鉄に変わる廉価な素材として扱われる。<br>
 ただし、鉄と違い回路に用いることができる。<br>
-また、その際は[低グレード回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#低グレード回路)ができる。
+また、その際は[低グレード回路](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#低グレード回路)ができる。
 ### 鉄
 鉄鉱石を製錬することで得られる。<br>
 多くの場合、石材で作られたもののアップグレードとして利用できる。<br>
@@ -247,11 +247,11 @@
 鉄よりも上位の素材だが、耐久力が乏しい。<br>
 ダイアモンド除くその他すべての素材よりも熱伝導率が良い。<br>
 銅鉱石より上位の素材として基盤にも用いられる。<br>
-また、その際は[中グレード回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#中グレード回路)ができる。
+また、その際は[中グレード回路](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#中グレード回路)ができる。
 ### ダイヤモンド
 全ての素材、全ての面において最強の素材。<br>
 耐久力もよく、熱伝導率がとてつもなく良い。<br>
-回路にすることもでき、[高グレード回路](https://github.com/Bun133/Factory-of-fact/edit/div/Specification.md#高グレード回路)を作成できる。<br>
+回路にすることもでき、[高グレード回路](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#高グレード回路)を作成できる。<br>
 また、その回路を使用してスパコンを作成できる
 ## ブロック
 
