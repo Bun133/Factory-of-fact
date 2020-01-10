@@ -1,0 +1,13 @@
+name=TestMap
+seed=00000000000
+schunkx=<スポーンチャンクX座標>
+schunky=<スポーンチャンクY座標>
+sposx=<スポーン位置X座標>
+sposy=<スポーン位置Y座標>
+difficulty=<難易度>
+xlimitpos=<X軸方向(正)のワールド制限(チャンク)>
+xlimitneg=<X軸方向(負)のワールド制限(チャンク)>
+ylimitpos=<Y軸方向(正)のワールド制限(チャンク)>
+ylimitneg=<Y軸方向(負)のワールド制限(チャンク)>
+version=<ゲームバージョン>
+dataversion=<フォーマットバージョン>

@@ -2,6 +2,7 @@ package file;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,7 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import assets.exception.CantCastToInt;
 import assets.exception.CantCastToLong;
+import assets.exception.CantCastToShort;
 import assets.exception.Indexalreadyused;
 import assets.exception.Indexnotsetup;
 
@@ -23,6 +26,8 @@ public class Filemaster {
 	public int[] usedarrayindex;
 	public Image[] images;
 	public String[] name;
+	public ByteBuffer[] bbs;
+
 
 
 	/**
@@ -83,6 +88,7 @@ public class Filemaster {
 		setPath(path,index);
 		setFiler(onetimefile,index);
 		if (getextension(index)=="bmp" || getextension(index)=="png") setImage(index);
+		//if (getextension(index)=="") setbytebuffer(index);
 		//name[index]=getname(onetimefile);
 	}
 /*
@@ -150,6 +156,11 @@ public class Filemaster {
 		return response;
 	}
 
+	/**
+	 * @apinote byte[]toint[]
+	 * @param b
+	 * @return
+	 */
 	public int[] bytearraytointarray(byte[] b) {
 			int [] response = new int[b.length];
 			for (int c=0;c!=b.length;c++){
@@ -297,12 +308,12 @@ public class Filemaster {
 	/**
 	 * @apinote leftのカウントは左から1から始まります
 	 * @apiNote 一番左の欲しいビットまでカウントしてください
-	 * @param b
+	 * @param i
 	 * @param left
 	 * @return
 	 */
-	public int getbytenum_l(byte b,int left) {
-		return b << (left-1);
+	public long getbytenum_l(long i,int left) {
+		return (i << (left-1)) >>> (left-1);
 	}
 	/**
 	 * @apinote
@@ -311,21 +322,23 @@ public class Filemaster {
 	 * @param right
 	 * @return
 	 */
-	public int getbytenum_r(byte b,int right) {
-		return b >>> (right-1);
+	public long getbytenum_r(long i,int right) {
+		return (i >>> (right-1)) << (right-1);
 	}
 
 	/**
 	 * @apinote 成功するかは知らん
-	 * @param b
+	 * @param i
 	 * @param left
 	 * @param right
 	 * @return
 	 */
-	public int getbytenum(byte b,int left,int right) {
-		return getbytenum_r((byte) getbytenum_l(b,left),right+1);
+	public long getbytenum(long i,int left,int right) {
+		return getbytenum_r(getbytenum_l(i,left),right+1);
 
 	}
+
+
 
 	public int getintnum(int data,int left,int right) {
 		String onetime;
@@ -336,4 +349,97 @@ public class Filemaster {
 
 
 
+
+	/**
+	 * @deprecated
+	 * @apinote indexから最初の行を読みます。
+	 * @apinote 主にbitで読む用
+	 * @param index
+	 * @return
+	 * @throws IOException
+	 */
+	public String readline(int index) throws IOException {
+		BufferedReader BR=new BufferedReader(getFileReader(index));
+		return BR.readLine();
+	}
+	/**
+	 * @deprecated
+	 * @param index
+	 * @return
+	 * @throws IOException
+	 */
+	public byte[] getbytearray(int index) throws IOException {
+
+		return readline(index).getBytes();
+	}
+
+	public int[] getintarray(byte[] b) throws IOException {
+		int[] onetime=new int[b.length];
+		int cnt=0;
+		do {
+			onetime[cnt]=ByteBuffer.wrap(b).getInt();
+			cnt++;
+		}
+		while(onetime[cnt]!=0);
+
+
+		return onetime;
+
+	}
+
+	public byte[] getbyte(String str) {
+		return str.getBytes();
+	}
+
+	public long makelong(byte[] data) throws CantCastToLong{
+		if (data.length!=8) throw new CantCastToLong(data.length);
+		ByteBuffer BB=ByteBuffer.allocate(64);
+		for (int cnt=0;cnt!=8;cnt++) {
+			BB.put(data[cnt]);
+		}
+		BB.flip();
+		return BB.getLong();
+	}
+
+	public long makelong(byte[] data,int left) {
+		byte[] onetime=new byte[8];
+		for (int cnt=0;cnt!=8;cnt++) {
+			onetime[cnt]=data[cnt+left];
+		}
+		return makelong(onetime);
+	}
+
+	public int makeint(byte[] data) {
+		if (data.length!=4) throw new CantCastToInt(data.length);
+		ByteBuffer BB=ByteBuffer.allocate(32);
+		for (int cnt=0;cnt!=4;cnt++) {
+			BB.put(data[cnt]);
+		}
+		BB.flip();
+		return BB.getInt();
+	}
+
+	public int makeint(byte[] data,int left) {
+		byte[] onetime=new byte[4];
+		for (int cnt=0;cnt!=4;cnt++) {
+			onetime[cnt]=data[cnt+left];
+		}
+		return makeint(onetime);
+	}
+
+	public short makeshort(byte[] data) {
+		if (data.length!=2) throw new CantCastToShort(data.length);
+		ByteBuffer BB=ByteBuffer.allocate(16);
+		BB.put(data[0]);
+		BB.put(data[1]);
+		BB.flip();
+		return BB.getShort();
+	}
+
+	public short makeshort(byte[] data,int left) {
+		byte[] onetime=new byte[2];
+		onetime[0]=data[left];
+		onetime[1]=data[left+1];
+		return makeshort(onetime);
+	}
 }
