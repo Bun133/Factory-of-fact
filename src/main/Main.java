@@ -31,7 +31,7 @@ public class Main extends JFrame{
 		AtKeyEvent atk=new KeyVanilla();
 
 		//Mdmは仕方ないよなあ？
-		Mapdrawmanager Mdm=new Mapdrawmanager(JFT);
+		Mapdrawmanager Mdm=new Mapdrawmanager(JFT,TM);
 		try {
 			TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0,"FactoryofFact:logo");
 			TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1,"FactoryofFact:sand");
@@ -56,7 +56,8 @@ public class Main extends JFrame{
 
 		//Main loop↓
 		for(;;) {
-			JFT.drawImage(TM.gettexture("FactoryofFact:OhNo"), 0, 0);
+			Mdm.draw();
+			//JFT.drawImage(TM.gettexture("FactoryofFact:OhNo"), 0, 0);
 			//JFT.drawImage(Fm.getImage(2),0,0);
 		}
 	}

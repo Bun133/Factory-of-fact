@@ -3,20 +3,33 @@ package map;
 import java.io.File;
 
 public class Map {
-	private Chunk[] right_up; // +x,+y
-	private Chunk[] left_up;// -x +y
-	private Chunk[] right_down;// +x -y
-	private Chunk[] left_down;//-x -y
+	private Chunk[] right_up=new Chunk[100]; // +x,+y
+	private Chunk[] left_up=new Chunk[100];// -x +y
+	private Chunk[] right_down=new Chunk[100];// +x -y
+	private Chunk[] left_down=new Chunk[100];//-x -y
 
 	public Map(File mapfile) {
 
 	}
 
-	public void set(int chunk_x,int chunk_y,int x,int y,long num) {
+	public Map() {
+		for(int cnt=0;cnt!=10;cnt++) {
+			right_up[cnt]=new Chunk();
+			left_up[cnt]=new Chunk();
+			right_down[cnt]=new Chunk();
+			left_down[cnt]=new Chunk();
+		}
+	}
+
+	public void setBlock(int chunk_x,int chunk_y,int x,int y,long num) {
 		getpos(chunk_x,chunk_y)[getposnum(chunk_x,chunk_y)].setblock(x,y,num);
 	}
 
-	public long getblockdata(int chunk_x,int chunk_y,int x,int y) {
+	public void setBlock(int chunk_x,int chunk_y,int x,int y,Block num) {
+		getpos(chunk_x,chunk_y)[getposnum(chunk_x,chunk_y)].setblock(x,y,num);
+	}
+
+	public Block getblockdata(int chunk_x,int chunk_y,int x,int y) {
 		return getChunk(chunk_x,chunk_y).getBlockdata(x, y);
 	}
 
@@ -25,6 +38,9 @@ public class Map {
 	}
 
 	private Chunk[] getpos(int Chunk_x,int Chunk_y) {
+		if(Chunk_x==0 && Chunk_y==0) {
+			return right_up;
+		}
 		if (Chunk_x>0) {
 			if (Chunk_y>0) {
 				return right_up;
@@ -46,6 +62,9 @@ public class Map {
 		}
 		if (chunk_y<0) {
 			chunk_y=chunk_y*-1;
+		}
+		if (chunk_x==0 && chunk_y==0) {
+			return 0;
 		}
 		int one_x=chunk_x;
 		int one_y=chunk_y;
