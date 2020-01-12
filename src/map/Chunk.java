@@ -40,11 +40,7 @@ public class Chunk {
 	}
 
 	public int getposy(int num) {
-		if (num%30==0){
-			return num/30+1;
-		}else {
-			return num/30;
-		}
+		return num/30;
 	}
 
 
