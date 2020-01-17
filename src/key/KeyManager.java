@@ -94,31 +94,32 @@ public class KeyManager implements KeyListener{
 
 		J.addKeyListener(this);
 	}
-	public void tick(KeyEvent e) {
-		for (int cnt = 0; cnt < key.length; cnt++) {
-			if (key[cnt]==false) {
-				continue;
-			}
-			for(int len=0;len!=AtKeyEvent.length;len++) {
-			AtKeyEvent[len].run(e);
-			}
-			key[cnt]=false;
+	public void tick() {
+		for(int c=0;c!=AtKeyEvent.length;c++) {
+			throwKey(AtKeyEvent[c],es);
 		}
-
-
-
 		clearKeyEventCollecter();
+	}
+
+	public void throwKey(AtKeyEvent Atk,KeyEvent[] es) {
+		//System.out.println("throwed");
+		if(Atk==null) return;
+		int cnt=0;
+		for(;cnt!=es.length;cnt++) {
+			if (es[cnt]==null) continue;
+			System.out.println("KeyManager:"+es[cnt].getKeyChar()+" is Pressed");
+			Atk.run(es[cnt]);
+		}
 	}
 
 	public void addclass(AtKeyEvent atk) {
 		int cnt=0;
-		while(AtKeyEvent[cnt]!=null) {
-			cnt++;
+		for(;AtKeyEvent[cnt]!=null;cnt++) {
 		}
 		if (cnt==AtKeyEvent.length || cnt>AtKeyEvent.length) {
 			System.out.println("aaaaa");
+			return;
 		}
-
 		AtKeyEvent[cnt]=atk;
 	}
 	@Override
@@ -128,41 +129,39 @@ public class KeyManager implements KeyListener{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		key[getkeyid(e.getKeyCode())]=true;
-
-		tick(e);
-
+		//System.out.println("Pressed");
+		//key[getkeyid(e.getKeyCode())]=true;
+		KeyEventCollecter(e);
+		tick();
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 
 
 	}
-	public String getkeyString(int num) {
+	/*public String getkeyString(int num) {
 		return keys[num];
-	}
+	}*/
 
-	public int getkeyid(int keycode) {
+	/*public int getkeyid(int keycode) {
 		int c=0;
 		while(keycode==keys_int[c]) {
 			c++;
 		}
 		if (c==All_keys+1) {
 			System.out.println("Null");
-			return (Integer)null;
+			return -1;
 		}
 		return c;
-	}
+	}*/
 
 	public void KeyEventCollecter(KeyEvent e) {
 		int cnt=0;
-		while(es[cnt]==null) {
-			cnt++;
-		}
-		if (cnt==es.length) {
-			System.out.println("fooooo!");
+		for(;cnt!=es.length;cnt++) {
+			if (es[cnt]==null) break;
 		}
 		es[cnt]=e;
+		//System.out.println(e);
 	}
 
 	private void clearKeyEventCollecter() {
