@@ -98,7 +98,7 @@ public class KeyManager implements KeyListener{
 		for(int c=0;c!=AtKeyEvent.length;c++) {
 			throwKey(AtKeyEvent[c],es);
 		}
-		clearKeyEventCollecter();
+		//clearKeyEventCollecter();
 	}
 
 	public void throwKey(AtKeyEvent Atk,KeyEvent[] es) {
@@ -107,7 +107,7 @@ public class KeyManager implements KeyListener{
 		int cnt=0;
 		for(;cnt!=es.length;cnt++) {
 			if (es[cnt]==null) continue;
-			System.out.println("KeyManager:"+es[cnt].getKeyChar()+" is Pressed");
+			System.out.println("KeyManager:"+"\""+es[cnt].getKeyChar()+"\" is Pressed");
 			Atk.run(es[cnt]);
 		}
 	}
@@ -117,7 +117,6 @@ public class KeyManager implements KeyListener{
 		for(;AtKeyEvent[cnt]!=null;cnt++) {
 		}
 		if (cnt==AtKeyEvent.length || cnt>AtKeyEvent.length) {
-			System.out.println("aaaaa");
 			return;
 		}
 		AtKeyEvent[cnt]=atk;
@@ -131,13 +130,12 @@ public class KeyManager implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		//System.out.println("Pressed");
 		//key[getkeyid(e.getKeyCode())]=true;
-		KeyEventCollecter(e);
+		KeyEventPressedCollecter(e);
 		tick();
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-
-
+		KeyEventRelesedCollecter(e);
 	}
 	/*public String getkeyString(int num) {
 		return keys[num];
@@ -155,13 +153,13 @@ public class KeyManager implements KeyListener{
 		return c;
 	}*/
 
-	public void KeyEventCollecter(KeyEvent e) {
-		int cnt=0;
-		for(;cnt!=es.length;cnt++) {
-			if (es[cnt]==null) break;
-		}
-		es[cnt]=e;
+	public void KeyEventPressedCollecter(KeyEvent e) {
+		es[e.getKeyCode()]=e;
 		//System.out.println(e);
+	}
+
+	public void KeyEventRelesedCollecter(KeyEvent e) {
+		es[e.getKeyCode()]=null;
 	}
 
 	private void clearKeyEventCollecter() {

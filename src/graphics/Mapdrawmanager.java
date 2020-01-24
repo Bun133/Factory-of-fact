@@ -65,8 +65,9 @@ public class Mapdrawmanager{
 		posChunkupdate(x,y);
 	}
 
-	public void posChunkupdate(int x,int y) {
-
+	private void posChunkupdate(int x,int y) {
+		posChunkx=Map.getChunkx(x);
+		posChunky=Map.getChunky(y);
 	}
 
 

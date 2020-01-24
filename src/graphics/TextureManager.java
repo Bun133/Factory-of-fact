@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import assets.exception.Indexalreadyused;
 import file.Filemaster;
+import map.Block;
 
 public class TextureManager {
 	private Filemaster Fm;
@@ -42,5 +43,9 @@ public class TextureManager {
 
 	public Image gettexture(String id) {
 		return gettexture(getnum_from_id(id));
+	}
+
+	public Image gettexture(Block block) {
+		return gettexture(block.getTextureid());
 	}
 }

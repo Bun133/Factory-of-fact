@@ -8,9 +8,12 @@ public class Block {
 	private int Texture;
 	private String Textureid;
 	private long data;
+
+	private final int Default_Texture=2;
+	private final String Default_Textureid="FactoryofFact:OhNo";
 	public Block() {
-		Texture=2;
-		Textureid="FactoryofFact:OhNo";
+		Texture=Default_Texture;
+		Textureid=Default_Textureid;
 	}
 
 	public Block(int Texture_,String id) {

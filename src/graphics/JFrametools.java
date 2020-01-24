@@ -1,6 +1,7 @@
 package graphics;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -70,6 +71,14 @@ public class JFrametools extends JFrame{
 
 	public void fillRect(int x,int y,int W,int H) {
 		getGraphics().fillRect(x, y, W, H);
+
+	}
+
+	public void fillRect(Color color,int x,int y,int W,int H) {
+		Color now=getColor();
+		setColor(color);
+		getGraphics().fillRect(x, y, W, H);
+		setColor(now);
 
 	}
 	public void repaint(JFrame J) {
@@ -172,6 +181,29 @@ public class JFrametools extends JFrame{
 		dispose();
 		J.setUndecorated(b);
 		J.setVisible(true);
-
 	}
+
+	public void drawString(String s,int x,int y) {
+		getGraphics().drawString(s,x,y);
+	}
+
+	public void drawString(Font font,String s,int x,int y) {
+		Font now=getFont();
+		setFont(font);
+		getGraphics().drawString(s, x, y);
+		setfont(now);
+	}
+
+	public void drawString(Font font,String s,int x,int y,Color c) {
+		Font now=getFont();
+		Color now_c=getColor();
+		setFont(font);
+		setColor(c);
+		drawString(s, x, y);
+		setfont(now);
+		setColor(now_c);
+	}
+
+	public Font getfont() {return getGraphics().getFont();}
+	public void setfont(Font f) {getGraphics().setFont(f);}
 }

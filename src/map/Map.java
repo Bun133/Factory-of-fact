@@ -75,5 +75,16 @@ public class Map {
 		return (one_x-1)/2*(2+(one_x-2)*2)+chunk_x;
 	}
 
+	public int getChunkx(int posx) {
+		return posx/30;
+	}
 
+	public int getChunky(int posy) {
+		return posy/30;
+	}
+
+
+	public Chunk getnowChunk(int posx,int posy) {
+		return getChunk(getChunkx(posx),getChunky(posy));
+	}
 }
