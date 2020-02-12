@@ -3,7 +3,7 @@
  * java.util.Randomの拡張版です
  * 乱数の周期を伸ばし、更にランダム性を高めました。
  *
- * @version 1.1
+ * @version 1.2
  * @author nyuto
  */
 
@@ -13,7 +13,7 @@ package assets.util;
 import java.nio.ByteBuffer;
 
 public class Random extends java.util.Random{
-	private static final long serialVersionUID = 20L;
+	private static final long serialVersionUID = 21L;
 
 	private long seed;
 
