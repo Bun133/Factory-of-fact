@@ -1,20 +1,25 @@
+package main;
 
-﻿package main;
-
-
+import java.awt.Color;
 import java.io.FileNotFoundException;
-import java.util.Random;
 
 import javax.swing.JFrame;
 
 import assets.exception.Indexalreadyused;
-import assets.exception.Indexnotsetup;
 import file.Filemaster;
+import graphics.Camera;
 
 //import graphics.GetFPS;
 
 import graphics.JFrametools;
+import graphics.Mapdrawmanager;
 import graphics.SetFPS;
+import graphics.TextureManager;
+import graphics.scene.Drawable;
+import graphics.scene.Scene;
+import key.AtKeyEvent;
+import key.KeyManager;
+import key.KeyVanilla;
 
 public class Main extends JFrame{
 	public static void main(String[] args) {
@@ -24,38 +29,48 @@ public class Main extends JFrame{
 		//GetFPS FPStools=new GetFPS();
 		SetFPS SetFPStools=new SetFPS();
 		SetFPStools.setMaxFPS(60);
-		//long time = 0;
-		Random r=new Random();
 		Filemaster Fm=new Filemaster(100);
+		TextureManager TM=new TextureManager(100);
+		KeyManager KM=new KeyManager(JFT.getJFrame());
+		//Mdmは仕方ないよなあ？
+		Mapdrawmanager Mdm=new Mapdrawmanager(JFT,TM);
+		Camera MainCamera=new Camera(Mdm);
+		AtKeyEvent VanillaKey=new KeyVanilla(MainCamera);
+		Scene AtMap=new Scene(JFT);
+
+
 		try {
-			Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
+			TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0,"FactoryofFact:logo");
+			TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1,"FactoryofFact:sand");
+			TM.addtexture("src\\assets\\textures\\blocks\\OhNo.png", 2,"FactoryofFact:OhNo");
+			TM.addtexture("src\\assets\\textures\\blocks\\stone.png",3,"FactoryofFact:stone");
+			TM.addtexture("src\\assets\\textures\\blocks\\water.png", 4,"FactoryofFact:water");
+			/*Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
+			Fm.newFilelistener("src\\assets\\textures\\blocks\\sand.png",1);
+			Fm.newFilelistener("src\\assets\\textures\\blocks\\OhNo.png",2);*/
+			Fm.newFilelistener("LICENSE",0);
 		} catch (FileNotFoundException | Indexalreadyused e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		try {
-			System.out.println(Fm.getImage(0));
-		} catch (Indexnotsetup e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+
+
+
+
+
+
+		//AtKeyEvent Class include
+		KM.addclass(VanillaKey);
+		//JFTsetFull
+		//JFT.setFull();
+
+
+		AtMap.addDrawable(new Drawable("Text",100,200,500,500,new Color(255,255,255),"Test",200),1);
+		//Main loop↓
+		for(;;){
+			AtMap.draw();
+			//MainCamera.draw();
+			//JFT.drawImage(TM.gettexture("FactoryofFact:OhNo"), 0, 0);
+			//JFT.drawImage(Fm.getImage(2),0,0);
 		}
-		for(int c=0;c!=1;){
-			JFT.setColor(r.nextInt(255),r.nextInt(255),r.nextInt(255));
-			JFT.fillRect(0, 0, 500, 500);
-			/*
-			try {
-				SetFPStools.Force_wait(time);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println(FPStools.getFPS(time));
-			time=System.currentTimeMillis();
-			*/
-		}
-
-
-
-
 	}
-
 }

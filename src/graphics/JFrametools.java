@@ -1,8 +1,12 @@
 package graphics;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
@@ -69,11 +73,21 @@ public class JFrametools extends JFrame{
 		getGraphics().fillRect(x, y, W, H);
 
 	}
+
+	public void fillRect(Color color,int x,int y,int W,int H) {
+		Color now=getColor();
+		setColor(color);
+		getGraphics().fillRect(x, y, W, H);
+		setColor(now);
+
+	}
 	public void repaint(JFrame J) {
 		J.repaint();
 	}
 	/**
 	 * @author nyuto
+	 * @deprecated
+	 * @apiNote 特別書く必要ありません
 	 */
 	@Override
 	public void repaint() {
@@ -91,6 +105,10 @@ public class JFrametools extends JFrame{
 
 	public int getWindow_x() {
 		return J.getWidth();
+	}
+
+	public String gettitle() {
+		return J.getTitle();
 	}
 
 	public void clear() {
@@ -122,5 +140,70 @@ public class JFrametools extends JFrame{
 	}
 
 
+	public void drawImage(Image image,int x,int y) {
+		getGraphics().drawImage(image,x,y,null);
+	}
 
+	public void drawImage(Image image,int x,int y,int w,int h) {
+		getGraphics().drawImage(image,x,y,w,y,null);
+	}
+
+
+	public void drawImage(Image image,int x,int y,double image_x,double image_y) {
+		drawImage(image,x,y,(int)image_x,(int)image_y);
+	}
+	public void drawImage(Image image,int x,int y,double d) {
+		int image_x=0;
+		int image_y=0;
+		image_x=image.getWidth(null);
+		image_y=image.getHeight(null);
+		drawImage(image,x,y,image_x*d,image_y*d);
+	}
+
+
+	public void setWindowsize(int x,int y) {
+		J.setSize(x,y);
+	}
+
+	public void setFull() {
+		setUndecorated(true);
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		device.setFullScreenWindow(J);
+	}
+
+	public void disableFull() {
+		setUndecorated(false);
+		GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		device.setFullScreenWindow(null);
+	}
+
+	public void setUndecorated(Boolean b) {
+		dispose();
+		J.setUndecorated(b);
+		J.setVisible(true);
+	}
+
+	public void drawString(String s,int x,int y) {
+		getGraphics().drawString(s,x,y);
+	}
+
+	public void drawString(Font font,String s,int x,int y) {
+		Font now=getFont();
+		setFont(font);
+		getGraphics().drawString(s, x, y);
+		setfont(now);
+	}
+
+	public void drawString(Font font,String s,int x,int y,Color c) {
+		Font now=getFont();
+		Color now_c=getColor();
+		setFont(font);
+		setColor(c);
+		drawString(s, x, y);
+		setfont(now);
+		setColor(now_c);
+	}
+
+	public Font getfont() {return getGraphics().getFont();}
+	public void setfont(Font f) {getGraphics().setFont(f);}
 }
