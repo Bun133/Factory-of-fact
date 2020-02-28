@@ -1,22 +1,13 @@
 package file;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import assets.exception.*;
+
+import java.awt.*;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import assets.exception.CantCastToInt;
-import assets.exception.CantCastToLong;
-import assets.exception.CantCastToShort;
-import assets.exception.Indexalreadyused;
-import assets.exception.Indexnotsetup;
 
 public class Filemaster {
 	public File[] files;
@@ -292,7 +283,6 @@ public class Filemaster {
 
 	/**
 	 * @apinote pathからbyte[]読み込み
-	 * @param bytenum
 	 * @param path
 	 * @return
 	 * @throws IOException

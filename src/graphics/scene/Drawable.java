@@ -134,6 +134,7 @@ public class Drawable {
 			case "Text":
 				draw_background(JFT);
 				JFT.drawString(font, Text, pos_x, pos_y, new Color(0, 0, 0));
+				System.out.println("GraphicsのdrawStringは推奨されていません");
 				break;
 			case "Image":
 				JFT.drawImage(Picture, pos_x, pos_y);

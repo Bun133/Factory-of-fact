@@ -13,7 +13,6 @@ import key.KeyManager;
 import key.KeyVanilla;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -35,16 +34,16 @@ public class Main extends JFrame {
         //Mdmは仕方ないよなあ？
         Mapdrawmanager Mdm = new Mapdrawmanager(JFT, TM);
         Camera MainCamera = new Camera(Mdm);
-        AtKeyEvent VanillaKey = new KeyVanilla(MainCamera);
-		Scene AtMap = new Scene(JFT);
+        AtKeyEvent VanillaKey = new KeyVanilla(Mdm);
+        Scene AtMap = new Scene(JFT);
 
 
-		try {
-			TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png", 0, "FactoryofFact:logo");
-			TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1, "FactoryofFact:sand");
-			TM.addtexture("src\\assets\\textures\\blocks\\OhNo.png", 2, "FactoryofFact:OhNo");
-			TM.addtexture("src\\assets\\textures\\blocks\\stone.png", 3, "FactoryofFact:stone");
-			TM.addtexture("src\\assets\\textures\\blocks\\water.png", 4, "FactoryofFact:water");
+        try {
+            TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png", 0, "FactoryofFact:logo");
+            TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1, "FactoryofFact:sand");
+            TM.addtexture("src\\assets\\textures\\blocks\\OhNo.png", 2, "FactoryofFact:OhNo");
+            TM.addtexture("src\\assets\\textures\\blocks\\stone.png", 3, "FactoryofFact:stone");
+            TM.addtexture("src\\assets\\textures\\blocks\\water.png", 4, "FactoryofFact:water");
 			/*Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
 			Fm.newFilelistener("src\\assets\\textures\\blocks\\sand.png",1);
 			Fm.newFilelistener("src\\assets\\textures\\blocks\\OhNo.png",2);*/
@@ -60,7 +59,7 @@ public class Main extends JFrame {
         //JFT.setFull();
 
 
-        AtMap.addDrawable(new Drawable("Text", 100, 200, 500, 500, new Color(255, 255, 255), "Test", 200), 1);
+        //AtMap.addDrawable(new Drawable("Text", 100, 200, 500, 500, new Color(255, 255, 255), "Test", 200), 1);
 
         AtMap.addDrawable(new Drawable(Mdm), 0);
 

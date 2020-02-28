@@ -83,6 +83,20 @@ public class Map {
 		return posy / 30;
 	}
 
+	public Chunk[] getChunks(MapPos left_up, MapPos right_down) {
+		return getChunks(left_up.Pos_x, left_up.Pos_y, right_down.Pos_x, right_down.Pos_y);
+	}
+
+	public Chunk[] getChunks(int left, int up, int right, int down) {
+		Chunk[] Onetime = new Chunk[(right - left) * (down - up)];
+		for (int x = 1; x != right - left + 1; x++) {
+			for (int y = 1; y != down - up + 1; y++) {
+				Onetime[x * y] = getChunk(x, y);
+			}
+		}
+		return Onetime;
+	}
+
 	/*private Chunk[] right_up=new Chunk[100]; // +x,+y
 	private Chunk[] left_up=new Chunk[100];// -x +y
 	private Chunk[] right_down=new Chunk[100];// +x -y
