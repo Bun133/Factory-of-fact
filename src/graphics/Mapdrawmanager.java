@@ -1,18 +1,20 @@
 package graphics;
 
+import graphics.scene.Draw;
 import map.Block;
 
-public class Mapdrawmanager{
+public class Mapdrawmanager extends Draw {
 	private JFrametools JFT;
 	private map.Map Map;
-	private int Cansee=1;
+	private int Cansee = 1;
 	private TextureManager TM;
-	private int posx=0;
-	private int posy=0;
-	private int posChunkx=0;
-	private int posChunky=0;
-	public Mapdrawmanager(JFrametools JFT_,TextureManager TM_){
-		JFT=JFT_;
+	private int posx = 0;
+	private int posy = 0;
+	private int posChunkx = 0;
+	private int posChunky = 0;
+
+	public Mapdrawmanager(JFrametools JFT_, TextureManager TM_) {
+		JFT = JFT_;
 		TM=TM_;
 		System.out.println("YOU SHOULD \"loadmap\" AT First!");
 		Map=new map.Map();

@@ -2,6 +2,8 @@ package graphics.scene;
 
 import graphics.JFrametools;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Scene {
 	private Drawable[] Drawables = new Drawable[100];
 	private JFrametools JFT;
@@ -17,11 +19,11 @@ public class Scene {
 
 	;
 
-	private void add_Drawable(Drawable d,int num) {
+	private void add_Drawable(Drawable d, int num) {
 		Drawables[num] = d;
 	}
 
-	public void draw() {
+	public void draw() throws InvocationTargetException, IllegalAccessException {
 		for (int cnt = 0; cnt != Drawables.length; cnt++) {
 			if (Drawables[cnt] == null) continue;
 			Drawables[cnt].draw(JFT);
