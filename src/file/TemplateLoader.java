@@ -1,40 +1,41 @@
 package file;
 
+import assets.exception.Indexalreadyused;
+import assets.exception.NotMatch;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Properties;
 
-import assets.exception.Indexalreadyused;
-import assets.exception.NotMatch;
 /**
- * @version 1.0
  * @author Bun133
- *
+ * @version 1.0
  */
 public class TemplateLoader {
-	private Filemaster Fm=new Filemaster(100);
+	private Filemaster Fm = new Filemaster(100);
+
 	//loadセクション
-	public void loadmap(Path path,String name) throws IOException {
+	public void loadmap(Path path, String name) throws IOException {
 		//TODO Pathの変換やらが必要
-		String path_s=new String();
-		path_s=path.toString();
-		loaddata(path_s+"level.data");	//dataファイル
-		loadpdata(Path.of(path_s+"\\playerdata\\"+name+"\\data.pdata")); //pdataファイル
-		loadimeta(Path.of(path_s+"\\playerdata\\"+name+"\\inventory.imeta"));//imetaファイル
-		loadcdata(Path.of(path_s+"\\playerdata\\"+name+"\\adddata.cdata"));//Cdataファイル
-		loadbdata(Path.of(path_s+"\\world\\chunkID\\base.bmeta"));//bmetaファイル
+		String path_s = new String();
+		path_s = path.toString();
+		loaddata(path_s + "level.data");    //dataファイル
+		loadpdata(Path.of(path_s + "\\playerdata\\" + name + "\\data.pdata")); //pdataファイル
+		loadimeta(Path.of(path_s + "\\playerdata\\" + name + "\\inventory.imeta"));//imetaファイル
+		loadcdata(Path.of(path_s + "\\playerdata\\" + name + "\\adddata.cdata"));//Cdataファイル
+		loadbdata(Path.of(path_s + "\\world\\chunkID\\base.bmeta"));//bmetaファイル
 	}
 
 	//dataファイル
-	private Properties D_properties=new Properties();
+	private Properties D_properties = new Properties();
 
 	private void loaddata(String path) {
 
 	}
 	private void loaddata(Path path) throws IOException {
-		InputStream instream=new FileInputStream(path.toString());
+		InputStream instream = new FileInputStream(path.toString());
 		D_properties.load(instream);
 	}
 
@@ -63,27 +64,27 @@ public class TemplateLoader {
 
 	private void loadpdata(Path path) throws Indexalreadyused, IOException {
 		Fm.newFilelistener(path.toString(), 10);
-		if (Fm.getbyte(10).length!=96)throw new NotMatch(path);
-		P_FormatUUID=Fm.makelong(Fm.getbyte(10),0);
-		PlayerUUID=Fm.makelong(Fm.getbyte(10),8);
-		HP_NOW=Fm.makeint(Fm.getbyte(10), 16);
-		HP_MAX=Fm.makeint(Fm.getbyte(10),20);
-		MP_NOW=Fm.makeint(Fm.getbyte(10),24);
-		MP_MAX=Fm.makeint(Fm.getbyte(10),28);
-		XP=Fm.makelong(Fm.getbyte(10), 32);
-		Level=Fm.makelong(Fm.getbyte(10),40);
-		P_STR=Fm.makeint(Fm.getbyte(10),48);
-		P_DEX=Fm.makeint(Fm.getbyte(10),52);
-		P_VIT=Fm.makeint(Fm.getbyte(10),56);
-		P_AGI=Fm.makeint(Fm.getbyte(10),60);
-		P_INT=Fm.makeint(Fm.getbyte(10),64);
-		P_MND=Fm.makeint(Fm.getbyte(10),68);
-		P_LUK=Fm.makeint(Fm.getbyte(10),72);
-		P_CRI=Fm.makeint(Fm.getbyte(10),76);
-		Chunk_X=Fm.makeint(Fm.getbyte(10),80);
-		Pos_X=Fm.makeint(Fm.getbyte(10),84);
-		Chunk_Y=Fm.makeint(Fm.getbyte(10),88);
-		Pos_Y=Fm.makeint(Fm.getbyte(10),92);
+		if (Fm.getbyte(10).length != 96) throw new NotMatch(path);
+		P_FormatUUID = Fm.makelong(Fm.getbyte(10), 0);
+		PlayerUUID = Fm.makelong(Fm.getbyte(10), 8);
+		HP_NOW = Fm.makeint(Fm.getbyte(10), 16);
+		HP_MAX = Fm.makeint(Fm.getbyte(10), 20);
+		MP_NOW = Fm.makeint(Fm.getbyte(10), 24);
+		MP_MAX = Fm.makeint(Fm.getbyte(10), 28);
+		XP = Fm.makelong(Fm.getbyte(10), 32);
+		Level = Fm.makelong(Fm.getbyte(10), 40);
+		P_STR = Fm.makeint(Fm.getbyte(10), 48);
+		P_DEX = Fm.makeint(Fm.getbyte(10), 52);
+		P_VIT = Fm.makeint(Fm.getbyte(10), 56);
+		P_AGI = Fm.makeint(Fm.getbyte(10), 60);
+		P_INT = Fm.makeint(Fm.getbyte(10), 64);
+		P_MND = Fm.makeint(Fm.getbyte(10), 68);
+		P_LUK = Fm.makeint(Fm.getbyte(10), 72);
+		P_CRI = Fm.makeint(Fm.getbyte(10), 76);
+		Chunk_X = Fm.makeint(Fm.getbyte(10), 80);
+		Pos_X = Fm.makeint(Fm.getbyte(10), 84);
+		Chunk_Y = Fm.makeint(Fm.getbyte(10), 88);
+		Pos_Y = Fm.makeint(Fm.getbyte(10), 92);
 
 	}
 
@@ -94,9 +95,9 @@ public class TemplateLoader {
 	private boolean stack;
 	private int ItemID;
 	private int mass;
-	//IF ItemFlug=true
+	//IF ItemFlug = true
 	private int Stacks;
-	//IF ItemFlug=false
+	//IF ItemFlug = false
 	private int I_STR;
 	private int I_DEX;
 	private int I_VIT;
@@ -107,39 +108,37 @@ public class TemplateLoader {
 	private int I_CRI;
 
 
-
-
 	private void loadimeta(Path path) throws Indexalreadyused, IOException {
 		Fm.newFilelistener(path.toString(), 11);
-		// (bit)00000000=(INT)0
-		// (bit)10000000=(INT)-128
+		// (bit)00000000 = (INT)0
+		// (bit)10000000 = (INT)-128
 
-		if (Fm.makeint(Fm.getbyte(11), 0)==0) {
-			ItemFlug=false;
+		if (Fm.makeint(Fm.getbyte(11), 0) == 0) {
+			ItemFlug = false;
 		}
 
-		if (Fm.makeint(Fm.getbyte(11), 0)==-128) {
-			ItemFlug=true;
+		if (Fm.makeint(Fm.getbyte(11), 0) == -128) {
+			ItemFlug = true;
 		}
 
-		Inventory=Fm.makeint(Fm.getbyte(11),4);
-		Damage=Fm.makeint(Fm.getbyte(10),8);
+		Inventory = Fm.makeint(Fm.getbyte(11), 4);
+		Damage = Fm.makeint(Fm.getbyte(10), 8);
 
-		if (Fm.makeint(Fm.getbyte(11),12)==0) {
-			stack=false;
+		if (Fm.makeint(Fm.getbyte(11), 12) == 0) {
+			stack = false;
 		}
 
-		if (Fm.makeint(Fm.getbyte(11),12)==-128) {
-			stack=true;
+		if (Fm.makeint(Fm.getbyte(11), 12) == -128) {
+			stack = true;
 		}
 
-		mass=Fm.makeint(Fm.getbyte(11),16);
+		mass = Fm.makeint(Fm.getbyte(11), 16);
 
 		if (ItemFlug) {
-			Stacks=Fm.makeint(Fm.getbyte(11),20);
-		}else {
-			I_STR=Fm.makeint(Fm.getbyte(11),24);
-			I_DEX=Fm.makeint(Fm.getbyte(11),28);
+			Stacks = Fm.makeint(Fm.getbyte(11), 20);
+		} else {
+			I_STR = Fm.makeint(Fm.getbyte(11), 24);
+			I_DEX = Fm.makeint(Fm.getbyte(11), 28);
 			I_VIT=Fm.makeint(Fm.getbyte(11),32);
 			I_AGI=Fm.makeint(Fm.getbyte(11),36);
 			I_INT=Fm.makeint(Fm.getbyte(11),40);

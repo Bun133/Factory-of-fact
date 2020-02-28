@@ -11,7 +11,7 @@ package assets.exception;
 public class ValueNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	public ValueNotFoundException(String msg){
+	public ValueNotFoundException(String msg) {
 		super(msg);
 	}
 }
