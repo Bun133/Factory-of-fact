@@ -1,20 +1,13 @@
 
 package main;
 
-import java.awt.Color;
-import java.io.FileNotFoundException;
-
-import javax.swing.JFrame;
-
 import assets.exception.Indexalreadyused;
+import assets.util.Logger;
+import assets.util.Register;
 import file.Filemaster;
 import graphics.Camera;
-
-//import graphics.GetFPS;
-
 import graphics.JFrametools;
 import graphics.Mapdrawmanager;
-import graphics.SetFPS;
 import graphics.TextureManager;
 import graphics.scene.Drawable;
 import graphics.scene.Scene;
@@ -22,30 +15,38 @@ import key.AtKeyEvent;
 import key.KeyManager;
 import key.KeyVanilla;
 
-public class Main extends JFrame{
+import javax.swing.*;
+import java.awt.*;
+import java.io.FileNotFoundException;
+
+//import graphics.GetFPS;
+
+public class Main extends JFrame {
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1L;
+	public static Logger log = new Logger(System.out);
+	public static Register mainRegister = new Register();
+
 	public static void main(String[] args) {
 
-		//DrawView dv=new DrawView(500,500);
-		JFrametools JFT=new JFrametools("Factory of fact",500,500);
-		//GetFPS FPStools=new GetFPS();
-		SetFPS SetFPStools=new SetFPS();
-		SetFPStools.setMaxFPS(60);
-		Filemaster Fm=new Filemaster(100);
-		TextureManager TM=new TextureManager(100);
-		KeyManager KM=new KeyManager(JFT.getJFrame());
+
+		JFrametools JFT = new JFrametools("Factory of fact", 500, 500);
+		Filemaster Fm = new Filemaster(100);
+		TextureManager TM = new TextureManager(100);
+		KeyManager KM = new KeyManager(JFT.getJFrame());
 		//Mdmは仕方ないよなあ？
-		Mapdrawmanager Mdm=new Mapdrawmanager(JFT,TM);
-		Camera MainCamera=new Camera(Mdm);
-		AtKeyEvent VanillaKey=new KeyVanilla(MainCamera);
-		Scene AtMap=new Scene(JFT);
+		Mapdrawmanager Mdm = new Mapdrawmanager(JFT, TM);
+		Camera MainCamera = new Camera(Mdm);
+		AtKeyEvent VanillaKey = new KeyVanilla(MainCamera);
+		Scene AtMap = new Scene(JFT);
 
 
 		try {
-			TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0,"FactoryofFact:logo");
-			TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1,"FactoryofFact:sand");
-			TM.addtexture("src\\assets\\textures\\blocks\\OhNo.png", 2,"FactoryofFact:OhNo");
-			TM.addtexture("src\\assets\\textures\\blocks\\stone.png",3,"FactoryofFact:stone");
-			TM.addtexture("src\\assets\\textures\\blocks\\water.png", 4,"FactoryofFact:water");
+			TM.addtexture("src\\assets\\textures\\title\\Factory_of_fact_logo.png", 0, "FactoryofFact:logo");
+			TM.addtexture("src\\assets\\textures\\blocks\\sand.png", 1, "FactoryofFact:sand");
+			TM.addtexture("src\\assets\\textures\\blocks\\OhNo.png", 2, "FactoryofFact:OhNo");
+			TM.addtexture("src\\assets\\textures\\blocks\\stone.png", 3, "FactoryofFact:stone");
+			TM.addtexture("src\\assets\\textures\\blocks\\water.png", 4, "FactoryofFact:water");
 			/*Fm.newFilelistener("src\\assets\\textures\\title\\Factory_of_fact_logo.png",0);
 			Fm.newFilelistener("src\\assets\\textures\\blocks\\sand.png",1);
 			Fm.newFilelistener("src\\assets\\textures\\blocks\\OhNo.png",2);*/
