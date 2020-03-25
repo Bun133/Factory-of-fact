@@ -45,6 +45,7 @@
 - マップ選択
 - セーブデータ書き出し
 - ~~マルチプレイ~~
+- ホームベース開発
 - 退出
 
 ## マップ選択
@@ -79,12 +80,26 @@
 コアはプレイヤーがコアにインタラクトすることで表示される、GUIを通じ、表示されるアイテムや資源を納品することで、[**研究**](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究)**済みの重要な**新しいブロックやアイテムなどをアンロックできます。<br>
 **重要でないものは必要ありません**<br>
 要求されるアイテムはランクが上がるにつれ、高価なものが要求されます。
+## ホームベース
+[計算結果](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#計画的撤退時の資源計算について)に基づいてプレイヤーはホームベースに資源を持ち帰ることが可能となります。<br>
+この資源はタイトル(要検討)にあるホームベース開発から[Tier](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#Tier)及び[他社製製品](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#他社製製品)の使用ライセンスなどを資源と引き換えに使用可能です。<br>
 ## 敵
 敵はマップ上にランダムで配置された敵の拠点から定期的に(Wave)敵がプレイヤーの重要建造物やコアめがけて攻撃してきます。<br>
 敵自体も時間経過および、プレイヤーのアンロックにつれ強くなっていきます。<br>
 そのうち、プレイヤーの技術を真似し、タレットを使うようになるかもしれません<br>
 敵の拠点自体はWave時以外の時でも攻撃可能です。<br>
 また、敵の拠点を破壊することで、そこにある資材やブロックを解体することで、資材の入手が可能です。
+## ゲームクリアについて
+[敵](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#敵)が行う[Wave](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#Wave)のWave数(マップにより異なるが数Waveごと)に[計画的撤退](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#計画的撤退)が可能です。<br>
+これが事実上のゲームクリアです。<br>
+(敵の親玉倒してゲームクリアのモードも検討中)
+## 計画的撤退
+計画的撤退についての説明です。<br>
+プレイヤーは数[Wave](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#Wave)ごとに計画的撤退が可能となります。<br>
+イメージとしてはその星(?)への植民を終了するものです。<br>
+プレイヤーは通常モードであればWaveを耐えることになりますが、これに耐えられないと思ったとき、あるいはほかの理由でこのプロセスを発動させます。<br>
+### 計画的撤退時の資源計算について
+計画的撤退時に存在する建造物の建設必要資源*0.3+コア内の資源を[ホームベース](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#ホームベース)に持ち帰ることが可能です。//TODO
 ## 資源
 - [ランク](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#ランク)
 - [出現確立](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#出現確立)
@@ -206,6 +221,9 @@
 ### 高グレード回路
 ダイヤモンドを用いて作られる回路のグレード<br>
 回路図よりも上位、または別の機能も併せて使用できる。
+## Tier
+Tierは[研究](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究)の大本となる考えで、高Tierの技術をアンロックすることで、高い技術を必要とする製品を製造可能です。<br>
+**多くの場合このTierの解放をする機会はごくは稀です。**
 ## 研究
 研究装置によってたまった、メカニカルポイントを[研究端末](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#研究端末)で使用し、研究する。<br>
 高グレード帯や、重要なアイテムなどは使用時に[コア](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#コア)への納品が必要である。
@@ -254,7 +272,9 @@
 回路にすることもでき、[高グレード回路](https://github.com/Bun133/Factory-of-fact/blob/div/Specification.md#高グレード回路)を作成できる。<br>
 また、その回路を使用してスパコンを作成できる
 ## ブロック
-
+## 他社製製品
+他社植民用製品(ガン、タレット、コンベア)などのことを指します。<br>
+通常他社製製品を使用する際はTierごとにホームベース開発内からライセンスの取得が必要です。
 # 仕様(不可視範囲)
 
 ## エンティティ
