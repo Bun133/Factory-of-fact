@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class layer {
-    public List<IDrawable> drawableList=new ArrayList<IDrawable>();
+    public List<Drawable> drawableList=new ArrayList<Drawable>();
 
     public layer(String name,int id,layersProvider provider){
         layerManager.INSTANCE.register(this,name,id);
         provider.addlayer(this);
     }
 
-    public void addDrawable(IDrawable drawable){
+    public void addDrawable(Drawable drawable){
         drawableList.add(drawable);
     }
 
