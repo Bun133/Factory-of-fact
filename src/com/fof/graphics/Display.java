@@ -45,7 +45,7 @@ public class Display extends JFrame implements IDrawer {
     }
 
     public void draw(layer[] layers){
-        for(int i=0;i>layers.length;i++){
+        for(int i=0;i<layers.length;i++){
             draw(layers[i]);
         }
     }

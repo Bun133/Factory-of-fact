@@ -2,10 +2,11 @@ package com.fof.graphics;
 
 import com.fof.register.layer.layerManager;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class layer {
+public class layer implements IDrawable{
     public List<Drawable> drawableList=new ArrayList<Drawable>();
 
     public layer(String name,int id,layersProvider provider){
@@ -18,4 +19,10 @@ public class layer {
     }
 
 
+    @Override
+    public void draw(Graphics graphics) {
+        for(Drawable drawable:drawableList){
+            drawable.draw(graphics);
+        }
+    }
 }

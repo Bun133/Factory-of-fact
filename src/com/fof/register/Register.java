@@ -18,12 +18,16 @@ public class Register {
     public Item getItem(String id){return itemMap.get(id);}
     public Item getItem(int id){return itemMap.get(itemNameMap.get(id));}
 
-    public void addRegister(Item item,String id_name,int id){
+    public void addRegister(Item item){
+        String id_name=item.name;
+        int id=item.id;
         itemMap.put(id_name,item);
         itemNameMap.put(id,id_name);
     }
 
-    public void addRegister(Block block,String id_name,int id){
+    public void addRegister(Block block){
+        String id_name=block.BlockItem.name;
+        int id=block.BlockItem.id;
         blockMap.put(id_name,block);
         blockNameMap.put(id,id_name);
     }
