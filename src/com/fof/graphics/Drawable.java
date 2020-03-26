@@ -4,9 +4,10 @@ import com.fof.game.main.fof_game;
 import com.fof.graphics.ui.DrawableType;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 
-import static com.fof.graphics.ui.DrawableType.DRAWABLE_IMAGE;
-import static com.fof.graphics.ui.DrawableType.DRAWABLE_STRING;
+import static com.fof.graphics.ui.DrawableType.*;
 
 public class Drawable implements IDrawable{
     DrawableType Type;
@@ -18,6 +19,9 @@ public class Drawable implements IDrawable{
     //DRAWABLE_STRING
     Font font=null;
     String text;
+
+    //DRAWABLE_RECT
+    Color c;
     public Drawable(Image image){
         Type= DRAWABLE_IMAGE;
         pos_X=0;
@@ -26,20 +30,40 @@ public class Drawable implements IDrawable{
         Size_y=image.getHeight(null);
     }
 
-    public Drawable(String text){
+    public Drawable(String text,int pos_X,int pos_Y){
         Type=DRAWABLE_STRING;
-        pos_X=0;
-        pos_Y=0;
+        this.pos_Y=pos_Y;
+        this.pos_X=pos_X;
         this.text=text;
         //font=new FontUIResource(Font.SERIF, Font.PLAIN, 12);
+        //setSizeFromFont(font,text);
     }
 
-    public Drawable(Font f,String text){
+    public Drawable(Font f,String text,int pos_X,int pos_Y){
         Type=DRAWABLE_STRING;
-        pos_X=0;
-        pos_Y=0;
+        this.pos_Y=pos_Y;
+        this.pos_X=pos_X;
         this.text=text;
         font=f;
+        setSizeFromFont(font,text);
+    }
+
+    public Drawable(int pos_x,int pos_y,int width,int height){
+        Type=DRAWABLE_FILL_RECT;
+        this.pos_X=pos_x;
+        this.pos_Y=pos_y;
+        this.Size_x=width;
+        this.Size_y=height;
+        c=new Color(0,0,0);
+    }
+
+    public Drawable(Color c,int pos_x,int pos_y,int width,int height){
+        Type=DRAWABLE_FILL_RECT;
+        this.pos_X=pos_x;
+        this.pos_Y=pos_y;
+        this.Size_x=width;
+        this.Size_y=height;
+        this.c=c;
     }
 
     @Override
@@ -51,16 +75,13 @@ public class Drawable implements IDrawable{
                 break;
             case DRAWABLE_LINE:
                 break;
-            case DRAWABLE_RECT:
-                break;
-            case DRAWABLE_VOID:
+            case DRAWABLE_FILL_RECT:
+                display.fillRect(c,pos_X,pos_Y,Size_x,Size_y);
                 break;
             case DRAWABLE_STRING:
-                if(font==null){
-                    display.drawString(text,pos_X,pos_Y);
-                }else{
-                    display.drawString(font,text,pos_X,pos_Y);
-                }
+                display.drawString(font,text,pos_X,pos_Y);
+                break;
+            case DRAWABLE_VOID:
                 break;
         }
     }
@@ -68,5 +89,20 @@ public class Drawable implements IDrawable{
     @Override
     public String toString() {
         return "Type:"+this.Type.toString()+",Pos_x:"+this.pos_X+",Pos_y:"+this.pos_Y+",Size_x:"+this.Size_x+",Size_y:"+this.Size_y;
+    }
+
+    public Drawable setPos(int pos_X,int pos_Y){
+        this.pos_X=pos_X;
+        this.pos_Y=pos_Y;
+        return this;
+    }
+
+    private Rectangle2D getSizeFromFont(Font f, String text){
+        return f.getStringBounds(text,new FontRenderContext(null,false,false));
+    }
+
+    private void setSizeFromFont(Font f,String text){
+        this.Size_x= (int) getSizeFromFont(f,text).getWidth();
+        this.Size_y= (int) getSizeFromFont(f,text).getHeight();
     }
 }

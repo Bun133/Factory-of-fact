@@ -9,12 +9,10 @@ import com.fof.graphics.layersProvider;
 import com.fof.key.KeyEvent;
 import com.fof.key.KeyManager;
 import com.fof.object.item.Item;
+import com.fof.util.file.FileMaster;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class fof_game {
@@ -30,15 +28,15 @@ public class fof_game {
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
         LOGGER.setTextColor(new Color(255, 255, 255));
-        LOGGER.showDebug(false);
+        LOGGER.showDebug(true);
         LOGGER.println("INIT");
-        BufferedImage image= ImageIO.read(new File("src\\assets\\textures\\blocks\\OhNo.png"));
-                //Toolkit.getDefaultToolkit().getImage("src\\assets\\textures\\blocks\\OhNo.png");
-        Item test_item = new Item("test_item", 0).setTexture(image);
+        Item test_item = new Item("test_item", 0).setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         event.getRegister().addRegister(test_item);
 
-        test_layer.addDrawable(test_item.getDrawable());
-        test_layer.addDrawable(new Drawable("TEST"));
+        //test_layer.addDrawable(test_item.getDrawable().setPos(100,100));
+        test_layer.addDrawable(new Drawable("TEST",100,100));
+        test_layer.addDrawable(new Drawable(0,0,100,100));
+
         KM.addclass(keyEvent);
         while(true) {
             main_display.draw();
