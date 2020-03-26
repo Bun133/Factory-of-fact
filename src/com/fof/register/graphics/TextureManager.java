@@ -1,5 +1,6 @@
 package com.fof.register.graphics;
 
+import com.fof.game.main.fof_game;
 import com.fof.object.block.Block;
 import com.fof.object.item.Item;
 
@@ -20,6 +21,7 @@ public class TextureManager {
     }
 
     public Image getTexture(Item item){
+        fof_game.INSTANCE.LOGGER.println(item.name+":"+ItemTexture.get(item).toString());
         return ItemTexture.get(item);
     }
 

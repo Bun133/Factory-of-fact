@@ -10,4 +10,29 @@ public enum DrawableType {
     }
 
     public int getMeta(){return meta;}
+
+
+    @Override
+    public String toString() {
+        switch (getMeta()){
+            case 0:
+                return "Drawable_Void";
+
+            case 1:
+                return "Drawable_Image";
+
+            case 2:
+                return "Drawable_String";
+
+            case 3:
+                return "Drawable_Rect";
+
+            case 4:
+                return "Drawable_Line";
+
+            default:
+                return "Unknown";
+
+        }
+    }
 }

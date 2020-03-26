@@ -9,13 +9,8 @@
 package assets.util;
 
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
+import java.awt.*;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -28,6 +23,8 @@ public class Logger extends PrintStream{
 	private Long upTime = System.currentTimeMillis();
 
 	private boolean showAll = true;
+
+	private boolean showDebug = true;
 
 	private boolean showInfo = true;
 
@@ -222,6 +219,14 @@ public class Logger extends PrintStream{
 	 */
 	public void showAll(boolean flag) {
 		showAll = flag;
+	}
+
+	/**
+	 * デバッグメッセージ(DEBUG)を表示するかを指定します
+	 * @param flag
+	 */
+	public void showDebug(boolean flag) {
+		showDebug = flag;
 	}
 
 	/**
@@ -434,6 +439,8 @@ public class Logger extends PrintStream{
 	public void println(String s) {
 		if(showAll)if(showInfo)pl("INFO",String.valueOf(s));
 	}
+
+	public void debug(String s) { if(showAll)if(showDebug)pl("DEBUG",String.valueOf(s)); }
 
 	public void println(Object obj) {
 		if(showAll)if(showInfo)pl("INFO",String.valueOf(obj));

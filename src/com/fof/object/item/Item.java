@@ -6,6 +6,7 @@ import com.fof.register.IRegistrable;
 import com.fof.register.graphics.TextureManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Item implements IRegistrable {
     public String name;
@@ -24,6 +25,11 @@ public class Item implements IRegistrable {
     }
 
     public Item setTexture(Image image){
+        TextureManager.INSTANCE.addTexture(this,image);
+        return this;
+    }
+
+    public Item setTexture(BufferedImage image){
         TextureManager.INSTANCE.addTexture(this,image);
         return this;
     }
