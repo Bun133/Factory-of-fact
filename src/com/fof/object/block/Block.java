@@ -11,22 +11,23 @@ import java.awt.image.BufferedImage;
 
 public class Block implements IRegistrable {
     public Item BlockItem;
+
     @Override
     public void register(RegisterEvent event) {
         //register Event
     }
 
-    public Block setTexture(Image image){
-        TextureManager.INSTANCE.addTexture(this,image);
+    public Block setTexture(Image image) {
+        TextureManager.INSTANCE.addTexture(this, image);
         return this;
     }
 
-    public Block setTexture(BufferedImage image){
-        TextureManager.INSTANCE.addTexture(this,image);
+    public Block setTexture(BufferedImage image) {
+        TextureManager.INSTANCE.addTexture(this, image);
         return this;
     }
 
-    public Drawable getDrawable(){
+    public Drawable getDrawable() {
         return new Drawable(TextureManager.INSTANCE.getTexture(this));
     }
 }

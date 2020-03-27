@@ -12,11 +12,15 @@ public class Item implements IRegistrable {
     public String name;
     public int id;
 
-    public Item(String name,int id){this.name=name;this.id=id;}
-    public Item(String name,int id,Image image){
-        TextureManager.INSTANCE.addTexture(this,image);
-        this.name=name;
-        this.id=id;
+    public Item(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public Item(String name, int id, Image image) {
+        TextureManager.INSTANCE.addTexture(this, image);
+        this.name = name;
+        this.id = id;
     }
 
     @Override
@@ -24,17 +28,17 @@ public class Item implements IRegistrable {
         //register Event
     }
 
-    public Item setTexture(Image image){
-        TextureManager.INSTANCE.addTexture(this,image);
+    public Item setTexture(Image image) {
+        TextureManager.INSTANCE.addTexture(this, image);
         return this;
     }
 
-    public Item setTexture(BufferedImage image){
-        TextureManager.INSTANCE.addTexture(this,image);
+    public Item setTexture(BufferedImage image) {
+        TextureManager.INSTANCE.addTexture(this, image);
         return this;
     }
 
-    public Drawable getDrawable(){
+    public Drawable getDrawable() {
         return new Drawable(TextureManager.INSTANCE.getTexture(this));
     }
 }

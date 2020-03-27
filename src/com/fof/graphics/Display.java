@@ -9,9 +9,10 @@ import java.awt.image.BufferStrategy;
 public class Display extends JFrame implements IDrawer {
     private layersProvider provider;
     private BufferStrategy bfi;
+
     //private Graphics g;
-    public Display(int Size_x,int Size_y,layersProvider provider){
-        this.provider=provider;
+    public Display(int Size_x, int Size_y, layersProvider provider) {
+        this.provider = provider;
         this.setTitle("Fof");
         this.setVisible(true);
         this.setBounds(0, 0, Size_x, Size_y);
@@ -25,8 +26,8 @@ public class Display extends JFrame implements IDrawer {
         //g=bfi.getDrawGraphics();
     }
 
-    public Display(String name,int Size_x,int Size_y,layersProvider provider){
-        this.provider=provider;
+    public Display(String name, int Size_x, int Size_y, layersProvider provider) {
+        this.provider = provider;
         this.setTitle(name);
         this.setVisible(true);
         this.setBounds(0, 0, Size_x, Size_y);
@@ -41,43 +42,47 @@ public class Display extends JFrame implements IDrawer {
     }
 
     @Override
-    public Graphics getGraphics(){return bfi.getDrawGraphics();}
+    public Graphics getGraphics() {
+        return bfi.getDrawGraphics();
+    }
 
     @Override
     public void draw() {
-        if(!Skipper.INSTANCE.isSkip()) {
+        if (!Skipper.INSTANCE.isSkip()) {
             //draw Method
             draw(provider.getlayers());
             repaint();
-        }else{
+        } else {
             fof_game.INSTANCE.LOGGER.println("The Frame took longer.So Skipped");
         }
     }
 
-    private void draw(layer[] layers){
-        for(layer layer:layers){draw(layer);}
+    private void draw(layer[] layers) {
+        for (layer layer : layers) {
+            draw(layer);
+        }
     }
 
     private void draw(layer layer) {
-        if(layer instanceof IDrawable){
+        if (layer instanceof IDrawable) {
             ((IDrawable) layer).draw(this);
-        }else{
+        } else {
             fof_game.INSTANCE.LOGGER.print("in Display,layer not include IDrawable");
         }
     }
 
     @Override
     public void update(Graphics g) {
-        if(!Skipper.INSTANCE.isSkip()) {
+        if (!Skipper.INSTANCE.isSkip()) {
             super.update(g);
-        }else{
+        } else {
             fof_game.INSTANCE.LOGGER.println("The Frame took longer.So Skipped");
         }
     }
 
     @Override
     public void repaint() {
-        if(!bfi.contentsLost())bfi.show();
+        if (!bfi.contentsLost()) bfi.show();
         Toolkit.getDefaultToolkit().sync();
         getGraphics().dispose();
     }
@@ -133,59 +138,62 @@ public class Display extends JFrame implements IDrawer {
     }
 
 
-
-    public void drawImage(Image img, int pos_x, int pos_y){
-        getGraphics().drawImage(img,pos_x,pos_y,null);
+    public void drawImage(Image img, int pos_x, int pos_y) {
+        getGraphics().drawImage(img, pos_x, pos_y, null);
     }
 
-    public void drawImage(Image image,int x,int y,int w,int h) {
-        getGraphics().drawImage(image,x,y,w,y,null);
+    public void drawImage(Image image, int x, int y, int w, int h) {
+        getGraphics().drawImage(image, x, y, w, y, null);
     }
 
-    public void drawImage(Image image,int x,int y,double image_x,double image_y) {
-        drawImage(image,x,y,(int)image_x,(int)image_y);
+    public void drawImage(Image image, int x, int y, double image_x, double image_y) {
+        drawImage(image, x, y, (int) image_x, (int) image_y);
     }
 
-    public void drawImage(Image image,int x,int y,double d) {
-        int image_x=0;
-        int image_y=0;
-        image_x=image.getWidth(null);
-        image_y=image.getHeight(null);
-        drawImage(image,x,y,image_x*d,image_y*d);
+    public void drawImage(Image image, int x, int y, double d) {
+        int image_x = 0;
+        int image_y = 0;
+        image_x = image.getWidth(null);
+        image_y = image.getHeight(null);
+        drawImage(image, x, y, image_x * d, image_y * d);
     }
 
 
-
-    public void drawString(String text,int pos_x,int pos_y){
-        getGraphics().drawString(text,pos_x,pos_y);
+    public void drawString(String text, int pos_x, int pos_y) {
+        getGraphics().drawString(text, pos_x, pos_y);
     }
 
-    public void drawString(Font f,String text,int pos_x,int pos_y){
-        Font ff=getFont();
+    public void drawString(Font f, String text, int pos_x, int pos_y) {
+        Font ff = getFont();
         setFont(f);
-        getGraphics().drawString(text,pos_x,pos_y);
+        getGraphics().drawString(text, pos_x, pos_y);
         setFont(ff);
     }
 
-    public void drawRect(Color c,int pos_x,int pos_y,int size_x,int size_y){
-        Color cc=getColor();
+    public void drawRect(Color c, int pos_x, int pos_y, int size_x, int size_y) {
+        Color cc = getColor();
         setColor(c);
-        getGraphics().drawRect(pos_x,pos_y,size_x,size_y);
+        getGraphics().drawRect(pos_x, pos_y, size_x, size_y);
         setColor(cc);
     }
 
-    public void fillRect(int pos_x,int pos_y,int width,int height){
-        getGraphics().fillRect(pos_x,pos_y,width,height);
+    public void fillRect(int pos_x, int pos_y, int width, int height) {
+        getGraphics().fillRect(pos_x, pos_y, width, height);
     }
 
-    public void fillRect(Color c,int pos_x,int pos_y,int width,int height){
-        Color cc=getColor();
+    public void fillRect(Color c, int pos_x, int pos_y, int width, int height) {
+        Color cc = getColor();
         setColor(c);
-        getGraphics().fillRect(pos_x,pos_y,width,height);
+        getGraphics().fillRect(pos_x, pos_y, width, height);
         setColor(cc);
     }
 
 
-    public Font getfont() {return getGraphics().getFont();}
-    public void setfont(Font f) {getGraphics().setFont(f);}
+    public Font getfont() {
+        return getGraphics().getFont();
+    }
+
+    public void setfont(Font f) {
+        getGraphics().setFont(f);
+    }
 }
