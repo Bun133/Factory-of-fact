@@ -32,7 +32,7 @@ public class fof_game {
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
         LOGGER.setTextColor(new Color(255, 255, 255));
-        LOGGER.showDebug(true);
+        LOGGER.showDebug(false);
         LOGGER.println("INIT");
         Item test_item = new Item("test_item", "test_item").setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         event.register(test_item);
@@ -50,7 +50,6 @@ public class fof_game {
             KM.tick();
             LOGGER.println("Tick");
             FPSGetter.INSTANCE.tick();
-            LOGGER.println(FPSGetter.INSTANCE.getFPS());
             Thread.sleep(1);
         }
         //System.exit(0);
