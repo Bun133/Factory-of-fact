@@ -2,7 +2,7 @@ package com.fof.object.block;
 
 import com.fof.events.RegisterEvent;
 import com.fof.graphics.Drawable;
-import com.fof.object.item.Item;
+import com.fof.object.itemblock.ItemBlock;
 import com.fof.register.IRegistrable;
 import com.fof.register.graphics.TextureManager;
 
@@ -10,11 +10,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Block implements IRegistrable {
-    public Item BlockItem;
+    public ItemBlock ItemBlock;
+    public String name;
+    public String id;
+
+    public Block(String name, String id) {
+        ItemBlock = ItemBlock.ItemBlockGenelator(this);
+        this.name = name;
+        this.id = id;
+    }
 
     @Override
     public void register(RegisterEvent event) {
-        //register Event
+        event.register(this);
     }
 
     public Block setTexture(Image image) {

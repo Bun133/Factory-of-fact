@@ -10,14 +10,14 @@ import java.awt.image.BufferedImage;
 
 public class Item implements IRegistrable {
     public String name;
-    public int id;
+    public String id;
 
-    public Item(String name, int id) {
+    public Item(String name, String id) {
         this.name = name;
         this.id = id;
     }
 
-    public Item(String name, int id, Image image) {
+    public Item(String name, String id, Image image) {
         TextureManager.INSTANCE.addTexture(this, image);
         this.name = name;
         this.id = id;

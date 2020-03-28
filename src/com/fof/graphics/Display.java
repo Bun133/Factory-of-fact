@@ -84,8 +84,8 @@ public class Display extends JFrame implements IDrawer {
     public void repaint() {
         if (!bfi.contentsLost()) bfi.show();
         Toolkit.getDefaultToolkit().sync();
-        getGraphics().dispose();
     }
+
 
     public void setFull() {
         setUndecorated(true);

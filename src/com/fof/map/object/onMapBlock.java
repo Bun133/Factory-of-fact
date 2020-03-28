@@ -11,14 +11,25 @@ public class onMapBlock extends Pos {
 
     public onMapBlock(Block block,BlockPos pos){
         this.block=block;
-        this.blockPos=pos;
+        this.blockPos = pos;
     }
 
-    public onMapBlock(Block block,int x,int y){
-        this(block,new BlockPos(x,y));
+    public onMapBlock(Block block, int x, int y) {
+        this(block, new BlockPos(x, y));
     }
 
     public Drawable getDrawable() {
         return block.getDrawable().setPos(blockPos);
+    }
+
+    public onMapBlock setPos(int x, int y) {
+        this.pos_x = x;
+        this.pos_y = y;
+        return this;
+    }
+
+    public onMapBlock setBlock(Block block) {
+        this.block = block;
+        return this;
     }
 }

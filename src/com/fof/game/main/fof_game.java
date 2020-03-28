@@ -6,8 +6,10 @@ import com.fof.graphics.Display;
 import com.fof.graphics.Drawable;
 import com.fof.graphics.layer;
 import com.fof.graphics.layersProvider;
+import com.fof.graphics.util.FPSGetter;
 import com.fof.key.KeyEvent;
 import com.fof.key.KeyManager;
+import com.fof.object.block.Block;
 import com.fof.object.item.Item;
 import com.fof.util.file.FileMaster;
 
@@ -32,8 +34,11 @@ public class fof_game {
         LOGGER.setTextColor(new Color(255, 255, 255));
         LOGGER.showDebug(true);
         LOGGER.println("INIT");
-        Item test_item = new Item("test_item", 0).setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
-        event.getRegister().addRegister(test_item);
+        Item test_item = new Item("test_item", "test_item").setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
+        event.register(test_item);
+
+        Block test_block = new Block("test_block", "test_block");
+
 
         //test_layer.addDrawable(test_item.getDrawable().setPos(100,100));
         test_layer.addDrawable(new Drawable("TEST", 100, 100));
@@ -44,6 +49,8 @@ public class fof_game {
             main_display.draw();
             KM.tick();
             LOGGER.println("Tick");
+            FPSGetter.INSTANCE.tick();
+            LOGGER.println(FPSGetter.INSTANCE.getFPS());
             Thread.sleep(1);
         }
         //System.exit(0);
