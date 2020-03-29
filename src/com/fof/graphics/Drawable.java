@@ -30,6 +30,7 @@ public class Drawable implements IDrawable {
         pos_Y = 0;
         Size_x = image.getWidth(null);
         Size_y = image.getHeight(null);
+        this.image = image;
     }
 
     public Drawable(String text, int pos_X, int pos_Y) {
