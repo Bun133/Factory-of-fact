@@ -24,6 +24,10 @@ public class Drawable implements IDrawable {
     //DRAWABLE_RECT
     Color c;
 
+    public Drawable() {
+        Type = DRAWABLE_VOID;
+    }
+
     public Drawable(Image image) {
         Type = DRAWABLE_IMAGE;
         pos_X = 0;

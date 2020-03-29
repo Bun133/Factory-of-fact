@@ -1,8 +1,9 @@
 package com.fof.graphics.util;
 
-import com.fof.game.main.fof_game;
+import com.fof.game.debug.DebugViewer;
+import com.fof.graphics.Drawable;
 
-public class FPSGetter {
+public class FPSGetter implements DebugViewer {
     public static FPSGetter INSTANCE = new FPSGetter();
     private long before_long = System.nanoTime();
     private long now_long = System.nanoTime();
@@ -14,7 +15,7 @@ public class FPSGetter {
     public void tick() {
         now_long = System.nanoTime();
         setFPS(now_long - before_long);
-        fof_game.INSTANCE.LOGGER.println("FPS:" + FPS);
+        //fof_game.INSTANCE.LOGGER.println("FPS:" + FPS);
         before_long = System.nanoTime();
     }
 
@@ -28,5 +29,10 @@ public class FPSGetter {
 
     public int getFPS() {
         return (int) FPS;
+    }
+
+    @Override
+    public Drawable getDrawable() {
+        return new Drawable("FPS:" + getFPS(), 100, 100);
     }
 }

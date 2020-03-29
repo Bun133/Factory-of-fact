@@ -2,11 +2,11 @@ package com.fof.game.main;
 
 import assets.util.Logger;
 import com.fof.events.RegisterEvent;
+import com.fof.game.debug.DebugDisplay;
 import com.fof.graphics.Display;
 import com.fof.graphics.Drawable;
 import com.fof.graphics.layer;
 import com.fof.graphics.layersProvider;
-import com.fof.graphics.util.FPSGetter;
 import com.fof.key.KeyEvent;
 import com.fof.key.KeyManager;
 import com.fof.object.block.Block;
@@ -22,13 +22,16 @@ public class fof_game {
     public static fof_game INSTANCE = new fof_game();
     public String name;
     public final String Player_layer_name = "Player_layer";
-    public layer test_layer = new layer("test_layer", layersProvider.INSTANCE);
+    public layersProvider main_provider = new layersProvider();
+    public layer test_layer = new layer("test_layer", main_provider);
     public Logger LOGGER = new Logger(System.out);
-    public Display main_display = new Display(1000, 1000, layersProvider.INSTANCE);
+    public Display main_display = new Display("Fof_Game", 1000, 1000, main_provider, true);
+    public layersProvider debug_provider = new layersProvider();
+    public DebugDisplay debug_display = new DebugDisplay("Fof_Debug", 500, 300, debug_provider, true);
     public KeyManager KM = new KeyManager((JFrame) main_display);
     public KeyEvent keyEvent = new KeyEvent();
-    public final int BLOCK_SIZE=64;
-    public final int CHUNK_SIZE=256;
+    public final int BLOCK_SIZE = 64;
+    public final int CHUNK_SIZE = 256;
 
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
@@ -47,11 +50,12 @@ public class fof_game {
         test_layer.addDrawable(new Drawable(TextureManager.INSTANCE.getTexture(test_item)));
 
         KM.addclass(keyEvent);
+        debug_display.getConsole().addDebug(debug_display.FPSGetter);
         while (true) {
             main_display.draw();
+            debug_display.draw();
             KM.tick();
             LOGGER.println("Tick");
-            FPSGetter.INSTANCE.tick();
             Thread.sleep(1);
         }
         //System.exit(0);

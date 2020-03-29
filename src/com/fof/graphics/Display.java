@@ -1,16 +1,23 @@
 package com.fof.graphics;
 
 import com.fof.game.main.fof_game;
+import com.fof.graphics.util.FPSGetter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.List;
 
 public class Display extends JFrame implements IDrawer {
-    private layersProvider provider;
+    protected layersProvider provider;
     private BufferStrategy bfi;
+    public FPSGetter FPSGetter = new FPSGetter();
+    public Skipper Skipper = new Skipper(FPSGetter);
+    public String Title;
+    protected boolean ForceBanSkip = false;
 
     //private Graphics g;
+    @Deprecated
     public Display(int Size_x, int Size_y, layersProvider provider) {
         this.provider = provider;
         this.setTitle("Fof");
@@ -23,6 +30,7 @@ public class Display extends JFrame implements IDrawer {
         this.setIgnoreRepaint(false);
         this.createBufferStrategy(2);
         bfi = getBufferStrategy();
+        Title = "Fof";
         //g=bfi.getDrawGraphics();
     }
 
@@ -38,8 +46,17 @@ public class Display extends JFrame implements IDrawer {
         this.setIgnoreRepaint(false);
         this.createBufferStrategy(2);
         bfi = getBufferStrategy();
+        Title = name;
+
         //g=bfi.getDrawGraphics();
     }
+
+    public Display(String name, int Size_x, int Size_y, layersProvider provider, boolean ForceBanSkip) {
+        this(name, Size_x, Size_y, provider);
+        this.ForceBanSkip = ForceBanSkip;
+        //g=bfi.getDrawGraphics();
+    }
+
 
     @Override
     public Graphics getGraphics() {
@@ -48,14 +65,26 @@ public class Display extends JFrame implements IDrawer {
 
     @Override
     public void draw() {
-        if (!Skipper.INSTANCE.isSkip()) {
+        FPSGetter.tick();
+        if (!this.isVisible()) return;
+        if (ForceBanSkip) {
+            draw(provider.getlayers());
+            repaint();
+            return;
+        }
+        if (!Skipper.isSkip()) {
             //draw Method
             draw(provider.getlayers());
             repaint();
         } else {
-            fof_game.INSTANCE.LOGGER.println("The Frame took longer.So Skipped");
+            fof_game.INSTANCE.LOGGER.println(this.toString() + " took longer.So Skipped.");
         }
     }
+
+    protected void draw(List<layer> list) {
+        draw(list.toArray(new layer[0]));
+    }
+
 
     private void draw(layer[] layers) {
         for (layer layer : layers) {
@@ -68,15 +97,6 @@ public class Display extends JFrame implements IDrawer {
             ((IDrawable) layer).draw(this);
         } else {
             fof_game.INSTANCE.LOGGER.print("in Display,layer not include IDrawable");
-        }
-    }
-
-    @Override
-    public void update(Graphics g) {
-        if (!Skipper.INSTANCE.isSkip()) {
-            super.update(g);
-        } else {
-            fof_game.INSTANCE.LOGGER.println("The Frame took longer.So Skipped");
         }
     }
 
@@ -195,5 +215,10 @@ public class Display extends JFrame implements IDrawer {
 
     public void setfont(Font f) {
         getGraphics().setFont(f);
+    }
+
+    @Override
+    public String toString() {
+        return "Title:" + Title;
     }
 }

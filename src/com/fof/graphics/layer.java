@@ -20,6 +20,9 @@ public class layer implements IDrawable {
         drawableList.add(drawable);
     }
 
+    public void addDrawableAll(List<Drawable> list) {
+        drawableList.addAll(list);
+    }
 
     @Override
     public void draw(Display display) {

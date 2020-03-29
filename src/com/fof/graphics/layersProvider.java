@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class layersProvider implements IlayerProvider {
-    public static layersProvider INSTANCE = new layersProvider();
+    //public static layersProvider INSTANCE = new layersProvider();
+    public layersProvider() {
+    }
+
     private List<layer> layers = new ArrayList<layer>();
 
     @Override
@@ -13,7 +16,7 @@ public class layersProvider implements IlayerProvider {
     }
 
     @Override
-    public layer[] getlayers() {
-        return layers.toArray(new layer[0]);
+    public List<layer> getlayers() {
+        return layers;
     }
 }

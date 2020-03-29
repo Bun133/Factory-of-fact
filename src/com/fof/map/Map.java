@@ -17,14 +17,14 @@ public class Map extends layer implements IDrawable {
     private int generateChunk = 10;
     private PlayerPos playerPos;
 
-    public Map(String name, long hash) {
-        this(name);
+    public Map(String name, layersProvider provider, long hash) {
+        this(name, provider);
         generateMap(hash);
     }
 
 
-    private Map(String name) {
-        super(name, layersProvider.INSTANCE);
+    private Map(String name, layersProvider provider) {
+        super(name, provider);
     }
 
 
