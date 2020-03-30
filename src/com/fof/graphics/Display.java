@@ -6,11 +6,13 @@ import com.fof.graphics.util.FPSGetter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.VolatileImage;
 import java.util.List;
 
 public class Display extends JFrame implements IDrawer {
     protected layersProvider provider;
     private BufferStrategy bfi;
+    private VolatileImage image;
     public FPSGetter FPSGetter = new FPSGetter();
     public Skipper Skipper = new Skipper(FPSGetter);
     public String Title;
@@ -77,7 +79,7 @@ public class Display extends JFrame implements IDrawer {
             draw(provider.getlayers());
             repaint();
         } else {
-            fof_game.INSTANCE.LOGGER.printWarn("Frame:" + this.toString() + " took " + FPSGetter.getNano() + " ns. It's" + FPSGetter.getFPS() + "FPS. " + "So Skipped.");
+            fof_game.INSTANCE.LOGGER.printWarn("Frame:" + this.toString() + " took " + FPSGetter.getLastTime() + " ns. It's" + FPSGetter.getFPS() + "FPS. " + "So Skipped.");
         }
     }
 

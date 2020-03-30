@@ -3,6 +3,8 @@ package com.fof.graphics;
 import com.fof.game.main.fof_game;
 import com.fof.graphics.ui.DrawableType;
 import com.fof.map.pos.BlockPos;
+import com.fof.map.pos.onDisplayPos;
+import com.fof.map.pos.onDisplayRect;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -46,39 +48,35 @@ public class Drawable implements IDrawable {
         this.image = image;
     }
 
-    public Drawable(String text, int pos_X, int pos_Y) {
+    public Drawable(String text, onDisplayPos pos) {
         Type = DRAWABLE_STRING;
-        this.pos_Y = pos_Y;
-        this.pos_X = pos_X;
+        this.pos_Y = pos.getPos_x();
+        this.pos_X = pos.getPos_y();
         this.text = text;
         //font=new FontUIResource(Font.SERIF, Font.PLAIN, 12);
         //setSizeFromFont(font,text);
     }
 
-    public Drawable(Font f, String text, int pos_X, int pos_Y) {
+    public Drawable(Font f, String text, onDisplayPos pos) {
         Type = DRAWABLE_STRING;
-        this.pos_Y = pos_Y;
-        this.pos_X = pos_X;
+        this.pos_Y = pos.getPos_x();
+        this.pos_X = pos.getPos_y();
         this.text = text;
         font = f;
         setSizeFromFont(font, text);
     }
 
-    public Drawable(int pos_x, int pos_y, int width, int height) {
+    public Drawable(onDisplayRect rect) {
         Type = DRAWABLE_FILL_RECT;
-        this.pos_X = pos_x;
-        this.pos_Y = pos_y;
-        this.Size_x = width;
-        this.Size_y = height;
+        this.pos_X = rect.getLeft_up_x();
+        this.pos_Y = rect.getLeft_up_y();
+        this.Size_x = rect.getSize_x();
+        this.Size_y = rect.getSize_y();
         c = new Color(0, 0, 0);
     }
 
-    public Drawable(Color c, int pos_x, int pos_y, int width, int height) {
-        Type = DRAWABLE_FILL_RECT;
-        this.pos_X = pos_x;
-        this.pos_Y = pos_y;
-        this.Size_x = width;
-        this.Size_y = height;
+    public Drawable(Color c, onDisplayRect rect) {
+        this(rect);
         this.c = c;
     }
 

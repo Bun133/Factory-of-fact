@@ -20,15 +20,14 @@ public class fof_debug extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            drawable.setPos(r.nextInt(), r.nextInt());
-            debug_display.draw();
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        drawable.setPos(r.nextInt(), r.nextInt());
+        debug_display.draw();
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

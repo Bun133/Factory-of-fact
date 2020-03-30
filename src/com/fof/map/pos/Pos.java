@@ -3,9 +3,9 @@ package com.fof.map.pos;
 public class Pos {
     protected int pos_x;
     protected int pos_y;
-    public Pos(int pos_x, int pos_y) {
-        this.pos_x=pos_x;
-        this.pos_y=pos_y;
+    protected Pos(int pos_x, int pos_y) {
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
     }
 
     protected Pos(Pos pos){
