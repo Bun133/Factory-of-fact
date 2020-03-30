@@ -1,6 +1,9 @@
 package com.fof.graphics;
 
+import java.util.List;
+
 public interface IlayerProvider {
     void addlayer(layer layer);
-    layer[] getlayers();
+
+    List<layer> getlayers();
 }

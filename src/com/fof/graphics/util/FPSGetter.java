@@ -7,6 +7,7 @@ public class FPSGetter implements DebugViewer {
     public static FPSGetter INSTANCE = new FPSGetter();
     private long before_long = System.nanoTime();
     private long now_long = System.nanoTime();
+    private long frame_Nano;
     private double FPS = 0;
 
     /**
@@ -14,7 +15,8 @@ public class FPSGetter implements DebugViewer {
      */
     public void tick() {
         now_long = System.nanoTime();
-        setFPS(now_long - before_long);
+        frame_Nano = now_long - before_long;
+        setFPS(frame_Nano);
         //fof_game.INSTANCE.LOGGER.println("FPS:" + FPS);
         before_long = System.nanoTime();
     }
@@ -29,6 +31,14 @@ public class FPSGetter implements DebugViewer {
 
     public int getFPS() {
         return (int) FPS;
+    }
+
+    public long getNano() {
+        return frame_Nano;
+    }
+
+    public long getMill() {
+        return getNano() / 1000000;
     }
 
     @Override

@@ -37,6 +37,15 @@ public class Drawable implements IDrawable {
         this.image = image;
     }
 
+    public Drawable(Image image, int x, int y) {
+        Type = DRAWABLE_IMAGE;
+        pos_X = x;
+        pos_Y = y;
+        Size_x = x + image.getWidth(null);
+        Size_y = y + image.getHeight(null);
+        this.image = image;
+    }
+
     public Drawable(String text, int pos_X, int pos_Y) {
         Type = DRAWABLE_STRING;
         this.pos_Y = pos_Y;

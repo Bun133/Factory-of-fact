@@ -77,7 +77,7 @@ public class Display extends JFrame implements IDrawer {
             draw(provider.getlayers());
             repaint();
         } else {
-            fof_game.INSTANCE.LOGGER.println(this.toString() + " took longer.So Skipped.");
+            fof_game.INSTANCE.LOGGER.printWarn("Frame:" + this.toString() + " took " + FPSGetter.getNano() + " ns. It's" + FPSGetter.getFPS() + "FPS. " + "So Skipped.");
         }
     }
 
@@ -104,8 +104,8 @@ public class Display extends JFrame implements IDrawer {
     public void repaint() {
         if (!bfi.contentsLost()) bfi.show();
         Toolkit.getDefaultToolkit().sync();
+        getGraphics().dispose();
     }
-
 
     public void setFull() {
         setUndecorated(true);
@@ -221,4 +221,6 @@ public class Display extends JFrame implements IDrawer {
     public String toString() {
         return "Title:" + Title;
     }
+
+
 }
