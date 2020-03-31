@@ -10,10 +10,10 @@ public class Rect {
     protected int Size_y;
 
     protected Rect(int left_up_x, int left_up_y, int right_down_x, int right_down_y) {
-        this.left_up_x = Math.min(left_up_x, right_down_x);
-        this.left_up_y = Math.max(left_up_y, right_down_y);
-        this.right_down_x = Math.max(left_up_x, right_down_x);
-        this.right_down_y = Math.min(left_up_y, right_down_y);
+        this.left_up_x = left_up_x;
+        this.left_up_y = left_up_y;
+        this.right_down_x = right_down_x;
+        this.right_down_y = right_down_y;
         this.Size_x = Math.max(left_up_x, right_down_x) - Math.min(left_up_x, right_down_x);
         this.Size_y = Math.max(left_up_y, right_down_y) - Math.min(left_up_y, right_down_y);
     }

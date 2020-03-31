@@ -9,19 +9,19 @@ import com.fof.map.pos.PosTransformer;
 import com.fof.object.block.Block;
 
 public class Chunk {
-    private onMapBlock[] blocklist = new onMapBlock[fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE];
-    private ChunkPos chunkPos;
+    private onMapBlock[] blockList = new onMapBlock[fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE];
+    private ChunkPos ChunkPos;
 
     public Chunk(Block block, ChunkPos pos) {
-        this.chunkPos = pos;
+        this.ChunkPos = pos;
         for (int i = 0; i < fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE; i++) {
-            blocklist[i] = new onMapBlock(block, this, pos.getChunk_X(), pos.getChunk_Y());
+            blockList[i] = new onMapBlock(block, this, pos.getChunk_X(), pos.getChunk_Y());
         }
     }
 
     public onMapBlock getBlock(onMapBlock pos) {
         if (!isContain(pos)) throw new IllegalArgumentException("BlockPos not contain in this Chunk.");
-        return blocklist[getBlockIndex(pos)];
+        return blockList[getBlockIndex(pos)];
     }
 
     private int getBlockIndex(onMapBlock pos) {
@@ -37,26 +37,26 @@ public class Chunk {
     }
 
     private boolean isContain(onMapBlock pos) {
-        return PosTransformer.INSTANCE.getChunkPos(pos.blockPos) == this.chunkPos;
+        return PosTransformer.INSTANCE.getChunkPos(pos.blockPos) == this.ChunkPos;
     }
 
     private onMapBlock getStartBlockPos() {
-        return blocklist[0];
+        return blockList[0];
     }
 
     public onMapBlock getFromIndex(int index) {
-        return blocklist[index];
+        return blockList[index];
     }
 
-    public Drawable getDrawable(onMapBlock pos) {
+    public Drawable getDrawable(onMapBlock pos, int shift_x, int shift_y) {
         if (isContain(pos)) {
-            return blocklist[getBlockIndex(pos)].getDrawable();
+            return blockList[getBlockIndex(pos)].getDrawable(shift_x, shift_y);
         }
         return null;
     }
 
     public onMapBlock[] getBlocks() {
-        return this.blocklist;
+        return this.blockList;
     }
 
     public int getIndex(BlockPos pos) {
@@ -68,10 +68,10 @@ public class Chunk {
     }
 
     public ChunkPos getChunkPos() {
-        return this.chunkPos;
+        return this.ChunkPos;
     }
 
     public void setBlock(onMapBlock block) {
-        blocklist[getIndex(block.blockPos)] = block;
+        blockList[getIndex(block.blockPos)] = block;
     }
 }

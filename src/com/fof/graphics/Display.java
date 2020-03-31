@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.VolatileImage;
 import java.util.List;
+import java.util.Random;
 
 public class Display extends JFrame implements IDrawer {
     protected layersProvider provider;
@@ -63,6 +64,7 @@ public class Display extends JFrame implements IDrawer {
     @Override
     public Graphics getGraphics() {
         return bfi.getDrawGraphics();
+        //return super.getGraphics();
     }
 
     @Override
@@ -193,10 +195,16 @@ public class Display extends JFrame implements IDrawer {
     }
 
     public void drawRect(Color c, int pos_x, int pos_y, int size_x, int size_y) {
-        Color cc = getColor();
-        setColor(c);
+        asColor(c, new Runnable() {
+            @Override
+            public void run() {
+                drawRect(pos_x, pos_y, size_x, size_y);
+            }
+        });
+    }
+
+    public void drawRect(int pos_x, int pos_y, int size_x, int size_y) {
         getGraphics().drawRect(pos_x, pos_y, size_x, size_y);
-        setColor(cc);
     }
 
     public void fillRect(int pos_x, int pos_y, int width, int height) {
@@ -204,10 +212,25 @@ public class Display extends JFrame implements IDrawer {
     }
 
     public void fillRect(Color c, int pos_x, int pos_y, int width, int height) {
+        asColor(c, new Runnable() {
+            @Override
+            public void run() {
+                fillRect(pos_x, pos_y, width, height);
+            }
+        });
+    }
+
+    private void asColor(Color c, Runnable runnable) {
         Color cc = getColor();
         setColor(c);
-        getGraphics().fillRect(pos_x, pos_y, width, height);
+        runnable.run();
         setColor(cc);
+    }
+
+    private void Color_Set_Test() {
+        fof_game.INSTANCE.LOGGER.println("Now Color is:" + getColor().getRGB());
+        setColor(new Color(new Random().nextInt()));
+        fof_game.INSTANCE.LOGGER.println("After Color is:" + getColor().getRGB());
     }
 
 

@@ -2,7 +2,6 @@ package com.fof.graphics;
 
 import com.fof.game.main.fof_game;
 import com.fof.graphics.ui.DrawableType;
-import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.onDisplayPos;
 import com.fof.map.pos.onDisplayRect;
 
@@ -39,12 +38,12 @@ public class Drawable implements IDrawable {
         this.image = image;
     }
 
-    public Drawable(Image image, int x, int y) {
+    public Drawable(Image image, onDisplayPos pos) {
         Type = DRAWABLE_IMAGE;
-        pos_X = x;
-        pos_Y = y;
-        Size_x = x + image.getWidth(null);
-        Size_y = y + image.getHeight(null);
+        pos_X = pos.getPos_x();
+        pos_Y = pos.getPos_y();
+        Size_x = image.getWidth(null);
+        Size_y = image.getHeight(null);
         this.image = image;
     }
 
@@ -102,7 +101,7 @@ public class Drawable implements IDrawable {
 
     @Override
     public String toString() {
-        return "Type:" + this.Type.toString() + ",Pos_x:" + this.pos_X + ",Pos_y:" + this.pos_Y + ",Size_x:" + this.Size_x + ",Size_y:" + this.Size_y;
+        return c == null ? "Type:" + this.Type.toString() + ",Pos_x:" + this.pos_X + ",Pos_y:" + this.pos_Y + ",Size_x:" + this.Size_x + ",Size_y:" + this.Size_y : "Type:" + this.Type.toString() + ",Pos_x:" + this.pos_X + ",Pos_y:" + this.pos_Y + ",Size_x:" + this.Size_x + ",Size_y:" + this.Size_y + ",Color:" + this.c;
     }
 
     public Drawable setPos(int pos_X, int pos_Y) {
@@ -111,9 +110,11 @@ public class Drawable implements IDrawable {
         return this;
     }
 
-    public Drawable setPos(BlockPos pos) {
-        this.pos_X = pos.getX() * fof_game.INSTANCE.BLOCK_SIZE;
-        this.pos_Y = pos.getY() * fof_game.INSTANCE.BLOCK_SIZE;
+    public Drawable setPos(onDisplayPos pos) {
+        this.pos_X = pos.getPos_x();
+        this.pos_Y = pos.getPos_y();
+        this.Size_x = fof_game.INSTANCE.BLOCK_SIZE;
+        this.Size_y = fof_game.INSTANCE.BLOCK_SIZE;
         return this;
     }
 

@@ -1,6 +1,8 @@
 package com.fof.map;
 
-import com.fof.graphics.*;
+import com.fof.graphics.Display;
+import com.fof.graphics.Drawable;
+import com.fof.graphics.IDrawable;
 import com.fof.map.entity.EntityManager;
 import com.fof.map.object.onMapBlock;
 import com.fof.map.pos.BlockPos;
@@ -12,17 +14,17 @@ import com.fof.register.graphics.TextureManager;
 
 import java.util.HashMap;
 
-public class Map extends layer implements IDrawable {
+public class Map implements IDrawable {
 
 
-    public Map(String name, layersProvider provider, long hash) {
-        this(name, provider);
+    public Map(String name, long hash) {
+        this(name);
         generateMap(hash);
     }
 
 
-    private Map(String name, layersProvider provider) {
-        super(name, provider);
+    private Map(String name) {
+        this.MapName = name;
     }
 
 
@@ -39,12 +41,14 @@ public class Map extends layer implements IDrawable {
     private TextureManager TM = TextureManager.INSTANCE;
     private int generateChunk = 10;
     private PlayerPos playerPos;
-
+    private int shift_x = 0;
+    private int shift_y = 0;
+    private String MapName = "";
 
     private java.util.Map<BlockPos, Drawable> getDrawable() {
         java.util.Map<BlockPos, Drawable> list = new HashMap<BlockPos, Drawable>();
-        for (ChunkPos chunk : ChunkMap.keySet()) {
-            for (onMapBlock pos : ChunkMap.get(chunk).getBlocks()) {
+        for (ChunkPos chunkPos : ChunkMap.keySet()) {
+            for (onMapBlock pos : ChunkMap.get(chunkPos).getBlocks()) {
                 list.put(pos.blockPos, getDrawable(pos.blockPos));
             }
         }
@@ -52,12 +56,14 @@ public class Map extends layer implements IDrawable {
     }
 
     public Drawable getDrawable(BlockPos pos) {
-        return ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos)).getDrawable(new onMapBlock(ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos)).getBlocks()[ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos)).getIndex(pos)].block, ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos)), pos));
+        Chunk ParentChunk = ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos));
+        return ParentChunk.getDrawable(new onMapBlock(ParentChunk.getBlocks()[ParentChunk.getIndex(pos)].block, ParentChunk, pos), shift_x, shift_y);
     }
 
 
     private void draw(java.util.Map<BlockPos, Drawable> map, Display display) {
-        for (Drawable drawable : map.values()) {
+        for (BlockPos pos : map.keySet()) {
+            Drawable drawable = map.get(pos);
             drawable.draw(display);
         }
     }
@@ -80,5 +86,9 @@ public class Map extends layer implements IDrawable {
 
     public void setBlock(Block block, BlockPos pos) {
         setBlock(block, pos.getX(), pos.getY());
+    }
+
+    public String getMapName() {
+        return this.MapName;
     }
 }

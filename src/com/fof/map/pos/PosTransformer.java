@@ -1,6 +1,7 @@
 package com.fof.map.pos;
 
 import com.fof.game.main.fof_game;
+import com.fof.map.object.onMapBlock;
 
 public class PosTransformer {
     public static PosTransformer INSTANCE = new PosTransformer();
@@ -44,5 +45,26 @@ public class PosTransformer {
         }
 
         return new Pos(pos_x, pos_y);
+    }
+
+    private onDisplayPos getOnDisplay(int pos_x, int shift_x, int pos_y, int shift_y) {
+        return new onDisplayPos(pos_x - shift_x, pos_y - shift_y);
+    }
+
+
+    public onDisplayPos getOnDisplay(Pos pos, int shift_x, int shift_y) {
+        return getOnDisplay(pos.pos_x, shift_x, pos.pos_y, shift_y);
+    }
+
+    public onDisplayPos getOnDisplay(EntityPos pos, int shift_x, int shift_y) {
+        return getOnDisplay(pos, shift_x, shift_y);
+    }
+
+    public onDisplayPos getOnDisplay(BlockPos pos, int shift_x, int shift_y) {
+        return getOnDisplay(pos, shift_x, shift_y);
+    }
+
+    public onDisplayPos getOnDisplay(onMapBlock block, int shift_x, int shift_y) {
+        return getOnDisplay(block.blockPos, shift_x, shift_y);
     }
 }

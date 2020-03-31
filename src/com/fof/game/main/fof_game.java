@@ -6,8 +6,11 @@ import com.fof.graphics.Display;
 import com.fof.graphics.Drawable;
 import com.fof.graphics.layer;
 import com.fof.graphics.layersProvider;
+import com.fof.graphics.map.MapDrawer;
 import com.fof.key.KeyEvent;
 import com.fof.key.KeyManager;
+import com.fof.map.Map;
+import com.fof.map.MapManager;
 import com.fof.map.pos.onDisplayPos;
 import com.fof.map.pos.onDisplayRect;
 import com.fof.object.block.Block;
@@ -58,9 +61,11 @@ public class fof_game {
 
         //test_layer.addDrawable(test_item.getDrawable().setPos(100,100));
         test_layer.addDrawable(new Drawable("TEST", new onDisplayPos(100, 100)));
-        test_layer.addDrawable(new Drawable(new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(100, 100))));
-        test_layer.addDrawable(new Drawable(TextureManager.INSTANCE.getTexture(test_block)));
+        test_layer.addDrawable(new Drawable(new Color(100, 255, 162), new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(100, 100))));
+        test_layer.addDrawable(new Drawable(TextureManager.INSTANCE.getTexture(test_block), new onDisplayPos(150, 150)));
 
+        Map DummyMap = MapManager.VANILLA_INSTANCE.getMap("");
+        MapDrawer mapDrawer = new MapDrawer("Map_Layer", main_provider, DummyMap);
         KM.addclass(keyEvent);
         //debug_INSTANCE.start();
         while (true) {

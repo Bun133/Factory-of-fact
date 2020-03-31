@@ -4,6 +4,7 @@ import com.fof.graphics.Drawable;
 import com.fof.map.Chunk;
 import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.Pos;
+import com.fof.map.pos.PosTransformer;
 import com.fof.object.block.Block;
 
 public class onMapBlock extends Pos {
@@ -21,8 +22,8 @@ public class onMapBlock extends Pos {
         this(block, chunk, chunk.getBlocks()[chunk.getIndex(new BlockPos(x, y))].blockPos);
     }
 
-    public Drawable getDrawable() {
-        return block.getDrawable().setPos(blockPos);
+    public Drawable getDrawable(int shift_x, int shift_y) {
+        return block.getDrawable().setPos(PosTransformer.INSTANCE.getOnDisplay(blockPos, shift_x, shift_y));
     }
 
     public onMapBlock setPos(int x, int y) {
