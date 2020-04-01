@@ -26,7 +26,7 @@ public class layer implements IDrawable {
 
     @Override
     public void draw(Display display) {
-        fof_game.INSTANCE.LOGGER.println("layer:" + this.name + " is Drawing");
+        fof_game.INSTANCE.LOGGER.debug("layer:" + this.name + " is Drawing");
         for (IDrawable drawable : drawableList) {
             drawable.draw(display);
         }

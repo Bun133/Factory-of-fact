@@ -15,6 +15,7 @@ import com.fof.map.pos.onDisplayPos;
 import com.fof.map.pos.onDisplayRect;
 import com.fof.object.block.Block;
 import com.fof.object.item.Item;
+import com.fof.register.Register;
 import com.fof.register.graphics.TextureManager;
 import com.fof.util.file.FileMaster;
 
@@ -26,11 +27,7 @@ public class fof_game {
     public static fof_game INSTANCE;
 
     static {
-        try {
-            INSTANCE = new fof_game();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        INSTANCE = new fof_game();
     }
 
     public String name;
@@ -43,10 +40,9 @@ public class fof_game {
     public KeyManager KM = new KeyManager((JFrame) main_display);
     public KeyEvent keyEvent = new KeyEvent();
     public final int BLOCK_SIZE = 64;
-    public final int CHUNK_SIZE = 256;
+    public final int CHUNK_SIZE = 16;
+    //public final int CHUNK_SIZE = 256;
 
-    public fof_game() throws IOException {
-    }
 
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
@@ -57,7 +53,7 @@ public class fof_game {
         event.register(test_item);
 
         Block test_block = new Block("test_block", "test_block").setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
-
+        Register.INSTANCE.addRegister(test_block);
 
         //test_layer.addDrawable(test_item.getDrawable().setPos(100,100));
         test_layer.addDrawable(new Drawable("TEST", new onDisplayPos(100, 100)));

@@ -2,6 +2,7 @@ package com.fof.map.object;
 
 import com.fof.graphics.Drawable;
 import com.fof.map.Chunk;
+import com.fof.map.Map;
 import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.Pos;
 import com.fof.map.pos.PosTransformer;
@@ -11,15 +12,17 @@ public class onMapBlock extends Pos {
     public Block block;
     public BlockPos blockPos;
     public Chunk inChunk;
+    public Map inMap;
 
-    public onMapBlock(Block block, Chunk chunk, BlockPos pos) {
+    public onMapBlock(Map map, Block block, Chunk chunk, BlockPos pos) {
         this.block = block;
         this.blockPos = pos;
         this.inChunk = chunk;
+        this.inMap = map;
     }
 
-    public onMapBlock(Block block, Chunk chunk, int x, int y) {
-        this(block, chunk, chunk.getBlocks()[chunk.getIndex(new BlockPos(x, y))].blockPos);
+    public onMapBlock(Map map, Block block, Chunk chunk, int x, int y) {
+        this(map, block, chunk, chunk.getBlocks()[chunk.getBlockIndex(new BlockPos(x, y))].blockPos);
     }
 
     public Drawable getDrawable(int shift_x, int shift_y) {

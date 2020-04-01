@@ -22,7 +22,7 @@ public class MapManager {
         return new com.fof.map.Map("DummyMap", 37294581L);
     }
 
-    private Map dummy_Map() {
+    public Map dummy_Map() {
         return loadMap();
     }
 
@@ -59,4 +59,5 @@ public class MapManager {
     public boolean isMapContain(Map map) {
         return MapMap.containsKey(map);
     }
+
 }
