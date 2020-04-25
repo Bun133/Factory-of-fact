@@ -17,13 +17,12 @@ public class Drawable implements IDrawable {
     int Size_x, Size_y;
     //DRAWABLE_IMAGE
     Image image;
-
     //DRAWABLE_STRING
     Font font = null;
     String text;
-
     //DRAWABLE_RECT
     Color c;
+    private boolean requestUpdate = true;
 
     public Drawable() {
         Type = DRAWABLE_VOID;
@@ -81,22 +80,35 @@ public class Drawable implements IDrawable {
 
     @Override
     public void draw(Display display) {
-        fof_game.INSTANCE.LOGGER.debug(this.toString());
+        fof_game.INSTANCE.LOGGER.debug("Drawing: " + this.toString());
         switch (Type) {
             case DRAWABLE_IMAGE:
+                requestUpdate = false;
                 display.drawImage(image, pos_X, pos_Y);
                 break;
             case DRAWABLE_LINE:
+                //TODO
+                requestUpdate = false;
                 break;
             case DRAWABLE_FILL_RECT:
+                requestUpdate = false;
                 display.fillRect(c, pos_X, pos_Y, Size_x, Size_y);
                 break;
             case DRAWABLE_STRING:
+                requestUpdate = false;
                 display.drawString(font, text, pos_X, pos_Y);
                 break;
             case DRAWABLE_VOID:
+                requestUpdate = false;
                 break;
         }
+    }
+
+    @Override
+    public boolean requestUpdate() {
+        fof_game.INSTANCE.LOGGER.println("Requesting:" + this.requestUpdate + "  :" + this.toString());
+
+        return this.requestUpdate;
     }
 
     @Override
@@ -107,6 +119,7 @@ public class Drawable implements IDrawable {
     public Drawable setPos(int pos_X, int pos_Y) {
         this.pos_X = pos_X;
         this.pos_Y = pos_Y;
+        requestUpdate = true;
         return this;
     }
 
@@ -115,6 +128,7 @@ public class Drawable implements IDrawable {
         this.pos_Y = pos.getPos_y();
         this.Size_x = fof_game.INSTANCE.BLOCK_SIZE;
         this.Size_y = fof_game.INSTANCE.BLOCK_SIZE;
+        requestUpdate = true;
         return this;
     }
 

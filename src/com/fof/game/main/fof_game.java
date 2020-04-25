@@ -19,7 +19,6 @@ import com.fof.register.Register;
 import com.fof.register.graphics.TextureManager;
 import com.fof.util.file.FileMaster;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
@@ -37,7 +36,7 @@ public class fof_game {
     public Logger LOGGER = new Logger(System.out);
     public Display main_display = new Display("Fof_Game", 1000, 1000, main_provider, false);
     //public Thread debug_INSTANCE=new fof_debug();
-    public KeyManager KM = new KeyManager((JFrame) main_display);
+    public KeyManager KM = new KeyManager(main_display);
     public KeyEvent keyEvent = new KeyEvent();
     public final int BLOCK_SIZE = 64;
     public final int CHUNK_SIZE = 16;
@@ -47,7 +46,7 @@ public class fof_game {
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
         LOGGER.setTextColor(new Color(255, 255, 255));
-        LOGGER.showDebug(false);
+        LOGGER.showDebug(true);
         LOGGER.println("INIT");
         Item test_item = new Item("test_item", "test_item").setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         event.register(test_item);
@@ -55,8 +54,9 @@ public class fof_game {
         Block test_block = new Block("test_block", "test_block").setTexture(FileMaster.INSTANCE.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         Register.INSTANCE.addRegister(test_block);
 
+
         //test_layer.addDrawable(test_item.getDrawable().setPos(100,100));
-        test_layer.addDrawable(new Drawable("TEST", new onDisplayPos(100, 100)));
+        test_layer.addDrawable(new Drawable("TEST", new onDisplayPos(100, 300)));
         test_layer.addDrawable(new Drawable(new Color(100, 255, 162), new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(100, 100))));
         test_layer.addDrawable(new Drawable(TextureManager.INSTANCE.getTexture(test_block), new onDisplayPos(150, 150)));
 

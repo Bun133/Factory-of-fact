@@ -5,6 +5,7 @@ import com.fof.graphics.Drawable;
 import com.fof.map.object.onMapBlock;
 import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.ChunkPos;
+import com.fof.map.pos.EntityPos;
 import com.fof.map.pos.PosTransformer;
 import com.fof.object.block.Block;
 import com.fof.register.Register;
@@ -24,22 +25,22 @@ public class Chunk {
 
     public onMapBlock getBlock(BlockPos pos) {
         if (!isContain(pos)) throw new IllegalArgumentException("BlockPos not contain in this Chunk.");
-        return blockList[getBlockIndex(pos)];
+        return blockList[this.Editor.getIndex(pos)];
     }
 
-    public int getBlockIndex(BlockPos pos) {
-        return getBlockPosInChunkX(pos.getPos_x()) + getBlockPosInChunkY(pos.getPos_y()) * fof_game.INSTANCE.CHUNK_SIZE;
-    }
-
-    private int getBlockPosInChunkX(int x) {
-        return x % fof_game.INSTANCE.CHUNK_SIZE;
-        //return Math.max(getStartBlockPos().getPos_x(), pos.blockPos.getX()) - Math.min(getStartBlockPos().getPos_x(), pos.blockPos.getX());
-    }
-
-    private int getBlockPosInChunkY(int y) {
-        return y % fof_game.INSTANCE.CHUNK_SIZE;
-        //return Math.max(getStartBlockPos().getPos_y(), pos.blockPos.getY()) - Math.min(getStartBlockPos().getPos_y(), pos.blockPos.getY());
-    }
+//    public int getBlockIndex(BlockPos pos) {
+//        return getBlockPosInChunkX(pos.getPos_x()) + getBlockPosInChunkY(pos.getPos_y()) * fof_game.INSTANCE.CHUNK_SIZE;
+//    }
+//
+//    private int getBlockPosInChunkX(int x) {
+//        return x % fof_game.INSTANCE.CHUNK_SIZE;
+//        return Math.max(getStartBlockPos().getPos_x(), pos.blockPos.getX()) - Math.min(getStartBlockPos().getPos_x(), pos.blockPos.getX());
+//    }
+//
+//    private int getBlockPosInChunkY(int y) {
+//        return y % fof_game.INSTANCE.CHUNK_SIZE;
+//        return Math.max(getStartBlockPos().getPos_y(), pos.blockPos.getY()) - Math.min(getStartBlockPos().getPos_y(), pos.blockPos.getY());
+//    }
 
     private boolean isContain(BlockPos pos) {
         return PosTransformer.INSTANCE.getChunkPos(pos) == this.ChunkPos;
@@ -55,7 +56,7 @@ public class Chunk {
 
     public Drawable getDrawable(BlockPos pos, int shift_x, int shift_y) {
         if (isContain(pos)) {
-            return blockList[getBlockIndex(pos)].getDrawable(shift_x, shift_y);
+            return blockList[this.Editor.getIndex(pos)].getDrawable(shift_x, shift_y);
         }
         return null;
     }
@@ -76,9 +77,6 @@ public class Chunk {
         return this.ChunkPos;
     }
 
-    public void setBlock(onMapBlock block) {
-        blockList[getBlockIndex(block.blockPos)] = block;
-    }
 
     public Generator generator = new Generator();
 
@@ -97,7 +95,75 @@ public class Chunk {
         }
 
         private void setBlock(Block block, BlockPos pos) {
-            Chunk.this.setBlock(new onMapBlock(map, block, Chunk.this, pos));
+            Chunk.this.Editor.setBlock(new onMapBlock(map, block, Chunk.this, pos));
+        }
+    }
+
+    public Editor Editor = new Editor();
+
+    public class Editor {
+        private Editor() {
+        }
+
+        public Chunk UPChunk() {
+            return map.Editor.getChunk(Chunk.this.ChunkPos.UPChunkPos());
+        }
+
+        public Chunk DownChunk() {
+            return map.Editor.getChunk(Chunk.this.ChunkPos.DOWNChunkPos());
+        }
+
+        public Chunk LEFTChunk() {
+            return map.Editor.getChunk(Chunk.this.ChunkPos.LEFTChunkPos());
+        }
+
+        public Chunk RIGHTChunk() {
+            return map.Editor.getChunk(Chunk.this.ChunkPos.RIGHTChunkPos());
+        }
+
+        public void setBlock(Block block, BlockPos pos) {
+            setBlock(new onMapBlock(Chunk.this.map, block, Chunk.this, pos));
+        }
+
+        public void setBlock(onMapBlock block) {
+            blockList[getIndex(block.blockPos)] = block;
+        }
+
+        public boolean isContain(BlockPos pos) {
+            return PosTransformer.INSTANCE.getChunkPos(pos) == Chunk.this.ChunkPos;
+        }
+
+        public boolean isContain(EntityPos pos) {
+            return isContain(PosTransformer.INSTANCE.getBlockPos(pos));
+        }
+
+        public int getIndex(BlockPos pos) {
+            return (pos.getPos_x() % fof_game.INSTANCE.CHUNK_SIZE) + (pos.getPos_y() % fof_game.INSTANCE.CHUNK_SIZE) * fof_game.INSTANCE.CHUNK_SIZE;
+        }
+    }
+
+
+    public Drawer Drawer = new Drawer();
+
+    public class Drawer {
+        private Drawer() {
+
+        }
+
+        public Drawable[] getDrawables(int Shift_x, int Shift_y) {
+            return getDrawableArray(Shift_x, Shift_y);
+        }
+
+        private Drawable[] getDrawableArray(int Shift_x, int Shift_y) {
+            Drawable[] returnable = new Drawable[fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE];
+            for (int i = 0; i < fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE; i++) {
+                returnable[i] = getDrawable(Chunk.this.blockList[i], Shift_x, Shift_y);
+            }
+            return returnable;
+        }
+
+        public Drawable getDrawable(onMapBlock block, int Shift_x, int Shift_y) {
+            return block.getDrawable(Shift_x, Shift_y);
         }
     }
 }

@@ -14,8 +14,8 @@ public class PosTransformer {
     }
 
     public ChunkPos getChunkPos(BlockPos blockPos) {
-        double chunk_x = (double) blockPos.getX() / (double) fof_game.INSTANCE.CHUNK_SIZE;
-        double chunk_y = (double) blockPos.getY() / (double) fof_game.INSTANCE.CHUNK_SIZE;
+        double chunk_x = (double) blockPos.getPos_x() / (double) fof_game.INSTANCE.CHUNK_SIZE;
+        double chunk_y = (double) blockPos.getPos_y() / (double) fof_game.INSTANCE.CHUNK_SIZE;
 
         return new ChunkPos(getNormalizedPos(chunk_x, chunk_y));
     }

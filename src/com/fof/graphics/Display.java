@@ -11,13 +11,14 @@ import java.util.List;
 import java.util.Random;
 
 public class Display extends JFrame implements IDrawer {
+    public FPSGetter FPSGetter = new FPSGetter();
+    //public Skipper Skipper = new Skipper(FPSGetter);
+    public String Title;
     protected layersProvider provider;
+    protected boolean ForceBanSkip = false;
     private BufferStrategy bfi;
     private VolatileImage image;
-    public FPSGetter FPSGetter = new FPSGetter();
-    public Skipper Skipper = new Skipper(FPSGetter);
-    public String Title;
-    protected boolean ForceBanSkip = false;
+    private boolean isPreparation = true;
 
     //private Graphics g;
     @Deprecated
@@ -70,19 +71,31 @@ public class Display extends JFrame implements IDrawer {
     @Override
     public void draw() {
         FPSGetter.tick();
+        if (this.isPreparation) {
+            fof_game.INSTANCE.LOGGER.println("Display is preparing.....");
+            this.fillRect(0, 0, getWidth(), getHeight());
+            repaint();
+            this.isPreparation = false;
+            return;
+        }
+
         if (!this.isVisible()) return;
-        if (ForceBanSkip) {
+        /*if (ForceBanSkip) {
             draw(provider.getlayers());
             repaint();
             return;
+        }*/
+        if (needUpdate()) {
+            draw(provider.getlayers());
+            repaint();
         }
-        if (!Skipper.isSkip()) {
+        /*if (!Skipper.isSkip()) {
             //draw Method
             draw(provider.getlayers());
             repaint();
         } else {
             fof_game.INSTANCE.LOGGER.printWarn("Frame:" + this.toString() + " took " + FPSGetter.getLastTime() + " ns. It's" + FPSGetter.getFPS() + "FPS. " + "So Skipped.");
-        }
+        }*/
     }
 
     protected void draw(List<layer> list) {
@@ -97,7 +110,7 @@ public class Display extends JFrame implements IDrawer {
     }
 
     private void draw(layer layer) {
-        if (layer instanceof IDrawable) {
+        if (layer != null) {
             ((IDrawable) layer).draw(this);
         } else {
             fof_game.INSTANCE.LOGGER.print("in Display,layer not include IDrawable");
@@ -106,9 +119,14 @@ public class Display extends JFrame implements IDrawer {
 
     @Override
     public void repaint() {
+        fof_game.INSTANCE.LOGGER.println("Frame is Repainting....");
         if (!bfi.contentsLost()) bfi.show();
         Toolkit.getDefaultToolkit().sync();
         getGraphics().dispose();
+    }
+
+    private boolean needUpdate() {
+        return this.provider.requestUpdate();
     }
 
     public void setFull() {
@@ -129,24 +147,22 @@ public class Display extends JFrame implements IDrawer {
         this.setVisible(true);
     }
 
+    @Override
+    public Font getFont() {
+        return super.getFont();
+    }
 
     @Override
     public void setFont(Font f) {
         super.setFont(f);
     }
 
-    @Override
-    public Font getFont() {
-        return super.getFont();
+    public Color getColor() {
+        return getGraphics().getColor();
     }
-
 
     public void setColor(Color c) {
         getGraphics().setColor(c);
-    }
-
-    public Color getColor() {
-        return getGraphics().getColor();
     }
 
     public int getColor_R() {

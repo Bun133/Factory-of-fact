@@ -9,7 +9,7 @@ public class BlockPos extends Pos{
         super(x,y);
     }
 
-    public BlockPos(@NotNull onMapBlock block){
+    public BlockPos(@NotNull onMapBlock block) {
         super();
         this.pos_x = block.blockPos.pos_x;
         this.pos_y = block.blockPos.pos_y;
@@ -19,19 +19,19 @@ public class BlockPos extends Pos{
         super(pos);
     }
 
-    public int getX() {
-        return this.pos_x;
-    }
+//    public int getX() {
+//        return this.pos_x;
+//    }
 
-    public int getY() {
-        return this.pos_y;
-    }
+//    public int getY() {
+//        return this.pos_y;
+//    }
 
     public boolean isZero() {
-        return getX() == 0 || getY() == 0;
+        return getPos_x() == 0 || getPos_y() == 0;
     }
 
     public boolean isWrong() {
-        return getX() <= 0 || getY() <= 0;
+        return getPos_x() <= 0 || getPos_y() <= 0;
     }
 }

@@ -54,7 +54,7 @@ public class Map {
 
     public Drawable getDrawable(BlockPos pos, int shift_x, int shift_y) {
         Chunk ParentChunk = ChunkMap.get(PosTransformer.INSTANCE.getChunkPos(pos));
-        return ParentChunk.getDrawable(new onMapBlock(this, ParentChunk.getBlocks()[ParentChunk.getIndex(pos)].block, ParentChunk, pos), shift_x, shift_y);
+        return ParentChunk.getDrawable(pos, shift_x, shift_y);
     }
 
 //    public void setShift_x(int x) {
@@ -72,6 +72,11 @@ public class Map {
 //            drawable.draw(display);
 //        }
 //    }
+
+    /**
+     * @author Bun133
+     * @apiNote It's MapGenerator. It's going on.
+     */
     private static class generator {
         public static generator INSTANCE = new generator();
 
@@ -101,15 +106,18 @@ public class Map {
     }
 
     public boolean isEqual(Map map) {
-        if (this == map) {
-            return true;
-        }
-        return false;
+        return this == map;
     }
 
 
     public MapEditor Editor = new MapEditor(this);
 
+
+    /**
+     * @author Bun133
+     * @apiNote It's MapEditor.
+     * @see com.fof.map.Map
+     */
     public class MapEditor {
         private Map map;
 
@@ -133,7 +141,7 @@ public class Map {
 
         @Nullable
         public ChunkPos getChunkPos(Chunk chunk) {
-            if (!map.ChunkMap.values().contains(chunk)) return null;
+            if (!map.ChunkMap.containsValue(chunk)) return null;
             for (java.util.Map.Entry<ChunkPos, Chunk> entry : map.ChunkMap.entrySet()) {
                 if (entry.getValue() == chunk) {
                     return entry.getKey();
@@ -159,15 +167,15 @@ public class Map {
         }
 
         public void setBlock(onMapBlock block) {
-            getChunk(getChunkPos(block.blockPos)).setBlock(block);
+            getChunk(getChunkPos(block.blockPos)).Editor.setBlock(block);
         }
 
         public void setBlock(Block block, int x, int y) {
-            setBlock(new onMapBlock(block, getChunk(x, y), new BlockPos(x, y)));
+            setBlock(new onMapBlock(this.map, block, getChunk(x, y), new BlockPos(x, y)));
         }
 
         public void setBlock(Block block, BlockPos pos) {
-            setBlock(block, pos.getX(), pos.getY());
+            setBlock(block, pos.getPos_x(), pos.getPos_y());
         }
     }
 

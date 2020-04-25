@@ -19,4 +19,16 @@ public class layersProvider implements IlayerProvider {
     public List<layer> getlayers() {
         return layers;
     }
+
+    @Override
+    public boolean requestUpdate() {
+        for (layer layer : layers) {
+            for (IDrawable drawable : layer.drawableList) {
+                if (drawable.requestUpdate()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

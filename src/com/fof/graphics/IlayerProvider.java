@@ -6,4 +6,7 @@ public interface IlayerProvider {
     void addlayer(layer layer);
 
     List<layer> getlayers();
+
+
+    boolean requestUpdate();
 }

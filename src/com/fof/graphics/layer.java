@@ -31,4 +31,14 @@ public class layer implements IDrawable {
             drawable.draw(display);
         }
     }
+
+    @Override
+    public boolean requestUpdate() {
+        for (IDrawable drawable : drawableList) {
+            if (drawable.requestUpdate()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

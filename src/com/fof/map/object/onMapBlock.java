@@ -22,7 +22,7 @@ public class onMapBlock extends Pos {
     }
 
     public onMapBlock(Map map, Block block, Chunk chunk, int x, int y) {
-        this(map, block, chunk, chunk.getBlocks()[chunk.getBlockIndex(new BlockPos(x, y))].blockPos);
+        this(map, block, chunk, new BlockPos(x, y));
     }
 
     public Drawable getDrawable(int shift_x, int shift_y) {
