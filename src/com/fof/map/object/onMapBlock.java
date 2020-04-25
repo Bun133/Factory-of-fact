@@ -25,6 +25,13 @@ public class onMapBlock extends Pos {
         this(map, block, chunk, new BlockPos(x, y));
     }
 
+
+    /**
+     * @param shift_x
+     * @param shift_y
+     * @return
+     * @apiNote ブロック単体による描画処理がある場合のみtrueをセットしてください(アニメーションなど)
+     */
     public Drawable getDrawable(int shift_x, int shift_y) {
         return block.getDrawable().setPos(PosTransformer.INSTANCE.getOnDisplay(blockPos, shift_x, shift_y));
     }

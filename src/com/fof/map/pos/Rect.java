@@ -9,7 +9,7 @@ public class Rect {
     protected int Size_x;
     protected int Size_y;
 
-    protected Rect(int left_up_x, int left_up_y, int right_down_x, int right_down_y) {
+    public Rect(int left_up_x, int left_up_y, int right_down_x, int right_down_y) {
         this.left_up_x = left_up_x;
         this.left_up_y = left_up_y;
         this.right_down_x = right_down_x;
@@ -22,12 +22,12 @@ public class Rect {
         this(left_up.pos_x, left_up.pos_y, right_down.pos_x, right_down.pos_y);
     }
 
-    protected onDisplayPos getLeft_up() {
-        return new onDisplayPos(left_up_x, left_up_y);
+    protected Pos getLeft_up() {
+        return new Pos(left_up_x, left_up_y);
     }
 
-    protected onDisplayPos getRight_down() {
-        return new onDisplayPos(right_down_x, right_down_y);
+    protected Pos getRight_down() {
+        return new Pos(right_down_x, right_down_y);
     }
 
     protected int getLeft_up_x() {
@@ -52,5 +52,17 @@ public class Rect {
 
     protected int getSize_y() {
         return this.Size_y;
+    }
+
+    public boolean equalSize(Rect rect) {
+        return this.Size_x == rect.Size_x && this.Size_y == rect.Size_y;
+    }
+
+    public boolean inRect(Pos pos) {
+        return inRect(pos.pos_x, pos.pos_y);
+    }
+
+    public boolean inRect(int x, int y) {
+        return left_up_x <= x && right_down_x >= x && left_up_y <= y && right_down_y >= y;
     }
 }

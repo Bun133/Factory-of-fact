@@ -78,6 +78,7 @@ public class Drawable implements IDrawable {
         this.c = c;
     }
 
+    @SuppressWarnings("DuplicateBranchesInSwitch")
     @Override
     public void draw(Display display) {
         fof_game.INSTANCE.LOGGER.debug("Drawing: " + this.toString());
@@ -100,6 +101,9 @@ public class Drawable implements IDrawable {
                 break;
             case DRAWABLE_VOID:
                 requestUpdate = false;
+                break;
+            default:
+                fof_game.INSTANCE.LOGGER.printWarn("Unknown Type in Drawable.");
                 break;
         }
     }
@@ -139,5 +143,10 @@ public class Drawable implements IDrawable {
     private void setSizeFromFont(Font f, String text) {
         this.Size_x = (int) getSizeFromFont(f, text).getWidth();
         this.Size_y = (int) getSizeFromFont(f, text).getHeight();
+    }
+
+    public Drawable setRequestUpdate(boolean requestUpdate) {
+        this.requestUpdate = true;
+        return this;
     }
 }

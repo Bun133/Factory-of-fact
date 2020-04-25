@@ -9,6 +9,7 @@ import com.fof.register.graphics.TextureManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -131,12 +132,24 @@ public class Map {
 
         @Nullable
         public Chunk getChunk(ChunkPos pos) {
-            return map.ChunkMap.containsKey(pos) ? map.ChunkMap.get(pos) : null;
+            return map.ChunkMap.getOrDefault(pos, null);
         }
 
         @Nullable
         public Chunk getChunk(int x, int y) {
             return getChunk(new ChunkPos(x, y));
+        }
+
+        public List<Chunk> getAllChunk() {
+            return (List<Chunk>) map.ChunkMap.values();
+        }
+
+        public List<onMapBlock> getAllBlock() {
+            List<onMapBlock> returnable = new ArrayList<>();
+            for (Chunk chunk : getAllChunk()) {
+                returnable.addAll(Arrays.asList(chunk.getBlocks()));
+            }
+            return returnable;
         }
 
         @Nullable
@@ -176,6 +189,16 @@ public class Map {
 
         public void setBlock(Block block, BlockPos pos) {
             setBlock(block, pos.getPos_x(), pos.getPos_y());
+        }
+
+        public List<onMapBlock> getBlockinAABB(Rect rect) {
+            List<onMapBlock> inAABBBlocks = new ArrayList<>();
+            for (onMapBlock block : getAllBlock()) {
+                if (block.blockPos.InInAABB(rect)) {
+                    inAABBBlocks.add(block);
+                }
+            }
+            return inAABBBlocks;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.fof.player;
 
+import com.fof.graphics.Display;
 import com.fof.graphics.camera.Camera;
 import com.fof.graphics.layersProvider;
 import com.fof.map.Map;
@@ -15,24 +16,8 @@ public class Player {
         this.inMap = map;
     }
 
-    public Camera getCamera(layersProvider provider) {
-        if (main_cam == null) main_cam = new Camera(provider, inMap, this);
+    public Camera getCamera(layersProvider provider, Display display) {
+        if (main_cam == null) main_cam = new Camera(provider, inMap, this, display);
         return main_cam;
-    }
-
-    public void upKey() {
-
-    }
-
-    public void downKey() {
-
-    }
-
-    public void leftKey() {
-
-    }
-
-    public void rightKey() {
-
     }
 }

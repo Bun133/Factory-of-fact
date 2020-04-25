@@ -11,12 +11,12 @@ public class onDisplayRect extends Rect {
 
     @Override
     public onDisplayPos getLeft_up() {
-        return super.getLeft_up();
+        return new onDisplayPos(getLeft_up_x(), getLeft_up_y());
     }
 
     @Override
     public onDisplayPos getRight_down() {
-        return super.getRight_down();
+        return new onDisplayPos(getRight_down_x(), getRight_down_y());
     }
 
     @Override

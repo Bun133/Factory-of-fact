@@ -34,4 +34,8 @@ public class BlockPos extends Pos{
     public boolean isWrong() {
         return getPos_x() <= 0 || getPos_y() <= 0;
     }
+
+    public boolean InInAABB(Rect rect) {
+        return rect.inRect(this.pos_x, this.pos_y);
+    }
 }

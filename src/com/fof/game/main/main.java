@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class main {
     //Game Main Class
+    @SuppressWarnings("rawtypes")
     @Version(ver = "1.0", ver_int = 1)
     public static void main(String[] args) throws IOException, InterruptedException {
         fof_game.INSTANCE.onRegisterEvent(new RegisterEvent(Register.INSTANCE));
