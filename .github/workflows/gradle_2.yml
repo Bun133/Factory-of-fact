@@ -23,6 +23,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x src/gradlew
     - name: Set Dir to src
-      run: ./src
+      run: cd ./src
     - name: Build with Gradle
       run: ./gradlew build
