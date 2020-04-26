@@ -23,7 +23,7 @@ public class MapManager {
     }
 
     public Map dummy_Map() {
-        return loadMap();
+        return com.fof.map.Map.dummyMap;
     }
 
     /**
@@ -34,9 +34,9 @@ public class MapManager {
         return new com.fof.map.Map("DummyMap", 37294581L);
     }
 
-    private MapManager() {
-        addMap(loadMap());
-    }
+//    private MapManager() {
+//        addMap(loadMap());
+//    }
 
     private java.util.Map<String, com.fof.map.Map> MapMap = new HashMap<String, com.fof.map.Map>();
 

@@ -54,9 +54,10 @@ public class Chunk {
         return blockList[index];
     }
 
-    public Drawable getDrawable(BlockPos pos, int shift_x, int shift_y) {
+    @Deprecated
+    public Drawable getDrawable(BlockPos pos, int x, int y) {
         if (isContain(pos)) {
-            return blockList[this.Editor.getIndex(pos)].getDrawable(shift_x, shift_y);
+            return blockList[this.Editor.getIndex(pos)].getDrawable(x, y);
         }
         return null;
     }
@@ -162,8 +163,9 @@ public class Chunk {
             return returnable;
         }
 
-        public Drawable getDrawable(onMapBlock block, int Shift_x, int Shift_y) {
-            return block.getDrawable(Shift_x, Shift_y);
+        @Deprecated
+        public Drawable getDrawable(onMapBlock block, int x, int y) {
+            return block.getDrawable(x, y);
         }
     }
 }

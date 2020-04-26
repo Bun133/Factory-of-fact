@@ -1,10 +1,13 @@
 package com.fof.map;
 
+import com.fof.game.main.fof_game;
 import com.fof.graphics.Drawable;
 import com.fof.map.entity.EntityManager;
 import com.fof.map.object.onMapBlock;
 import com.fof.map.pos.*;
 import com.fof.object.block.Block;
+import com.fof.player.Player;
+import com.fof.register.VanillaRegister;
 import com.fof.register.graphics.TextureManager;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,9 +19,26 @@ import java.util.List;
 public class Map {
 
 
+    public static Map dummyMap;
+    private static final long DUMMYMAP_HASH = 11451419L;
+
+    static {
+        dummyMap = new Map("dummyMap", DUMMYMAP_HASH);
+    }
+
+    public Map withPlayer(Player player) {
+        this.player = player;
+        return this;
+    }
+
+
+    public long hash;
+    public Player player;
+
     public Map(String name, long hash) {
         this(name);
-        generator.INSTANCE.generateMap(hash);
+        generator.generateMap(hash);
+        this.hash = hash;
     }
 
 
@@ -78,18 +98,67 @@ public class Map {
      * @author Bun133
      * @apiNote It's MapGenerator. It's going on.
      */
-    private static class generator {
-        public static generator INSTANCE = new generator();
+    public generator generator = new generator();
+
+    public class generator {
 
         private generator() {
         }
 
         public void generateMap(long hash) {
             //TODO
+            if (hash == DUMMYMAP_HASH) {
+                this.fillMapWith(VanillaRegister.OhNoBlock);
+            }
+
+            generate(generateGenerateList(Map.this.player), hash);
         }
 
-        public void generateMap(int Chunk_Size) {
+        private List<ChunkPos> generateGenerateList(Player player) {
+            if (player == null) {
+                return generateGenerateList(new ChunkPos(1, 1), 3);
+            } else {
+                return generateGenerateList(PosTransformer.INSTANCE.getChunkPos(player.pos), player.main_cam.cansee);
+            }
+        }
 
+        private List<ChunkPos> generateGenerateList(ChunkPos pos, int range) {
+            List<ChunkPos> posList = new ArrayList<>();
+            for (int x = pos.getChunk_X() - range; x < pos.getChunk_X() + range; x++) {
+                for (int y = pos.getChunk_Y() - range; y < pos.getChunk_Y() + range; y++) {
+                    posList.add(new ChunkPos(x, y));
+                }
+            }
+            return posList;
+        }
+
+        public List<Chunk> generate(List<ChunkPos> List_pos, long hash) {
+            List<Chunk> ChunkList = new ArrayList<>();
+            for (ChunkPos pos : List_pos) {
+                ChunkList.add(generate(pos, hash));
+            }
+            return ChunkList;
+        }
+
+        public Chunk generate(ChunkPos pos, long hash) {
+            //TODO
+            Chunk chunk = generateChunk(pos, hash);
+            Map.this.ChunkMap.put(pos, chunk);
+            return chunk;
+        }
+
+        private Chunk generateChunk(ChunkPos pos, long hash) {
+            if (FilledBlock != null) {
+                return fillChunk(pos, FilledBlock);
+            }
+
+            //TODO
+            fof_game.INSTANCE.LOGGER.printError("Not Supported Type in Generate Chunk");
+            return null;
+        }
+
+        private Chunk fillChunk(ChunkPos pos, Block block) {
+            return new Chunk(Map.this, block, pos);
         }
 
         private boolean isFilled = false;
@@ -132,7 +201,7 @@ public class Map {
 
         @Nullable
         public Chunk getChunk(ChunkPos pos) {
-            return map.ChunkMap.getOrDefault(pos, null);
+            return map.ChunkMap.getOrDefault(pos, generator.generateChunk(pos, map.hash));
         }
 
         @Nullable

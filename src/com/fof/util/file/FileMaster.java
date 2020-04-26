@@ -8,7 +8,14 @@ import java.io.IOException;
 public class FileMaster {
     public static FileMaster INSTANCE = new FileMaster();
 
-    public Image getImage(String path) throws IOException {
-        return ImageIO.read(new File(path));
+    public static Image OhNO_Image = getImage("src\\assets\\textures\\blocks\\OhNo.png");
+
+    public static Image getImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return OhNO_Image;
     }
 }

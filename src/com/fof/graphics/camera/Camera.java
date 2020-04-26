@@ -8,7 +8,6 @@ import com.fof.graphics.map.MapDrawer;
 import com.fof.key.KeyEvent;
 import com.fof.map.Chunk;
 import com.fof.map.Map;
-import com.fof.map.pos.PosTransformer;
 import com.fof.map.pos.onDisplayPos;
 import com.fof.map.pos.onDisplayRect;
 import com.fof.player.Player;
@@ -27,6 +26,7 @@ public class Camera extends KeyEvent implements IDrawable {
 
     public MapDrawer MD;
     public Map map;
+    public int cansee = 3;
 
     private Display display;
 
@@ -80,9 +80,9 @@ public class Camera extends KeyEvent implements IDrawable {
         return this.MD;
     }
 
-    private void setDrawn_Chunks() {
-        PosTransformer.INSTANCE.getChunkPos(Player.pos);
-    }
+//    private void setDrawn_Chunks() {
+//        PosTransformer.INSTANCE.getChunkPos(Player.pos);
+//    }
 
     public double FOV = 1;
     public double Zoom = 1;

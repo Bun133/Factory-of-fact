@@ -4,7 +4,9 @@ import com.fof.graphics.*;
 import com.fof.graphics.camera.Camera;
 import com.fof.map.Map;
 import com.fof.map.object.onMapBlock;
+import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.Rect;
+import com.fof.map.pos.onDisplayPos;
 import com.fof.map.pos.onDisplayRect;
 
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class MapDrawer extends layer implements IDrawable {
         private DrawClass() {
         }
 
-        private int Shift_x = 0, Shift_y = 0;
+        public int Shift_x = 0, Shift_y = 0;
 
         private void draw(Display display, Rect mapRect, onDisplayRect rect) {
             if (mapRect.equalSize(rect)) {
@@ -77,10 +79,10 @@ public class MapDrawer extends layer implements IDrawable {
                 List<onMapBlock> drawList = map.Editor.getBlockinAABB(mapRect);
                 List<Drawable> drawables = new ArrayList<>();
                 for (onMapBlock block : drawList) {
-                    drawables.add(block.getDrawable(Shift_x, Shift_y));
+                    drawables.add(block.getDrawable(MapDrawer.this.util.convertPos(block)));
                 }
 
-
+                //MapDrawerが再描画要求時(全て強制的に更新)
                 if (MapDrawer.this.requestUpdate()) {
                     for (Drawable drawable : drawables) {
                         drawable.draw(display);
@@ -125,6 +127,36 @@ public class MapDrawer extends layer implements IDrawable {
 
         private Rect getMapRect(onDisplayRect rect) {
             return new Rect(rect.getLeft_up_x() + Shift_x, rect.getLeft_up_y() + Shift_y, rect.getRight_down_x() + Shift_x, rect.getRight_down_y() + Shift_y);
+        }
+    }
+
+
+    public Util util = new Util();
+
+    public class Util {
+        private MapDrawer MD;
+        private Map map;
+
+        public Util() {
+            this.MD = MapDrawer.this;
+            this.map = MD.map;
+        }
+
+
+        public int Shift_x() {
+            return MD.drawer.Shift_x;
+        }
+
+        public int Shift_y() {
+            return this.MD.drawer.Shift_y;
+        }
+
+        public onDisplayPos convertPos(onMapBlock Block) {
+            return convertPos(Block.blockPos);
+        }
+
+        public onDisplayPos convertPos(BlockPos pos) {
+            return new onDisplayPos(pos.getPixelPos_x() + this.Shift_x(), pos.getPixelPos_y() + this.Shift_y());
         }
     }
 }

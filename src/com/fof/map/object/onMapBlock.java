@@ -5,7 +5,7 @@ import com.fof.map.Chunk;
 import com.fof.map.Map;
 import com.fof.map.pos.BlockPos;
 import com.fof.map.pos.Pos;
-import com.fof.map.pos.PosTransformer;
+import com.fof.map.pos.onDisplayPos;
 import com.fof.object.block.Block;
 
 public class onMapBlock extends Pos {
@@ -27,13 +27,17 @@ public class onMapBlock extends Pos {
 
 
     /**
-     * @param shift_x
-     * @param shift_y
+     * @param x
+     * @param y
      * @return
      * @apiNote ブロック単体による描画処理がある場合のみtrueをセットしてください(アニメーションなど)
      */
-    public Drawable getDrawable(int shift_x, int shift_y) {
-        return block.getDrawable().setPos(PosTransformer.INSTANCE.getOnDisplay(blockPos, shift_x, shift_y));
+    public Drawable getDrawable(int x, int y) {
+        return block.getDrawable().setPos(new onDisplayPos(x, y));
+    }
+
+    public Drawable getDrawable(onDisplayPos pos) {
+        return block.getDrawable().setPos(pos);
     }
 
     public onMapBlock setPos(int x, int y) {
