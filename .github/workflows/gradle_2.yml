@@ -21,8 +21,6 @@ jobs:
       with:
         java-version: 12.0.2
     - name: Grant execute permission for gradlew
-      run: chmod +x src/gradlew
-    - name: Set Dir to src
-      run: cd ./src
+      run: chmod +x .gradle
     - name: Build with Gradle
-      run: ./gradlew build
+      run: .gradle build
