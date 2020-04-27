@@ -11,10 +11,7 @@ import com.fof.register.VanillaRegister;
 import com.fof.register.graphics.TextureManager;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Map {
 
@@ -210,7 +207,8 @@ public class Map {
         }
 
         public List<Chunk> getAllChunk() {
-            return (List<Chunk>) map.ChunkMap.values();
+//            return (List<Chunk>) map.ChunkMap.values();
+            return new ArrayList<>(map.ChunkMap.values());
         }
 
         public List<onMapBlock> getAllBlock() {
@@ -249,7 +247,7 @@ public class Map {
         }
 
         public void setBlock(onMapBlock block) {
-            getChunk(getChunkPos(block.blockPos)).Editor.setBlock(block);
+            Objects.requireNonNull(getChunk(getChunkPos(block.blockPos))).Editor.setBlock(block);
         }
 
         public void setBlock(Block block, int x, int y) {
@@ -265,6 +263,7 @@ public class Map {
             for (onMapBlock block : getAllBlock()) {
                 if (block.blockPos.InInAABB(rect)) {
                     inAABBBlocks.add(block);
+                    fof_game.INSTANCE.LOGGER.debug("Block:" + block.toString());
                 }
             }
             return inAABBBlocks;

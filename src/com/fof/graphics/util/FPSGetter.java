@@ -41,7 +41,14 @@ public class FPSGetter implements DebugViewer {
     }
 
     public double getFPS() {
+        isChanged = false;
         return getOnePerFPS();
+    }
+
+    private boolean isChanged = true;
+
+    public boolean isChangedFPS() {
+        return isChanged;
     }
 
     @Deprecated
@@ -110,6 +117,7 @@ public class FPSGetter implements DebugViewer {
             onePerTime = onePer / onePers;
             longestTime = times[times.length - 1];
             timeList = new ArrayList<Long>();
+            this.isChanged = true;
         }
     }
 

@@ -17,9 +17,16 @@ public class Chunk {
 
     public Chunk(Map map, Block block, ChunkPos pos) {
         this.ChunkPos = pos;
-        for (int i = 0; i < fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE; i++) {
-            blockList[i] = new onMapBlock(map, block, this, pos.getChunk_X(), pos.getChunk_Y());
+        for (int x = 0; x < fof_game.INSTANCE.CHUNK_SIZE; x++) {
+            for (int y = 0; y < fof_game.INSTANCE.CHUNK_SIZE; y++) {
+                blockList[x * fof_game.INSTANCE.CHUNK_SIZE + y] = new onMapBlock(map, block, this, pos.getChunk_X() * fof_game.INSTANCE.CHUNK_SIZE + x, pos.getChunk_Y() * fof_game.INSTANCE.CHUNK_SIZE + y);
+            }
         }
+
+
+//        for (int i = 0; i < fof_game.INSTANCE.CHUNK_SIZE * fof_game.INSTANCE.CHUNK_SIZE; i++) {
+//            blockList[i] = new onMapBlock(map, block, this, pos.getChunk_X(), pos.getChunk_Y());
+//        }
         this.map = map;
     }
 

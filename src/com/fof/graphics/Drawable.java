@@ -149,4 +149,32 @@ public class Drawable implements IDrawable {
         this.requestUpdate = true;
         return this;
     }
+
+
+    private void setSize() {
+        switch (this.Type) {
+            case DRAWABLE_IMAGE:
+                this.Size_x = this.image.getWidth(null);
+                this.Size_y = this.image.getHeight(null);
+                break;
+            case DRAWABLE_STRING:
+                setSizeFromFont(this.font, this.text);
+                break;
+            case DRAWABLE_FILL_RECT:
+                /**
+                 * Nothing To Do......(Is it right?).......
+                 */
+                break;
+            case DRAWABLE_VOID:
+                this.Size_x = 0;
+                this.Size_y = 0;
+                break;
+            case DRAWABLE_LINE:
+                //TODO
+                break;
+            default:
+                fof_game.INSTANCE.LOGGER.printWarn("UnKnown Drawable Type....");
+                break;
+        }
+    }
 }

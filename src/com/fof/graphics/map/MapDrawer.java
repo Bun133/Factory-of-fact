@@ -1,5 +1,6 @@
 package com.fof.graphics.map;
 
+import com.fof.game.main.fof_game;
 import com.fof.graphics.*;
 import com.fof.graphics.camera.Camera;
 import com.fof.map.Map;
@@ -24,6 +25,7 @@ public class MapDrawer extends layer implements IDrawable {
 
     @Override
     public void draw(Display display) {
+        fof_game.INSTANCE.LOGGER.debug("Draw Called...");
         this.draw(display, this.camera.getDrawRect());
     }
 
@@ -32,7 +34,7 @@ public class MapDrawer extends layer implements IDrawable {
     }
 
 
-    private boolean requestUpdate = false;
+    private boolean requestUpdate = true;
 
     @Override
     public boolean requestUpdate() {
@@ -42,26 +44,34 @@ public class MapDrawer extends layer implements IDrawable {
     /**
      * @apiNote KeyInput感度(だと思う)
      */
-    public final int Key_Pos = 100;
+    public final int Key_Pos = 5;
 
     public void upKey() {
+        fof_game.INSTANCE.LOGGER.debug("UP Key Pressed.");
         requestUpdate = true;
         drawer.inqShift_y(Key_Pos);
+        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
     }
 
     public void downKey() {
+        fof_game.INSTANCE.LOGGER.debug("DOWN Key Pressed.");
         requestUpdate = true;
         drawer.deqShift_y(Key_Pos);
+        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
     }
 
     public void leftKey() {
+        fof_game.INSTANCE.LOGGER.debug("LEFT Key Pressed.");
         requestUpdate = true;
         drawer.deqShift_x(Key_Pos);
+        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
     }
 
     public void rightKey() {
+        fof_game.INSTANCE.LOGGER.debug("RIGHT Key Pressed.");
         requestUpdate = true;
         drawer.inqShift_x(Key_Pos);
+        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
     }
 
     private DrawClass drawer = new DrawClass();
@@ -74,12 +84,13 @@ public class MapDrawer extends layer implements IDrawable {
         public int Shift_x = 0, Shift_y = 0;
 
         private void draw(Display display, Rect mapRect, onDisplayRect rect) {
+            fof_game.INSTANCE.LOGGER.debug("Map Drawing....");
             if (mapRect.equalSize(rect)) {
                 //拡大縮小必要なし
                 List<onMapBlock> drawList = map.Editor.getBlockinAABB(mapRect);
                 List<Drawable> drawables = new ArrayList<>();
                 for (onMapBlock block : drawList) {
-                    drawables.add(block.getDrawable(MapDrawer.this.util.convertPos(block)));
+                    drawables.add(block.block.getDrawable().setPos(MapDrawer.this.util.convertPos(block)));
                 }
 
                 //MapDrawerが再描画要求時(全て強制的に更新)
@@ -99,6 +110,11 @@ public class MapDrawer extends layer implements IDrawable {
                 //拡大縮小が必要
                 //TODO
             }
+
+
+            //正常終了時
+
+            MapDrawer.this.requestUpdate = false;
         }
 
         private void setShift_x(int shift_x) {
@@ -106,7 +122,7 @@ public class MapDrawer extends layer implements IDrawable {
         }
 
         private void setShift_y(int shift_y) {
-            this.Shift_x = shift_y;
+            this.Shift_y = shift_y;
         }
 
         private void deqShift_x(int deq_int) {
@@ -134,21 +150,8 @@ public class MapDrawer extends layer implements IDrawable {
     public Util util = new Util();
 
     public class Util {
-        private MapDrawer MD;
-        private Map map;
 
         public Util() {
-            this.MD = MapDrawer.this;
-            this.map = MD.map;
-        }
-
-
-        public int Shift_x() {
-            return MD.drawer.Shift_x;
-        }
-
-        public int Shift_y() {
-            return this.MD.drawer.Shift_y;
         }
 
         public onDisplayPos convertPos(onMapBlock Block) {
@@ -156,7 +159,7 @@ public class MapDrawer extends layer implements IDrawable {
         }
 
         public onDisplayPos convertPos(BlockPos pos) {
-            return new onDisplayPos(pos.getPixelPos_x() + this.Shift_x(), pos.getPixelPos_y() + this.Shift_y());
+            return new onDisplayPos(pos.getPixelPos_x() + MapDrawer.this.drawer.Shift_x, pos.getPixelPos_y() + MapDrawer.this.drawer.Shift_y);
         }
     }
 }

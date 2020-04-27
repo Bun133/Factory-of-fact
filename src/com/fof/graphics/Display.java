@@ -119,7 +119,7 @@ public class Display extends JFrame implements IDrawer {
 
     @Override
     public void repaint() {
-        fof_game.INSTANCE.LOGGER.println("Frame is Repainting....");
+        fof_game.INSTANCE.LOGGER.debug("Frame:" + this.toString() + " is Repainting....");
         if (!bfi.contentsLost()) bfi.show();
         Toolkit.getDefaultToolkit().sync();
         getGraphics().dispose();

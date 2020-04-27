@@ -69,4 +69,26 @@ public class BlockPos extends Pos {
     public int getPos_y() {
         return super.getPos_y();
     }
+
+    public BlockPos setX(int x) {
+        this.pos_x = x;
+        return this;
+    }
+
+    public BlockPos setY(int y) {
+        this.pos_y = y;
+        return this;
+    }
+
+    public BlockPos set(int x, int y) {
+        this.pos_x = x;
+        this.pos_y = y;
+        return this;
+    }
+
+
+    @Override
+    public String toString() {
+        return "X:" + this.pos_x + " Y:" + this.pos_y;
+    }
 }

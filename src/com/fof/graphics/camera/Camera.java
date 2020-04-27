@@ -43,16 +43,16 @@ public class Camera extends KeyEvent implements IDrawable {
     @Override
     public void run(java.awt.event.KeyEvent event) {
         switch (event.getKeyCode()) {
-            case java.awt.event.KeyEvent.VK_UP:
+            case java.awt.event.KeyEvent.VK_W:
                 this.MD.upKey();
                 break;
-            case java.awt.event.KeyEvent.VK_DOWN:
+            case java.awt.event.KeyEvent.VK_S:
                 this.MD.downKey();
                 break;
-            case java.awt.event.KeyEvent.VK_LEFT:
+            case java.awt.event.KeyEvent.VK_A:
                 this.MD.leftKey();
                 break;
-            case java.awt.event.KeyEvent.VK_RIGHT:
+            case java.awt.event.KeyEvent.VK_D:
                 this.MD.rightKey();
                 break;
         }
@@ -92,7 +92,8 @@ public class Camera extends KeyEvent implements IDrawable {
      */
 
     public onDisplayRect getDrawRect() {
-        return new onDisplayRect(left_up(), right_down());
+//        return new onDisplayRect(left_up(), right_down());
+        return new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(display.getWidth(), display.getHeight()));
     }
 
 

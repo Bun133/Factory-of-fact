@@ -15,7 +15,7 @@ public class Block implements IRegistrable {
     public String id;
 
     public Block(String name, String id) {
-        ItemBlock = ItemBlock.ItemBlockGenelator(this);
+        ItemBlock = com.fof.object.itemblock.ItemBlock.ItemBlockGenelator(this);
         this.name = name;
         this.id = id;
     }
@@ -37,5 +37,10 @@ public class Block implements IRegistrable {
 
     public Drawable getDrawable() {
         return new Drawable(TextureManager.INSTANCE.getTexture(this));
+    }
+
+    @Override
+    public String toString() {
+        return "ID:" + this.id + " Name:" + this.name;
     }
 }

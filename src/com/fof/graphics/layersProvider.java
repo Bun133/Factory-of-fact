@@ -23,6 +23,11 @@ public class layersProvider implements IlayerProvider {
     @Override
     public boolean requestUpdate() {
         for (layer layer : layers) {
+            if (layer instanceof IDrawable) {
+                if (((IDrawable) layer).requestUpdate()) {
+                    return true;
+                }
+            }
             for (IDrawable drawable : layer.drawableList) {
                 if (drawable.requestUpdate()) {
                     return true;

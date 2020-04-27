@@ -110,7 +110,7 @@ public class KeyManager implements KeyListener {
 
     public void throwKey(com.fof.key.KeyEvent tk, List<KeyEvent> es) {
         for (KeyEvent ke : es.toArray(new KeyEvent[0])) {
-            fof_game.INSTANCE.LOGGER.println("KeyManager:" + "\"" + ke.getKeyChar() + "\" is Pressed");
+            fof_game.INSTANCE.LOGGER.debug("KeyManager:" + "\"" + ke.getKeyChar() + "\" is Pressed");
             tk.run(ke);
         }
     }

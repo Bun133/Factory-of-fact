@@ -4,7 +4,6 @@ import assets.util.Logger;
 import com.fof.events.RegisterEvent;
 import com.fof.graphics.Display;
 import com.fof.graphics.camera.Camera;
-import com.fof.graphics.layer;
 import com.fof.graphics.layersProvider;
 import com.fof.graphics.map.MapDrawer;
 import com.fof.key.KeyEvent;
@@ -30,7 +29,7 @@ public class fof_game {
     public String name;
     public final String Player_layer_name = "Player_layer";
     public layersProvider main_provider = new layersProvider();
-    public layer test_layer = new layer("test_layer", main_provider);
+    //public layer test_layer = new layer("test_layer", main_provider);
     public Logger LOGGER = new Logger(System.out);
     public Display main_display = new Display("Fof_Game", 1000, 1000, main_provider, false);
     //public Thread debug_INSTANCE=new fof_debug();
@@ -42,13 +41,17 @@ public class fof_game {
     public Map Current_Map;
     public Camera main_camera;
     public Player player;
+    public MapDrawer mapDrawer;
     //public final int CHUNK_SIZE = 256;
 
 
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
         //Init
+        /**
+         * If You Can't see Any Log,Change Color Below this.
+         */
         LOGGER.setTextColor(new Color(255, 255, 255));
-        LOGGER.showDebug(true);
+        LOGGER.showDebug(false);
         LOGGER.println("INIT");
         Item test_item = new Item("test_item", "test_item").setTexture(FileMaster.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         event.register(test_item);
@@ -65,14 +68,18 @@ public class fof_game {
         main_camera = new Camera(main_provider, Current_Map, player, main_display);
         player = new Player(Current_Map, main_camera);
         Current_Map.withPlayer(player);
-        MapDrawer mapDrawer = new MapDrawer("Map_Layer", main_provider, Current_Map, main_camera);
+        mapDrawer = new MapDrawer("Map_Layer", main_provider, Current_Map, main_camera);
         KM.addclass(keyEvent);
+        KM.addclass(main_camera);
         //debug_INSTANCE.start();
         while (true) {
             main_display.draw();
             KM.tick();
-            LOGGER.println("Tick");
-            LOGGER.println("Frame:" + main_display.toString() + "'FPS:" + main_display.FPSGetter.getFPS() + "FPS");
+            LOGGER.debug("Tick");
+            if (main_display.FPSGetter.isChangedFPS()) {
+                LOGGER.debug("FPS Changed!");
+                LOGGER.println("Frame:" + main_display.toString() + "'FPS:" + main_display.FPSGetter.getFPS() + "FPS");
+            }
             Thread.sleep(1);
         }
         //System.exit(0);
