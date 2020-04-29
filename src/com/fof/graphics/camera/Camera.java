@@ -96,13 +96,20 @@ public class Camera extends KeyEvent implements IDrawable {
         return new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(display.getWidth(), display.getHeight()));
     }
 
+    private int getShift_x() {
+        return this.MD.drawer.getShift_x();
+    }
+
+    private int getShift_y() {
+        return this.MD.drawer.getShift_y();
+    }
 
     public onDisplayPos left_up() {
-        return new onDisplayPos((int) ((Center_x - FOV * display.getWidth() / 2) * Zoom), (int) ((Center_y - FOV * display.getHeight() / 2) * Zoom));
+        return new onDisplayPos((int) ((Center_x - FOV * display.getWidth() / 2) * Zoom + getShift_x()), (int) ((Center_y - FOV * display.getHeight() / 2) * Zoom + getShift_y()));
     }
 
     public onDisplayPos right_down() {
-        return new onDisplayPos((int) ((Center_x + FOV * display.getWidth() / 2) * Zoom), (int) ((Center_y + FOV * display.getHeight() / 2) * Zoom));
+        return new onDisplayPos((int) ((Center_x + FOV * display.getWidth() / 2) * Zoom + getShift_x()), (int) ((Center_y + FOV * display.getHeight() / 2) * Zoom + getShift_y()));
     }
 
 }

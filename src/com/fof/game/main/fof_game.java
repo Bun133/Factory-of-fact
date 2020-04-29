@@ -68,7 +68,7 @@ public class fof_game {
         main_camera = new Camera(main_provider, Current_Map, player, main_display);
         player = new Player(Current_Map, main_camera);
         Current_Map.withPlayer(player);
-        mapDrawer = new MapDrawer("Map_Layer", main_provider, Current_Map, main_camera);
+//        mapDrawer = new MapDrawer("Map_Layer", main_provider, Current_Map, main_camera);
         KM.addclass(keyEvent);
         KM.addclass(main_camera);
         //debug_INSTANCE.start();

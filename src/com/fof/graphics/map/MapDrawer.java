@@ -50,38 +50,39 @@ public class MapDrawer extends layer implements IDrawable {
         fof_game.INSTANCE.LOGGER.debug("UP Key Pressed.");
         requestUpdate = true;
         drawer.inqShift_y(Key_Pos);
-        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
+        fof_game.INSTANCE.LOGGER.debug("Shift_x:" + this.drawer.getShift_x() + " Shift_Y:" + this.drawer.getShift_y());
     }
 
     public void downKey() {
         fof_game.INSTANCE.LOGGER.debug("DOWN Key Pressed.");
         requestUpdate = true;
         drawer.deqShift_y(Key_Pos);
-        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
+        fof_game.INSTANCE.LOGGER.debug("Shift_x:" + this.drawer.getShift_x() + " Shift_Y:" + this.drawer.getShift_y());
     }
 
     public void leftKey() {
         fof_game.INSTANCE.LOGGER.debug("LEFT Key Pressed.");
         requestUpdate = true;
         drawer.deqShift_x(Key_Pos);
-        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
+        fof_game.INSTANCE.LOGGER.debug("Shift_x:" + this.drawer.getShift_x() + " Shift_Y:" + this.drawer.getShift_y());
     }
 
     public void rightKey() {
         fof_game.INSTANCE.LOGGER.debug("RIGHT Key Pressed.");
         requestUpdate = true;
         drawer.inqShift_x(Key_Pos);
-        fof_game.INSTANCE.LOGGER.println("Shift_x:" + this.drawer.Shift_x + " Shift_Y:" + this.drawer.Shift_y);
+        fof_game.INSTANCE.LOGGER.debug("Shift_x:" + this.drawer.getShift_x() + " Shift_Y:" + this.drawer.getShift_y());
     }
 
-    private DrawClass drawer = new DrawClass();
+    public DrawClass drawer = new DrawClass();
 
     @SuppressWarnings("SameParameterValue")
     public class DrawClass {
         private DrawClass() {
         }
 
-        public int Shift_x, Shift_y;
+        private int Shift_x = 0;
+        private int Shift_y = 0;
 
         private void draw(Display display, Rect mapRect, onDisplayRect rect) {
             fof_game.INSTANCE.LOGGER.debug("Map Drawing....");
@@ -90,7 +91,7 @@ public class MapDrawer extends layer implements IDrawable {
                 List<onMapBlock> drawList = map.Editor.getBlockinAABB(mapRect);
                 List<Drawable> drawables = new ArrayList<>();
                 for (onMapBlock block : drawList) {
-                    drawables.add(block.block.getDrawable().setPos(MapDrawer.this.util.convertPos(block)));
+                    drawables.add(block.block.getDrawable().setPos(convertPos(block)));
                 }
 
                 //MapDrawerが再描画要求時(全て強制的に更新)
@@ -111,6 +112,7 @@ public class MapDrawer extends layer implements IDrawable {
             } else {
                 //拡大縮小が必要
                 //TODO
+                fof_game.INSTANCE.LOGGER.printWarn("This is TODO!!!!! DO IT!!!!");
             }
 
 
@@ -143,13 +145,32 @@ public class MapDrawer extends layer implements IDrawable {
             this.Shift_y += inq_int;
         }
 
+        public int getShift_x() {
+            return this.Shift_x;
+        }
+
+        public int getShift_y() {
+            return this.Shift_y;
+        }
+
         private Rect getMapRect(onDisplayRect rect) {
-            return new Rect(rect.getLeft_up_x() + Shift_x, rect.getLeft_up_y() + Shift_y, rect.getRight_down_x() + Shift_x, rect.getRight_down_y() + Shift_y);
+            return new Rect(rect.getLeft_up_x() + getShift_x(), rect.getLeft_up_y() + getShift_y(), rect.getRight_down_x() + getShift_x(), rect.getRight_down_y() + getShift_y());
+        }
+
+
+        //Marge from Util Class
+        public onDisplayPos convertPos(onMapBlock Block) {
+            return convertPos(Block.blockPos);
+        }
+
+        public onDisplayPos convertPos(BlockPos pos) {
+            fof_game.INSTANCE.LOGGER.debug("ConvertPos:" + "Shift_X:" + getShift_x() + " Shift_Y:" + getShift_y());
+            return new onDisplayPos(pos.getPixelPos_x() + getShift_x(), pos.getPixelPos_y() + getShift_y());
         }
     }
 
 
-    public Util util = new Util();
+    /*public Util util = new Util();
 
     public class Util {
 
@@ -166,5 +187,5 @@ public class MapDrawer extends layer implements IDrawable {
             fof_game.INSTANCE.LOGGER.println("ConvertPos:" + "Shift_Y:" + MapDrawer.this.drawer.Shift_y);
             return Onpos;
         }
-    }
+    }*/
 }
