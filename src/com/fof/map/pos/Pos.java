@@ -8,12 +8,23 @@ public class Pos {
         this.pos_y = pos_y;
     }
 
-    protected Pos(Pos pos){
-        this(pos.pos_x,pos.pos_y);
+    protected Pos(Pos pos) {
+        this(pos.pos_x, pos.pos_y);
     }
 
-    protected Pos(){}
+    protected Pos() {
+    }
 
-    public int getPos_x(){return pos_x;}
-    public int getPos_y(){return pos_y;}
+    public int getPos_x() {
+        return pos_x;
+    }
+
+    public int getPos_y() {
+        return pos_y;
+    }
+
+    @Override
+    public String toString() {
+        return "Pos: X:" + this.pos_x + " Y:" + this.pos_y;
+    }
 }

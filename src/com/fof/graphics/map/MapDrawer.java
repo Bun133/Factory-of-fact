@@ -44,7 +44,7 @@ public class MapDrawer extends layer implements IDrawable {
     /**
      * @apiNote KeyInput感度(だと思う)
      */
-    public final int Key_Pos = 5;
+    public final int Key_Pos = 8;//8*8=64=fof_game.instance.Block_size
 
     public void upKey() {
         fof_game.INSTANCE.LOGGER.debug("UP Key Pressed.");
@@ -81,7 +81,7 @@ public class MapDrawer extends layer implements IDrawable {
         private DrawClass() {
         }
 
-        public int Shift_x = 0, Shift_y = 0;
+        public int Shift_x, Shift_y;
 
         private void draw(Display display, Rect mapRect, onDisplayRect rect) {
             fof_game.INSTANCE.LOGGER.debug("Map Drawing....");
@@ -95,6 +95,7 @@ public class MapDrawer extends layer implements IDrawable {
 
                 //MapDrawerが再描画要求時(全て強制的に更新)
                 if (MapDrawer.this.requestUpdate()) {
+                    fof_game.INSTANCE.LOGGER.debug("MapDrawer Requested Draw Update.");
                     for (Drawable drawable : drawables) {
                         drawable.draw(display);
                     }
@@ -103,6 +104,7 @@ public class MapDrawer extends layer implements IDrawable {
 
                 for (Drawable drawable : drawables) {
                     if (drawable.requestUpdate()) {
+                        fof_game.INSTANCE.LOGGER.debug("Drawable: " + drawable.toString() + " requested Update.");
                         drawable.draw(display);
                     }
                 }
@@ -159,7 +161,10 @@ public class MapDrawer extends layer implements IDrawable {
         }
 
         public onDisplayPos convertPos(BlockPos pos) {
-            return new onDisplayPos(pos.getPixelPos_x() + MapDrawer.this.drawer.Shift_x, pos.getPixelPos_y() + MapDrawer.this.drawer.Shift_y);
+            onDisplayPos Onpos = new onDisplayPos(pos.getPixelPos_x() + MapDrawer.this.drawer.Shift_x, pos.getPixelPos_y() + MapDrawer.this.drawer.Shift_y);
+            fof_game.INSTANCE.LOGGER.println("ConvertPos:" + "Shift_X:" + MapDrawer.this.drawer.Shift_x);
+            fof_game.INSTANCE.LOGGER.println("ConvertPos:" + "Shift_Y:" + MapDrawer.this.drawer.Shift_y);
+            return Onpos;
         }
     }
 }
