@@ -1,6 +1,7 @@
 package com.fof.game.main;
 
 import assets.util.Logger;
+import com.fof.audio.AudioPlayer;
 import com.fof.events.RegisterEvent;
 import com.fof.graphics.Display;
 import com.fof.graphics.camera.Camera;
@@ -17,6 +18,7 @@ import com.fof.register.Register;
 import com.fof.util.file.FileMaster;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -73,6 +75,10 @@ public class fof_game {
         KM.addclass(keyEvent);
         KM.addclass(main_camera);
         //debug_INSTANCE.start();
+
+        AudioPlayer audioPlayer = new AudioPlayer(new File("src\\assets\\audio\\nc2039.mid"));
+
+
         while (true) {
             main_display.draw();
             KM.tick();
