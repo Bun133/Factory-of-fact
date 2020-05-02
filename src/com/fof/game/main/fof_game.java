@@ -18,6 +18,7 @@ import com.fof.util.file.FileMaster;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Random;
 
 public class fof_game {
     public static fof_game INSTANCE;
@@ -64,7 +65,7 @@ public class fof_game {
 //        test_layer.addDrawable(new Drawable("TEST", new onDisplayPos(100, 300)));
 //        test_layer.addDrawable(new Drawable(new Color(100, 255, 162), new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(100, 100))));
 //        test_layer.addDrawable(new Drawable(TextureManager.INSTANCE.getTexture(test_block), new onDisplayPos(150, 150)));
-        Current_Map = MapManager.dummy_Map();
+        Current_Map = MapManager.newMap("TestMap", new Random());
         main_camera = new Camera(main_provider, Current_Map, player, main_display);
         player = new Player(Current_Map, main_camera);
         Current_Map.withPlayer(player);

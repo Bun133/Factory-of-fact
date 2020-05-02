@@ -3,6 +3,7 @@ package com.fof.map;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class MapManager {
     public static MapManager VANILLA_INSTANCE = new MapManager();
@@ -33,6 +34,11 @@ public class MapManager {
         //TODO
         return new com.fof.map.Map("DummyMap", 37294581L);
     }
+
+    public Map newMap(String name, Random random) {
+        return new Map(name, random.nextInt(10000) * random.nextInt(10000));
+    }
+
 
 //    private MapManager() {
 //        addMap(loadMap());

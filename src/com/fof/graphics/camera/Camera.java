@@ -93,7 +93,7 @@ public class Camera extends KeyEvent implements IDrawable {
 
     public onDisplayRect getDrawRect() {
 //        return new onDisplayRect(left_up(), right_down());
-        return new onDisplayRect(new onDisplayPos(0, 0), new onDisplayPos(display.getWidth(), display.getHeight()));
+        return new onDisplayRect(new onDisplayPos(getShift_x(), getShift_y()), new onDisplayPos(display.getWidth() + getShift_x(), display.getHeight() + getShift_y()));
     }
 
     private int getShift_x() {
