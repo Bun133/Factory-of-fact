@@ -8,6 +8,9 @@ import com.fof.map.pos.onDisplayRect;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.fof.graphics.ui.DrawableType.*;
 
@@ -22,12 +25,19 @@ public class Drawable implements IDrawable {
     String text;
     //DRAWABLE_RECT
     Color c;
+    //DRAWABLE_MULTI
+    List<Drawable> drawableList = new ArrayList<>();
+    //DRAWABLE_RUNNABLE
+    DrawableRunnable Runnable;
+
     private boolean requestUpdate = true;
 
+    //DRAWABLE_VOID
     public Drawable() {
         Type = DRAWABLE_VOID;
     }
 
+    //DRAWABLE_IMAGE
     public Drawable(Image image) {
         Type = DRAWABLE_IMAGE;
         pos_X = 0;
@@ -37,6 +47,7 @@ public class Drawable implements IDrawable {
         this.image = image;
     }
 
+    //DRAWABLE_IMAGE
     public Drawable(Image image, onDisplayPos pos) {
         Type = DRAWABLE_IMAGE;
         pos_X = pos.getPos_x();
@@ -46,6 +57,7 @@ public class Drawable implements IDrawable {
         this.image = image;
     }
 
+    //DRAWABLE_STRING
     public Drawable(String text, onDisplayPos pos) {
         Type = DRAWABLE_STRING;
         this.pos_Y = pos.getPos_x();
@@ -55,6 +67,7 @@ public class Drawable implements IDrawable {
         //setSizeFromFont(font,text);
     }
 
+    //DRAWABLE_STRING
     public Drawable(Font f, String text, onDisplayPos pos) {
         Type = DRAWABLE_STRING;
         this.pos_Y = pos.getPos_x();
@@ -64,6 +77,7 @@ public class Drawable implements IDrawable {
         setSizeFromFont(font, text);
     }
 
+    //DRAWABLE_FILL_RECT
     public Drawable(onDisplayRect rect) {
         Type = DRAWABLE_FILL_RECT;
         this.pos_X = rect.getLeft_up_x();
@@ -73,10 +87,29 @@ public class Drawable implements IDrawable {
         c = new Color(0, 0, 0);
     }
 
+    //DRAWABLE_FILL_RECT
     public Drawable(Color c, onDisplayRect rect) {
         this(rect);
         this.c = c;
     }
+
+    //DRAWABLE_MULTI
+    @SuppressWarnings("SpellCheckingInspection")
+    public Drawable(Drawable... drawable) {
+        this.Type = DRAWABLE_MULTI;
+        this.drawableList.addAll(Arrays.asList(drawable));
+    }
+    //DRAWABLE_RUNNABLE
+
+    /**
+     * @param runnable
+     * @apiNote NotRecommended
+     */
+    public Drawable(DrawableRunnable runnable) {
+        this.Type = DRAWABLE_RUNNABLE;
+        this.Runnable = runnable;
+    }
+
 
     @SuppressWarnings("DuplicateBranchesInSwitch")
     @Override
@@ -102,6 +135,14 @@ public class Drawable implements IDrawable {
             case DRAWABLE_VOID:
                 requestUpdate = false;
                 break;
+            case DRAWABLE_MULTI:
+                requestUpdate = false;
+                for (Drawable drawable : this.drawableList) {
+                    drawable.draw(display);
+                }
+                break;
+            case DRAWABLE_RUNNABLE:
+                this.Runnable.Draw(display);
             default:
                 fof_game.INSTANCE.LOGGER.printWarn("Unknown Type in Drawable.");
                 break;
@@ -110,7 +151,18 @@ public class Drawable implements IDrawable {
 
     @Override
     public boolean requestUpdate() {
-        fof_game.INSTANCE.LOGGER.println("Requesting:" + this.requestUpdate + "  :" + this.toString());
+        switch (this.Type) {
+            case DRAWABLE_MULTI:
+                for (Drawable drawable : this.drawableList) {
+                    if (drawable.requestUpdate) {
+                        return true;
+                    }
+                }
+            case DRAWABLE_RUNNABLE:
+                return this.Runnable.requestUpdate();
+        }
+
+        fof_game.INSTANCE.LOGGER.debug("Requesting:" + this.requestUpdate + "  :" + this.toString());
 
         return this.requestUpdate;
     }
@@ -146,7 +198,7 @@ public class Drawable implements IDrawable {
     }
 
     public Drawable setRequestUpdate(boolean requestUpdate) {
-        this.requestUpdate = true;
+        this.requestUpdate = requestUpdate;
         return this;
     }
 
