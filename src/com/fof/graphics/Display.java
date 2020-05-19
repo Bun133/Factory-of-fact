@@ -2,11 +2,13 @@ package com.fof.graphics;
 
 import com.fof.game.main.fof_game;
 import com.fof.graphics.util.FPSGetter;
+import com.fof.graphics.util.IMonitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.VolatileImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -70,6 +72,7 @@ public class Display extends JFrame implements IDrawer {
 
     @Override
     public void draw() {
+        //noinspection deprecation
         FPSGetter.tick();
         if (this.isPreparation) {
             fof_game.INSTANCE.LOGGER.println("Display is preparing.....");
@@ -85,9 +88,13 @@ public class Display extends JFrame implements IDrawer {
             repaint();
             return;
         }*/
+//        boolean isUpdate=false;
         if (needUpdate()) {
+            clear();
             draw(provider.getlayers());
+            this.monitors.Draw(this);
             repaint();
+//            isUpdate=true;
         }
         /*if (!Skipper.isSkip()) {
             //draw Method
@@ -96,6 +103,10 @@ public class Display extends JFrame implements IDrawer {
         } else {
             fof_game.INSTANCE.LOGGER.printWarn("Frame:" + this.toString() + " took " + FPSGetter.getLastTime() + " ns. It's" + FPSGetter.getFPS() + "FPS. " + "So Skipped.");
         }*/
+    }
+
+    private void clear() {
+        this.fillRect(this.getBackground(), 0, this.getWidth(), 0, this.getHeight());
     }
 
     protected void draw(List<layer> list) {
@@ -257,5 +268,23 @@ public class Display extends JFrame implements IDrawer {
         return "Title:" + Title;
     }
 
+    public Monitors monitors = new Monitors();
 
+    public class Monitors {
+        private Monitors() {
+        }
+
+        private List<IMonitor> monitors = new ArrayList<>();
+
+        public Monitors addMonitor(IMonitor monitor) {
+            this.monitors.add(monitor);
+            return this;
+        }
+
+        public void Draw(Display display) {
+            for (IMonitor monitor : this.monitors) {
+                monitor.getDrawable().draw(display);
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ import com.fof.graphics.Display;
 import com.fof.graphics.camera.Camera;
 import com.fof.graphics.layersProvider;
 import com.fof.graphics.map.MapDrawer;
+import com.fof.graphics.util.FPSMonitor;
 import com.fof.key.KeyEvent;
 import com.fof.key.KeyManager;
 import com.fof.map.Map;
@@ -44,6 +45,7 @@ public class fof_game {
     public Player player;
     public MapDrawer mapDrawer;
     //public final int CHUNK_SIZE = 256;
+    public FPSMonitor FPSMonitor;
 
 
     public void onRegisterEvent(RegisterEvent event) throws IOException, InterruptedException {
@@ -54,6 +56,9 @@ public class fof_game {
         LOGGER.setTextColor(new Color(255, 255, 255));
         LOGGER.showDebug(false);
         LOGGER.println("INIT");
+        FPSMonitor = new FPSMonitor(this.main_display.FPSGetter);
+        this.main_display.monitors.addMonitor(FPSMonitor);
+
         Item test_item = new Item("test_item", "test_item").setTexture(FileMaster.getImage("src\\assets\\textures\\blocks\\OhNo.png"));
         event.register(test_item);
 
@@ -88,5 +93,9 @@ public class fof_game {
             Thread.sleep(1);
         }
         //System.exit(0);
+    }
+
+    public static class debug_config {
+        public static final boolean isDebug = true;
     }
 }

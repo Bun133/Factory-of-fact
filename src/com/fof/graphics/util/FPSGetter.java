@@ -95,6 +95,7 @@ public class FPSGetter implements DebugViewer {
         lastTime = time - lastUpdate;
         lastUpdate = time;
         if (updateTime <= time) {
+            this.listener.onFPSChange();
             //1秒後更新のため1秒分加算
             updateTime = time + 1000000000;
             Object[] tmp = timeList.toArray();
@@ -170,5 +171,25 @@ public class FPSGetter implements DebugViewer {
 
     public double timeToFPS(long time) {
         return 1000000000d / (double) time;
+    }
+
+    public listener listener = new listener();
+
+    public class listener {
+        private listener() {
+        }
+
+        private List<IFPSListener> listeners = new ArrayList<>();
+
+        public listener addListener(IFPSListener listener) {
+            this.listeners.add(listener);
+            return this;
+        }
+
+        public void onFPSChange() {
+            for (IFPSListener listener : this.listeners) {
+                listener.onFPSChange(FPSGetter.this);
+            }
+        }
     }
 }

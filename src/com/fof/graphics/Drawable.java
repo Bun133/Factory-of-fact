@@ -119,6 +119,9 @@ public class Drawable implements IDrawable {
             case DRAWABLE_IMAGE:
                 requestUpdate = false;
                 display.drawImage(image, pos_X, pos_Y);
+                if (fof_game.debug_config.isDebug) {
+                    drawDebugRect(display);
+                }
                 break;
             case DRAWABLE_LINE:
                 //TODO
@@ -127,10 +130,16 @@ public class Drawable implements IDrawable {
             case DRAWABLE_FILL_RECT:
                 requestUpdate = false;
                 display.fillRect(c, pos_X, pos_Y, Size_x, Size_y);
+                if (fof_game.debug_config.isDebug) {
+                    drawDebugRect(display);
+                }
                 break;
             case DRAWABLE_STRING:
                 requestUpdate = false;
                 display.drawString(font, text, pos_X, pos_Y);
+                if (fof_game.debug_config.isDebug) {
+                    drawDebugRect(display);
+                }
                 break;
             case DRAWABLE_VOID:
                 requestUpdate = false;
@@ -202,6 +211,11 @@ public class Drawable implements IDrawable {
         return this;
     }
 
+    public Drawable setColor(Color c) {
+        this.c = c;
+        return this;
+    }
+
 
     private void setSize() {
         switch (this.Type) {
@@ -228,5 +242,9 @@ public class Drawable implements IDrawable {
                 fof_game.INSTANCE.LOGGER.printWarn("UnKnown Drawable Type....");
                 break;
         }
+    }
+
+    private void drawDebugRect(Display display) {
+        display.drawRect(new Color(255, 0, 215), this.pos_X, this.pos_Y, this.Size_x, this.Size_y);
     }
 }

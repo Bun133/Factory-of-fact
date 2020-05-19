@@ -108,7 +108,7 @@ public class Map {
         }
 
         private void defaultGeneratorsAdd() {
-            AddGenerator(new FillGenerator(VanillaRegister.Stone));
+            AddGenerator(new FillGenerator(VanillaRegister.OhNoBlock));
         }
 
         /**

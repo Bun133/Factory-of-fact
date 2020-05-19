@@ -74,7 +74,7 @@ public class MapDrawer extends layer implements IDrawable {
         fof_game.INSTANCE.LOGGER.debug("Shift_x:" + this.drawer.getShift_x() + " Shift_Y:" + this.drawer.getShift_y());
     }
 
-    public DrawClass drawer = new DrawClass();
+    public final DrawClass drawer = new DrawClass();
 
     @SuppressWarnings("SameParameterValue")
     public class DrawClass {
