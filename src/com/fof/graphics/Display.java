@@ -211,12 +211,9 @@ public class Display extends JFrame implements IDrawer {
     }
 
     public void drawRect(Color c, int pos_x, int pos_y, int size_x, int size_y) {
-        asColor(c, new Runnable() {
-            @Override
-            public void run() {
-                drawRect(pos_x, pos_y, size_x, size_y);
-            }
-        });
+        Graphics g = getGraphics();
+        g.setColor(c);
+        g.drawRect(pos_x, pos_y, size_x, size_y);
     }
 
     public void drawRect(int pos_x, int pos_y, int size_x, int size_y) {
@@ -228,12 +225,9 @@ public class Display extends JFrame implements IDrawer {
     }
 
     public void fillRect(Color c, int pos_x, int pos_y, int width, int height) {
-        asColor(c, new Runnable() {
-            @Override
-            public void run() {
-                fillRect(pos_x, pos_y, width, height);
-            }
-        });
+        Graphics g = getGraphics();
+        g.setColor(c);
+        g.fillRect(pos_x, pos_y, width, height);
     }
 
     private void asColor(Color c, Runnable runnable) {
